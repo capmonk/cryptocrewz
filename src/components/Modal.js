@@ -163,7 +163,7 @@ function Modal({ closeModal }) {
 				<p className="mx-0">
 					Website designed and developed by{" "}
 					<a
-						href="https://illusive.dribble.com"
+						href="https://illusivemedia.dribbble.com"
 						target="_blank"
 						rel="noreferrer"
 					>
