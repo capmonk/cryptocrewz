@@ -9,11 +9,17 @@ import Roadmap from "./components/Roadmap.js";
 import Team from "./components/Team.js";
 import Discord from "./components/Discord.js";
 import Footer from "./components/Footer.js";
+import Music from "./components/Music.js";
 
 function App() {
 	return (
 		<div>
-			<Nav discord="" opensea="" twitter="" />
+			<Music />
+			<Nav
+				discord="https://discord.gg/t5zfQePbG6"
+				opensea="https://opensea.io/"
+				twitter="https://twitter.com/cryptocrewz"
+			/>
 			<Header />
 			<Cta
 				title="Not just a 10K NFT Collection Drop."
@@ -67,10 +73,15 @@ function App() {
 			/>
 			<Discord
 				title="Join our Crewz"
-				content="Join us to get the news as soon as possible and follow our latestannouncements"
+				content="Join us to get the news as soon as possible and follow our latest announcements"
 				discord="https://discord.gg/t5zfQePbG6"
 			/>
-			<Footer logo="img/logo.jpg" />
+			<Footer
+				logo="img/logo.jpg"
+				discord="https://discord.gg/t5zfQePbG6"
+				opensea="https://opensea.io/"
+				twitter="https://twitter.com/cryptocrewz"
+			/>
 		</div>
 	);
 }

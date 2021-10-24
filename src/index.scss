@@ -102,7 +102,7 @@ h3 {
 p {
 	font-size: 1.15rem;
 	letter-spacing: 2px;
-	max-width: 55ch;
+	max-width: 60ch;
 	margin: auto;
 
 	@include media-breakpoint-down(lg) {
@@ -447,4 +447,26 @@ a {
 
 ::-webkit-scrollbar-thumb {
 	background: $blue-accent;
+}
+
+.mute {
+	position: fixed;
+	padding: 1rem;
+	z-index: 5;
+	top: 0;
+	left: 0;
+	background-color: transparent;
+	border: none;
+	width: 5rem;
+	aspect-ratio: 1;
+	height: 5rem;
+
+	svg {
+		fill: $font-color;
+		transition: 0.25s;
+
+		&:hover {
+			fill: $blue-accent;
+		}
+	}
 }

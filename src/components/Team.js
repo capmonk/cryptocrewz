@@ -1,5 +1,5 @@
 import React from "react";
-import { FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
 
 function Team(props) {
 	return (
@@ -22,12 +22,12 @@ function Team(props) {
 					<img className="shadow" src={props.anise} alt="Anise K" />
 					<p>Anise K</p>
 					<a
-						href="https://twitter.com/MonkCapitalist"
+						href="https://twitter.com/Anisekmusic"
 						className="social"
 						target="_blank"
 						rel="noreferrer"
 					>
-						<FaInstagram />
+						<FaTwitter />
 					</a>
 				</div>
 				<div className="col-lg-4 team-card f-col align-items-center">
