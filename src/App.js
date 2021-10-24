@@ -48,7 +48,7 @@ function App() {
 			<Join
 				title="Join Our Pre-Registration Whitelist"
 				btn="REGISTER HERE FOR WHITELIST"
-				content="A whitelist will be up shortly on this website to pre-register your interest for a CryptoCrewz Collectible, make sure to follow us on twitter and discord to not miss an update."
+				content="A whitelist will be up shortly on this website to pre-register your interest for a CryptoCrewz NFT Collectible, make sure to follow us on twitter and discord to not miss an update."
 				discord="https://discord.gg/t5zfQePbG6"
 				twitter="https://twitter.com/cryptocrewz"
 			/>
