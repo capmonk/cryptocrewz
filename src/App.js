@@ -9,12 +9,10 @@ import Roadmap from "./components/Roadmap.js";
 import Team from "./components/Team.js";
 import Discord from "./components/Discord.js";
 import Footer from "./components/Footer.js";
-import Music from "./components/Music.js";
 
 function App() {
 	return (
 		<div>
-			<Music />
 			<Nav
 				discord="https://discord.gg/t5zfQePbG6"
 				opensea="https://opensea.io/"
@@ -43,7 +41,7 @@ function App() {
 			<NftGif
 				title="Unique and Priceless NFT Collection"
 				content="The first project is our 10K NFT collection. 10,000 totally unique, customised characters celebrating hip hop and rap culture over the last 30 years, with a special homage to the greatest rappers and hip hop artists of all time, which will be released for minting around the week of November 26th 2021 Black Friday."
-				gif="img/nft.jpg"
+				gif="img/unknown.jpg"
 			/>
 			<NftSlider />
 			<Join
@@ -67,9 +65,9 @@ function App() {
 			</div>
 			<Team
 				title="The OG Crewz and Team"
-				monk="img/nft.jpg"
-				anise="img/nft.jpg"
-				gsd="img/nft.jpg"
+				monk="img/unknown.jpg"
+				anise="img/unknown.jpg"
+				gsd="img/unknown.jpg"
 			/>
 			<Discord
 				title="Join our Crewz"

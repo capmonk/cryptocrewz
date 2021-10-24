@@ -13,6 +13,7 @@
 		"react-slick": "^0.28.1",
 		"react-sound": "^1.2.0",
 		"slick-carousel": "^1.8.1",
+		"soundmanager2": "^2.97.20170602",
 		"web-vitals": "^1.0.1"
 	},
 	"scripts": {

@@ -1,9 +1,27 @@
 import React from "react";
-import { FaDiscord, FaTwitter } from "react-icons/fa";
+import { useState } from "react";
+import { FaDiscord, FaTwitter, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
+import Sound from "react-sound";
+import Outrun from "../outrun.mp3";
 
 function Nav(props) {
+	const [isPlaying, setIsPlaying] = useState(false);
+
 	return (
 		<div className="f-row f-c nav">
+			<button className="music f-row" onClick={() => setIsPlaying(!isPlaying)}>
+				{isPlaying ? "MUSIC ON" : "MUSIC OFF"}
+				{isPlaying ? <FaVolumeUp /> : <FaVolumeMute />}
+			</button>
+			<Sound
+				url={Outrun}
+				playStatus={isPlaying ? Sound.status.PLAYING : Sound.status.PAUSED}
+				playFromPosition={300}
+				volume={15}
+				loop={true}
+				autoLoad={true}
+			/>
+
 			<a
 				className="social"
 				href={props.discord}

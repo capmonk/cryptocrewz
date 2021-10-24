@@ -293,6 +293,7 @@ a {
 	}
 
 	&:hover {
+		color: $blue-accent;
 		svg {
 			fill: $blue-accent;
 		}
@@ -304,6 +305,18 @@ a {
 		transition: 0.25s;
 		cursor: pointer;
 		fill: $font-color;
+	}
+}
+
+.music {
+	@extend .social;
+	width: fit-content;
+	aspect-ratio: auto;
+	padding: 0 1rem;
+
+	svg {
+		margin-left: 0.5rem;
+		font-size: 1.5rem;
 	}
 }
 
@@ -447,26 +460,4 @@ a {
 
 ::-webkit-scrollbar-thumb {
 	background: $blue-accent;
-}
-
-.mute {
-	position: fixed;
-	padding: 1rem;
-	z-index: 5;
-	top: 0;
-	left: 0;
-	background-color: transparent;
-	border: none;
-	width: 5rem;
-	aspect-ratio: 1;
-	height: 5rem;
-
-	svg {
-		fill: $font-color;
-		transition: 0.25s;
-
-		&:hover {
-			fill: $blue-accent;
-		}
-	}
 }
