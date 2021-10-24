@@ -388,6 +388,19 @@ a {
 		z-index: 6;
 		max-width: 60rem;
 		background-color: $main-color;
+		overflow-x: hidden;
+		overflow-y: scroll;
+		max-height: 80vh;
+		text-align: start;
+
+		h2 {
+			margin-top: 1rem;
+		}
+
+		p {
+			max-width: 100%;
+			margin: 0 0 1rem;
+		}
 	}
 
 	&-btn {
@@ -404,8 +417,8 @@ a {
 }
 
 .close {
-	position: absolute;
-	padding: 1rem;
+	position: sticky;
+	padding: 0.5rem;
 	top: 0;
 	right: 0;
 	color: $font-color;
@@ -413,8 +426,26 @@ a {
 	border: none;
 	transition: 0.25s;
 	cursor: pointer;
+	line-height: 1;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	width: 100%;
 
 	&:hover {
 		color: $blue-accent;
 	}
+}
+
+::-webkit-scrollbar {
+	width: 0.75rem;
+	background-color: $font-color;
+}
+
+::-webkit-scrollbar-track {
+	background: $secondary-color;
+}
+
+::-webkit-scrollbar-thumb {
+	background: $blue-accent;
 }
