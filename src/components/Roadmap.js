@@ -2,7 +2,7 @@ import React from "react";
 import RoadmapRow from "./RoadmapRow.js";
 import man1 from "../img/merch-m-1.jpg";
 import women1 from "../img/merch-w-1.jpg";
-import man2 from "../img/merch-m-2.jpg";
+import man2 from "../img/merch-m-2-unknown.jpg";
 import women2 from "../img/merch-w-2.jpg";
 import man3 from "../img/merch-m-3.jpg";
 import women3 from "../img/merch-w-3.jpg";
