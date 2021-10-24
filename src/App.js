@@ -17,6 +17,7 @@ function App() {
 				discord="https://discord.gg/t5zfQePbG6"
 				opensea="https://opensea.io/"
 				twitter="https://twitter.com/cryptocrewz"
+				music="music/outrun.mp3"
 			/>
 			<Header />
 			<Cta

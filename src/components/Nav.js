@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { FaDiscord, FaTwitter, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 import Sound from "react-sound";
-import Outrun from "../outrun.mp3";
 
 function Nav(props) {
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -14,7 +13,7 @@ function Nav(props) {
 				{isPlaying ? <FaVolumeUp /> : <FaVolumeMute />}
 			</button>
 			<Sound
-				url={Outrun}
+				url={props.music}
 				playStatus={isPlaying ? Sound.status.PLAYING : Sound.status.PAUSED}
 				playFromPosition={300}
 				volume={15}
