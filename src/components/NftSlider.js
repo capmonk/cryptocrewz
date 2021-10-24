@@ -3,11 +3,11 @@ import { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import nft from "../img/nft.jpg";
-import nft2 from "../img/nft.jpg";
-import nft3 from "../img/nft.jpg";
-import nft4 from "../img/nft.jpg";
-import nft5 from "../img/nft.jpg";
+import nft from "../img/unknown.jpg";
+import nft2 from "../img/unknown.jpg";
+import nft3 from "../img/unknown.jpg";
+import nft4 from "../img/unknown.jpg";
+import nft5 from "../img/unknown.jpg";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 function NftSlider(props) {
