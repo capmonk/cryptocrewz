@@ -41,7 +41,7 @@ function App() {
 			/>
 			<NftGif
 				title="Unique and Priceless NFT Collection"
-				content="The first project is our 10K NFT collection. 10,000 totally unique, customised characters celebrating hip hop and rap culture over the last 30 years, with a special homage to the greatest rappers and hip hop artists of all time, which will be released for minting around the week of November 26th 2021 Black Friday."
+				content="The first project is our 10K NFT collection. 10,000 totally unique, customised characters celebrating hip hop and rap culture over the last 30 years, with a special homage to the greatest rappers and hip hop artists of all time, which will be released for minting around early December 2021"
 				gif="img/nft-revealed.png"
 			/>
 			<NftSlider />
@@ -66,9 +66,9 @@ function App() {
 			</div>
 			<Team
 				title="The OG Crewz and Team"
-				monk="img/unknown.jpg"
-				anise="img/unknown.jpg"
-				gsd="img/unknown.jpg"
+				monk="img/monk.png"
+				anise="img/anise.png"
+				gsd="img/gsd.png"
 			/>
 			<Discord
 				title="Join our Crewz"

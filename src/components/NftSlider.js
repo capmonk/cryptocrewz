@@ -3,15 +3,19 @@ import { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import nft from "../img/unknown.jpg";
-import nft2 from "../img/unknown.jpg";
-import nft3 from "../img/unknown.jpg";
-import nft4 from "../img/unknown.jpg";
-import nft5 from "../img/unknown.jpg";
+import nft from "../img/slider/SliderWeb1.png";
+import nft2 from "../img/slider/SliderWeb2.png";
+import nft3 from "../img/slider/SliderWeb3.png";
+import nft4 from "../img/slider/SliderWeb4.png";
+import nft5 from "../img/slider/SliderWeb5.png";
+import nft6 from "../img/slider/SliderWeb6.png";
+import nft7 from "../img/slider/SliderWeb7.png";
+import nft8 from "../img/slider/SliderWeb8.png";
+import nft9 from "../img/slider/SliderWeb9.png";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 function NftSlider(props) {
-	const images = [nft, nft2, nft3, nft4, nft5];
+	const images = [nft, nft2, nft3, nft4, nft5, nft6, nft7, nft8, nft9];
 
 	const NextArrow = ({ onClick }) => {
 		return (
