@@ -42,7 +42,7 @@ function App() {
 			<NftGif
 				title="Unique and Priceless NFT Collection"
 				content="The first project is our 10K NFT collection. 10,000 totally unique, customised characters celebrating hip hop and rap culture over the last 30 years, with a special homage to the greatest rappers and hip hop artists of all time, which will be released for minting around the week of November 26th 2021 Black Friday."
-				gif="img/unknown.jpg"
+				gif="img/nft-revealed.png"
 			/>
 			<NftSlider />
 			<Join
