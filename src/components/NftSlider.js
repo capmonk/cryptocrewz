@@ -34,10 +34,12 @@ function NftSlider(props) {
 	};
 
 	const [imageIndex, setImageIndex] = useState(0);
+	const [imgModal, setImgModal] = useState(false);
 
 	const settings = {
 		infinite: true,
 		lazyload: true,
+		focusOnSelect: true,
 		speed: 300,
 		slidesToShow: 3,
 		centerMode: true,
@@ -55,10 +57,33 @@ function NftSlider(props) {
 						<div
 							className={index === imageIndex ? "slide activeSlide" : "slide"}
 						>
-							<img src={img} alt={img} />
+							<img src={img} alt={img} onClick={() => setImgModal(true)} />
 						</div>
 					))}
 				</Slider>
+				{images.map((img, index) => (
+					<div>
+						<div
+							className="lightbox-bg"
+							onClick={() => setImgModal(false)}
+							id={imgModal === true ? "showModal" : "hideModal"}
+						></div>
+						<div
+							className="lightbox"
+							id={imgModal === true ? "showModal" : "hideModal"}
+						>
+							<button
+								className="lightbox-close"
+								onClick={() => setImgModal(false)}
+							>
+								X
+							</button>
+							{/* <PrevArrow /> */}
+							<img src={images[imageIndex]} alt="" />
+							{/* <NextArrow /> */}
+						</div>
+					</div>
+				))}
 			</div>
 		</div>
 	);

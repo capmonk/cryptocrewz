@@ -475,3 +475,49 @@ a {
 ::-webkit-scrollbar-thumb {
 	background: $blue-accent;
 }
+
+.lightbox {
+	position: fixed;
+	height: auto;
+	width: auto;
+	z-index: 99;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	&-close {
+		position: fixed;
+		top: -2.5rem;
+		right: -2.5rem;
+		padding: 0.5rem;
+		color: $font-color;
+		background: transparent;
+		border: none;
+		transition: 0.25s;
+		cursor: pointer;
+		line-height: 1;
+		display: flex;
+		justify-content: flex-end;
+		align-items: flex-end;
+		width: 100%;
+	}
+
+	&-bg {
+		position: fixed;
+		background-color: rgba(0, 0, 0, 0.15);
+		backdrop-filter: blur(2px);
+		width: 100vw;
+		height: 100vh;
+		z-index: 98;
+		top: 0;
+		left: 0;
+	}
+}
+
+#showModal {
+	display: block;
+}
+
+#hideModal {
+	display: none;
+}
