@@ -61,29 +61,27 @@ function NftSlider(props) {
 						</div>
 					))}
 				</Slider>
-				{images.map((img, index) => (
-					<div>
-						<div
-							className="lightbox-bg"
+				<div>
+					<div
+						className="lightbox-bg"
+						onClick={() => setImgModal(false)}
+						id={imgModal === true ? "showModal" : "hideModal"}
+					></div>
+					<div
+						className="lightbox"
+						id={imgModal === true ? "showModal" : "hideModal"}
+					>
+						<button
+							className="lightbox-close"
 							onClick={() => setImgModal(false)}
-							id={imgModal === true ? "showModal" : "hideModal"}
-						></div>
-						<div
-							className="lightbox"
-							id={imgModal === true ? "showModal" : "hideModal"}
 						>
-							<button
-								className="lightbox-close"
-								onClick={() => setImgModal(false)}
-							>
-								X
-							</button>
-							{/* <PrevArrow /> */}
-							<img src={images[imageIndex]} alt="" />
-							{/* <NextArrow /> */}
-						</div>
+							X
+						</button>
+						{/* <PrevArrow /> */}
+						<img src={images[imageIndex]} alt="" />
+						{/* <NextArrow /> */}
 					</div>
-				))}
+				</div>
 			</div>
 		</div>
 	);

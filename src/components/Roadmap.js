@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import RoadmapRow from "./RoadmapRow.js";
 import man1 from "../img/merch-m-1.jpg";
 import women1 from "../img/merch-w-1.jpg";
@@ -9,6 +9,7 @@ import women3 from "../img/merch-w-3.jpg";
 
 function Roadmap(props) {
 	const merch = [man1, women1, man2, women2, man3, women3];
+	const [currentImg, setCurrentImg] = useState();
 
 	return (
 		<div className="map">
@@ -26,11 +27,27 @@ function Roadmap(props) {
 					p1="A few months after launch date we aim to open our merchandising store, which will include high quality urban streetwear; T-shirts, hoodies, caps and a 3D printed collectable of your very own unique individual NFT."
 				/>
 				<div className="row g-4 mt-4 merch">
-					{merch.map((img) => (
+					{merch.map((img, i) => (
 						<div className="col-lg-6 f-c">
-							<img src={img} alt={img} />
+							<img src={img} alt={img} onClick={() => setCurrentImg(i)} />
 						</div>
 					))}
+					{(currentImg || currentImg === 0) && (
+						<div className="lightbox-bg" onClick={() => setCurrentImg()}></div>
+					)}
+					{(currentImg || currentImg === 0) && (
+						<div className="lightbox">
+							<button
+								className="lightbox-close"
+								onClick={() => setCurrentImg()}
+							>
+								X
+							</button>
+							{/* <PrevArrow /> */}
+							<img src={merch[currentImg]} alt="" />
+							{/* <NextArrow /> */}
+						</div>
+					)}
 				</div>
 				<RoadmapRow
 					number="02"

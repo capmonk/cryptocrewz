@@ -15,7 +15,9 @@ function Discord(props) {
 				<FaDiscord />
 			</a>
 			<h2 className="mt-5">Contact Us</h2>
-			<p>admin@cryptocrewz.com</p>
+			<a href="mailto:admin@cryptocrewz.com">
+				<p>admin@cryptocrewz.com</p>
+			</a>
 		</div>
 	);
 }
