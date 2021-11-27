@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	font-family: "Source Sans Pro", sans-serif;
+	@apply bg-primary text-white overflow-x-hidden;
+}
+
+@layer components {
+	.tile {
+		@apply bg-secondary rounded-md backdrop-filter backdrop-blur-md p-2 text-sm;
+
+		a {
+			@apply mr-2 last:mr-0;
+		}
+	}
+
+	a {
+		@apply hover:text-blue-400 transition-all duration-300 ease-in-out;
+	}
+
+	button {
+		svg {
+			@apply mr-1;
+		}
+	}
+}
