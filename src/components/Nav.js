@@ -11,7 +11,7 @@ import {
 export default function Nav() {
 	return (
 		<>
-			<div className='fixed w-full top-0 flex flex-row justify-between p-5'>
+			<div className='fixed w-full top-0 flex flex-row justify-between p-5 z-40'>
 				<div className='flex flex-row justify-center items-center left-0'>
 					<img className='w-16 mr-5' src={logo} alt='CryptoCrewz' />
 					<ul className='tile flex flex-row'>
