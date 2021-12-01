@@ -1,13 +1,15 @@
 import React from "react";
 import NftSlider from "./NftSlider";
 import Tile from "./Tile";
+import Button from "./Button";
 
 export default function NFTArt() {
 	return (
-		<>
-			<div className='grid gap-8 py-24 lg:grid-cols-2 grid-cols-1 auto-cols-auto'>
+		<div id='art'>
+			<h2>NFT ART</h2>
+			<div className='grid grid-cols-1 gap-8 lg:grid-cols-2 auto-cols-auto'>
 				<Tile accent={true}>
-					<h2>The New Generation</h2>
+					<h3>The New Generation</h3>
 					<p>
 						CryptoCrewz is the beginning of a new culture. Birthed in the brave
 						new world of Non-Fungible Tokens and cryptocurrencies, CryptoCrewz
@@ -16,8 +18,8 @@ export default function NFTArt() {
 				</Tile>
 
 				<div className='row-span-2'>
-					<Tile accent={true}>
-						<h2>Unique And Priceless NFT Collection</h2>
+					<Tile accent={true} bg='/imgs/women1.jpg' position='bg-center'>
+						<h3>Unique And Priceless NFT Collection</h3>
 						<p>
 							The first project is our 10K NFT collection. 10,000 totally
 							unique, customised characters celebrating hip hop and rap culture
@@ -29,7 +31,7 @@ export default function NFTArt() {
 				</div>
 
 				<Tile accent={true}>
-					<h2>The Dawn Of A New Era</h2>
+					<h3>The Dawn Of A New Era</h3>
 					<p>
 						With major sponsors and influencers collaborating on the brand,
 						CryptoCrewz is YOUR vision and statement to the world that YOU are
@@ -37,12 +39,12 @@ export default function NFTArt() {
 					</p>
 				</Tile>
 
-				<div className='overflow-hidden lg:col-span-2 py-24'>
+				<div className='py-24 overflow-hidden lg:col-span-2'>
 					<NftSlider />
 				</div>
 
 				<Tile accent={true}>
-					<h2>Join Our Pre-Registration Whitelist</h2>
+					<h3>Join Our Pre-Registration Whitelist</h3>
 					<p>
 						A whitelist will be up shortly on this website to pre-register your
 						interest for a CryptoCrewz NFT Collectible, make sure to follow us
@@ -50,11 +52,19 @@ export default function NFTArt() {
 					</p>
 				</Tile>
 
-				<div className='flex flex-col justify-center items-center'>
-					<h2>Placeholder</h2>
-					<h2>Placeholder</h2>
+				<div className='flex flex-col items-center justify-center'>
+					<div>
+						<Button
+							text='Whitelisting and Pre-sales'
+							className='w-full border-green-400 hover:bg-green-400'
+						/>
+						<Button
+							text='Mint'
+							className='w-full mt-4 border-blue-400 hover:bg-blue-400'
+						/>
+					</div>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 }
