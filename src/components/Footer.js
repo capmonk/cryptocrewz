@@ -15,14 +15,17 @@ export default function Footer() {
 	return (
 		<>
 			<div className='py-16'>
-				<div className='grid items-center justify-center grid-cols-1 text-center md:grid-cols-2'>
-					<div className='flex flex-col items-center justify-center'>
+				<div className='flex flex-row items-center justify-center text-center '>
+					<div className='flex flex-col items-center justify-center mb-8 lg:mb-0 lg:mr-8'>
 						<div className='text-center md:text-left'>
-							<p className='mb-4 text-4xl font-bold tracking-tight'>
-								The first high end crypto brand
+							<p className='mb-4 text-4xl font-bold tracking-tight lg:text-6xl'>
+								This is the digital future
 							</p>
-							<p className='text-4xl font-bold tracking-tight'>
-								Join us in the MetaVerse
+							<p className='mb-4 text-4xl font-bold tracking-tight lg:text-6xl'>
+								This is CryptoCrewz
+							</p>
+							<p className='text-4xl font-bold tracking-tight lg:text-6xl'>
+								Join us
 							</p>
 						</div>
 					</div>

@@ -1,10 +1,10 @@
 import React from "react";
 import Tile from "./Tile";
 
-export default function ComingSoon() {
+export default function Concert() {
 	return (
 		<>
-			<div id='#concert'>
+			<div id='concert'>
 				<h2 className='text-right'>Livestream Concerts</h2>
 				<div className='grid grid-cols-1 gap-8 lg:grid-cols-1 auto-cols-auto'>
 					<Tile accent={true}>

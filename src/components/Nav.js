@@ -16,7 +16,7 @@ export default function Nav() {
 			<div className='fixed bottom-4 right-4 z-[99]'>
 				<MusicButton className='text-lg border-blue-400' />
 			</div>
-			<div className='absolute top-0 z-40 flex-row justify-between hidden w-full p-5 md:flex'>
+			<div className='sticky top-0 z-40 flex-row justify-between hidden w-full p-5 md:flex'>
 				<div className='left-0 flex flex-row items-center justify-center nav'>
 					<img className='w-16 mr-5' src={logo} alt='CryptoCrewz' />
 					<ul className='flex flex-row text-xl'>

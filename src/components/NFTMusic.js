@@ -46,8 +46,8 @@ export default function NFTMusic() {
 			</div>
 			<div className='mx-auto mt-16 text-center'>
 				<h3>
-					Recordifly connects superfans with their artist. This is the future of
-					music.
+					Recordifly connects superfans with their artists. This is the future
+					of music.
 				</h3>
 			</div>
 		</div>

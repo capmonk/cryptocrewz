@@ -3,7 +3,7 @@ import Wrapper from "./components/Wrapper";
 import Nav from "./components/Nav";
 import NFTArt from "./components/NFTArt";
 import NFTMusic from "./components/NFTMusic";
-import ComingSoon from "./components/ComingSoon";
+import Concert from "./components/Concert";
 import Shop from "./components/Shop";
 import Metaverse from "./components/Metaverse";
 import Footer from "./components/Footer";
@@ -15,11 +15,11 @@ function App() {
 			<div className='container px-5 mx-auto'>
 				<Header>
 					<div className='flex flex-col items-start text-center md:text-left'>
-						<p className='mb-4 text-4xl font-bold tracking-tight'>
+						<p className='mb-4 text-4xl font-bold tracking-tight lg:text-6xl'>
 							The first high end crypto brand
 						</p>
-						<p className='text-4xl font-bold tracking-tight'>
-							Join us in the MetaVerse
+						<p className='text-4xl font-bold tracking-tight lg:text-6xl'>
+							Join us in the metaverse
 						</p>
 					</div>
 				</Header>
@@ -45,7 +45,7 @@ function App() {
 				</Wrapper>
 
 				<Wrapper>
-					<ComingSoon />
+					<Concert />
 				</Wrapper>
 
 				<Wrapper>
