@@ -3,6 +3,7 @@ import logo from "../img/logo.jpg";
 import Button from "./Button";
 import { FaUserCircle, FaDiscord, FaTwitter, FaWallet } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
+import MusicButton from "./MusicButton";
 
 export default function Nav() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +13,9 @@ export default function Nav() {
 
 	return (
 		<>
+			<div className='fixed bottom-4 right-4 z-[99]'>
+				<MusicButton className='text-lg border-blue-400' />
+			</div>
 			<div className='absolute top-0 z-40 flex-row justify-between hidden w-full p-5 md:flex'>
 				<div className='left-0 flex flex-row items-center justify-center nav'>
 					<img className='w-16 mr-5' src={logo} alt='CryptoCrewz' />

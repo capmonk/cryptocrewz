@@ -7,6 +7,11 @@ export default function Metaverse() {
 			<h2 className='text-left'>JOIN US IN THE METAVERSE</h2>
 			<div className='grid grid-cols-1 gap-8 lg:grid-cols-1 auto-cols-auto'>
 				<Tile accent={true}>
+					<img
+						className='mix-blend-luminosity'
+						src='/imgs/metaverse2.png'
+						alt='CryptoCrewz Metaverse'
+					/>
 					<p>
 						Our next release will be 3D NFT characters fully compatible with the
 						upcoming Facebook metaverse.

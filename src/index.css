@@ -132,6 +132,12 @@ body {
 	}
 }
 
+.music {
+	svg {
+		@apply ml-2;
+	}
+}
+
 ::-webkit-scrollbar {
 	@apply w-2 bg-primary;
 }
