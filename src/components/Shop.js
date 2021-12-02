@@ -40,12 +40,25 @@ const ClothSlider = () => {
 		lazyload: true,
 		focusOnSelect: true,
 		speed: 300,
+		dots: true,
+		arrows: false,
 		slidesToShow: 3,
 		centerMode: true,
 		centerPadding: 0,
 		swipeToSlide: true,
 		nextArrow: <NextArrow />,
 		prevArrow: <PrevArrow />,
+		appendDots: (dots) => (
+			<div>
+				<ul style={{ margin: "0px" }}> {dots} </ul>
+			</div>
+		),
+		customPaging: (i) => (
+			<div className='w-full mt-4'>
+				<div className='w-8 h-2 bg-white bg-opacity-50 bar'></div>
+				<div className='hidden'>{i + 1}</div>
+			</div>
+		),
 		beforeChange: (current, next) => setImageIndex(next),
 		responsive: [
 			{
@@ -75,12 +88,7 @@ const ClothSlider = () => {
 							className={index === imageIndex ? "slide activeSlide" : "slide"}
 						>
 							{index === imageIndex ? (
-								<img
-									className='w-full'
-									src={img}
-									alt={img}
-									onClick={() => setImgModal(true)}
-								/>
+								<img className='w-full' src={img} alt={img} />
 							) : (
 								<img className='w-full' src={img} alt={img} />
 							)}
@@ -99,21 +107,14 @@ export default function Shop() {
 	return (
 		<>
 			<div id='shop'>
-				<h2 className='mb-16 text-left'>SHOP COMING SOON</h2>
+				<h2 className='mb-16 text-left'>Shop Apparel</h2>
 				<ClothSlider />
 				<div className='grid grid-cols-1 gap-8 pt-16 lg:grid-cols-1 auto-cols-auto'>
 					<Tile accent={true}>
+						<p>High quality urban streetwear; T-shirts, hoodies, caps.</p>
+						<p>Personalised Apparel Coming Soon.</p>
 						<p>
-							High quality urban streetwear; T-shirts, hoodies, caps and a 3D
-							printed collectable of your very own unique individual NFT.
-						</p>
-						<p>
-							Personalised Apparel Coming Soon Each 3D printed collectable will
-							come stamped with your own crypto wallet key to match the NFT you
-							have purchased.
-						</p>
-						<p>
-							Streetwear will come optional with your own Ethereum wallet
+							Streetwear can come optional with your own Ethereum wallet
 							encryption key printed directly on the streetwear so you can
 							flaunt your ETH address and NFT purchase.
 						</p>

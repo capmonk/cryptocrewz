@@ -42,7 +42,7 @@ body {
 	}
 
 	h3 {
-		@apply md:text-3xl text-2xl uppercase tracking-wide font-semibold mb-4;
+		@apply md:text-3xl text-2xl tracking-wide font-semibold mb-4;
 	}
 
 	h4 {
@@ -50,7 +50,7 @@ body {
 	}
 
 	p {
-		@apply text-base;
+		@apply text-xl;
 	}
 
 	a {
@@ -73,8 +73,18 @@ body {
 }
 
 .slick-dots {
+	li {
+		@apply !w-auto;
+	}
+
 	button:before {
 		@apply text-white text-base mt-5 !important;
+	}
+}
+
+.slick-active {
+	div {
+		@apply bg-opacity-100 !important;
 	}
 }
 

@@ -4,18 +4,18 @@ import Tile from "./Tile";
 export default function Metaverse() {
 	return (
 		<div id='meta'>
-			<h2 className='text-left'>JOIN US IN THE METAVERSE</h2>
+			<h2 className='text-right'>Metaverse</h2>
 			<div className='grid grid-cols-1 gap-8 lg:grid-cols-1 auto-cols-auto'>
 				<Tile accent={true}>
+					<p>
+						Our next release will be 3D NFT characters fully compatible with the
+						upcoming Facebook metaverse.
+					</p>
 					<img
 						className='mix-blend-luminosity'
 						src='/imgs/metaverse2.png'
 						alt='CryptoCrewz Metaverse'
 					/>
-					<p>
-						Our next release will be 3D NFT characters fully compatible with the
-						upcoming Facebook metaverse.
-					</p>
 					<p>
 						Customise your NFT character avatar, purchase digital clothes,
 						shoes, accessories. All available on this platform. Purchase using

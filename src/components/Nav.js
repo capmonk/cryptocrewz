@@ -19,7 +19,7 @@ export default function Nav() {
 			<div className='absolute top-0 z-40 flex-row justify-between hidden w-full p-5 md:flex'>
 				<div className='left-0 flex flex-row items-center justify-center nav'>
 					<img className='w-16 mr-5' src={logo} alt='CryptoCrewz' />
-					<ul className='flex flex-row'>
+					<ul className='flex flex-row text-xl'>
 						{/* <a href='#home'>Home</a> */}
 						<a href='#art'>NFT Art</a>
 						<a href='#music'>NFT Music</a>
