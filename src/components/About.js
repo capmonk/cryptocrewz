@@ -18,7 +18,12 @@ export default function About() {
 							alt='AniseK'
 							onClick={() => setOpenAnise(true)}
 						/>
-						<h3 className='mt-4'>Anise K.</h3>
+						<h3
+							className='mt-4 cursor-pointer'
+							onClick={() => setOpenAnise(true)}
+						>
+							Anise K.
+						</h3>
 						<div className='flex flex-row text-3xl'>
 							<a href='https://twitter.com/Anisekmusic'>
 								<FaTwitter />
@@ -35,7 +40,12 @@ export default function About() {
 							alt='CapitalistMonk'
 							onClick={() => setOpenCap(true)}
 						/>
-						<h3 className='mt-4'>CapitalistMonk</h3>
+						<h3
+							className='mt-4 cursor-pointer'
+							onClick={() => setOpenCap(true)}
+						>
+							CapitalistMonk
+						</h3>
 						<div className='flex flex-row text-3xl'>
 							<a href='https://twitter.com/MonkCapitalist'>
 								<FaTwitter />

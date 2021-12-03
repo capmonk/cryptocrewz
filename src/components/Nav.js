@@ -19,7 +19,6 @@ export default function Nav() {
 						<img className='w-16 mr-5' src={logo} alt='CryptoCrewz' />
 					</a>
 					<ul className='flex flex-row text-xl'>
-						{/* <a href='#home'>Home</a> */}
 						<a href='#art'>NFT Art</a>
 						<a href='#music'>NFT Music</a>
 						<a href='#concert'>Livestream Concerts</a>
