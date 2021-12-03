@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+	scroll-behavior: smooth;
+	scroll-padding-top: 8rem;
+}
+
+body {
+	font-family: "Source Sans Pro", sans-serif;
+	@apply bg-primary text-white overflow-x-hidden;
+}
+
+@layer components {
+	.tile {
+		@apply relative z-[2] bg-black rounded-md backdrop-filter bg-blend-luminosity backdrop-blur-sm md:p-2 p-1 text-sm bg-opacity-20 w-max last-of-type:mb-0 shadow-md hover:-translate-y-2 duration-300 transition-all ease-in-out bg-cover bg-no-repeat;
+
+		a {
+			@apply mr-2 last:mr-0;
+		}
+
+		p {
+			@apply mb-4 last:mb-0;
+		}
+
+		&-accent {
+			@apply absolute bg-blue-400 rounded-md animate-glow;
+			box-shadow: 0px 0px 35px 1px rgba(87, 160, 255, 0.7);
+		}
+
+		&-accent-1 {
+			@apply -bottom-1 w-1/2 h-2 left-10;
+		}
+	}
+
+	h1 {
+		@apply md:text-6xl text-4xl tracking-widest font-bold mb-0;
+	}
+
+	h2 {
+		@apply md:text-6xl text-4xl tracking-widest font-bold mb-4;
+	}
+
+	h3 {
+		@apply md:text-3xl text-2xl tracking-wide font-semibold mb-4;
+	}
+
+	h4 {
+		@apply md:text-2xl text-xl text-blue-400 tracking-wide font-semibold mb-4;
+	}
+
+	p {
+		@apply text-xl;
+	}
+
+	a {
+		@apply hover:text-blue-400 transition-all duration-300 ease-in-out;
+	}
+
+	button {
+		svg {
+			@apply mr-1;
+		}
+	}
+}
+
+#team {
+	a {
+		@apply mx-2 hover:text-blue-400;
+	}
+}
+
+.slide {
+	@apply transition-all duration-300 transform scale-75 opacity-50 shadow-md cursor-pointer;
+
+	img {
+		@apply mx-auto my-0 rounded-lg;
+	}
+}
+
+.slick-dots {
+	li {
+		@apply !w-auto;
+	}
+
+	button:before {
+		@apply text-white text-base mt-5 !important;
+	}
+}
+
+.slick-active {
+	div {
+		@apply bg-opacity-100 !important;
+	}
+}
+
+.activeSlide {
+	@apply transform scale-100 opacity-100;
+}
+
+.arrow {
+	@apply cursor-pointer absolute top-[45%] z-10 text-6xl;
+
+	svg {
+		@apply transition-all duration-300 text-white;
+
+		&:hover {
+			@apply text-blue-500;
+		}
+	}
+
+	&.prev {
+		@apply left-2;
+	}
+
+	&.next {
+		@apply right-2;
+	}
+}
+
+.nav {
+	a {
+		@apply mr-4 last:mr-0;
+	}
+
+	&-mobile {
+		@apply text-3xl bg-primary p-8 rounded-md fixed transform top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] z-[99];
+
+		a {
+			@apply mb-4 last:mb-0;
+		}
+	}
+
+	&-icon {
+		@apply text-4xl;
+	}
+}
+
+.modal {
+	@apply fixed h-auto w-auto z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:max-w-[80] max-h-[80vh] overflow-y-auto overflow-x-hidden p-8 bg-primary bg-opacity-100 rounded-xl;
+
+	&-close {
+		@apply fixed top-4 right-4 text-white bg-transparent border-0 transition-all duration-150 cursor-pointer leading-none hover:text-blue-500 text-3xl shadow-md;
+	}
+
+	&-bg {
+		@apply fixed bg-transparent bg-opacity-20 backdrop-filter backdrop-blur-md z-40 top-0 left-0 h-full w-full;
+	}
+}
+
+.music {
+	svg {
+		@apply ml-2;
+	}
+}
+
+::-webkit-scrollbar {
+	@apply w-2 bg-primary;
+}
+
+::-webkit-scrollbar-thumb {
+	@apply bg-blue-500 bg-opacity-100 rounded-full;
+}
+
+#showModal {
+	display: block;
+}
+
+#hideModal {
+	display: none;
+}
