@@ -6,12 +6,6 @@ import Modal from "./Modal";
 export default function Footer() {
 	const [openModal, setOpenModal] = useState(false);
 
-	if (openModal === true) {
-		document.body.style.overflow = "hidden";
-	} else {
-		document.body.style.overflowY = "scroll";
-	}
-
 	return (
 		<>
 			<div className='py-16'>
@@ -33,7 +27,7 @@ export default function Footer() {
 						<p>
 							Contact Us
 							<br />
-							admin@cryptocrewz.com
+							<a href='mailto:admin@cryptocrewz.com'>admin@cryptocrewz.com</a>
 						</p>
 						<img
 							className='max-w-[6rem] my-6'
@@ -69,7 +63,9 @@ export default function Footer() {
 							</a>
 						</div>
 						<div className='mt-6'>
-							<p onClick={() => setOpenModal(true)}>Terms and Conditions</p>
+							<p className='cursor-pointer' onClick={() => setOpenModal(true)}>
+								Terms and Conditions
+							</p>
 						</div>
 					</div>
 

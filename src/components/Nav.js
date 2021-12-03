@@ -13,7 +13,7 @@ export default function Nav() {
 
 	return (
 		<>
-			<div className='sticky top-0 z-40 flex-row justify-between hidden w-full p-5 lg:flex'>
+			<div className='sticky top-0 z-40 flex-row justify-between hidden w-full p-5 bg-black bg-opacity-60 lg:flex'>
 				<div className='left-0 flex flex-row items-center justify-center nav'>
 					<a href='#home'>
 						<img className='w-16 mr-5' src={logo} alt='CryptoCrewz' />

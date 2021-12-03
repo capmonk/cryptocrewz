@@ -2,6 +2,12 @@ import React from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 export default function Modal(props) {
+	if (props.state === true) {
+		document.body.style.overflow = "hidden";
+	} else {
+		document.body.style.overflowY = "scroll";
+	}
+
 	return (
 		<>
 			{props.state && (
@@ -11,7 +17,7 @@ export default function Modal(props) {
 						<button className='modal-close' onClick={props.off}>
 							<AiFillCloseCircle />
 						</button>
-						{props.children}
+						<div className='mt-4'>{props.children}</div>
 					</div>
 				</>
 			)}
