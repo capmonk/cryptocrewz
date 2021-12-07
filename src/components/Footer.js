@@ -9,7 +9,7 @@ export default function Footer() {
 	return (
 		<>
 			<div className='py-16'>
-				<div className='flex flex-row items-center justify-between text-center '>
+				<div className='flex flex-col items-center justify-between text-center md:flex-row '>
 					<div className='flex flex-col items-center justify-center mb-8 lg:mb-0 lg:mr-8'>
 						<div className='text-center md:text-left'>
 							<p className='mb-4 text-4xl font-bold tracking-tight lg:text-6xl'>
