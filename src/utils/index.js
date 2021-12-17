@@ -12,8 +12,8 @@ const contractABI = "0xcb8981394fc231a5DcDca43ceD5C816679242481";
 const correctNetworkID = 4;
 
 async function processMinting(type, _amount, ethObj) {
-  const { isMintingActive, account } = ethObj;
-  const { mint } = ethObj.methods;
+  const { isMintingActive,isPresaleStarts,  account } = ethObj;
+  const { mint, preSaleMint } = ethObj.methods;
 
   switch (type) {
     case isMintingActive:
@@ -32,6 +32,20 @@ async function processMinting(type, _amount, ethObj) {
           }
         });
       break;
+      case isPresaleStarts:
+        preSaleMint(_amount)
+        .send({
+          from: account,
+          value: Web3Utils.toWei((Number(mintPrice) * _amount).toString(), "ether"),
+        })
+        .once("error", (err) => {
+         alert(err.stack);
+        })
+        .then((success) => {
+          if (success?.status) {
+            toast.success("Congratulations. Your NFT's successfully claimed");
+          }
+        });
     default:
       return toast.error("Error: Process can not be started. Please try again");
   }
@@ -45,12 +59,12 @@ export async function handleMintBtnClick(e, _amount, ethObj) {
     return;
   }
 
-  const { isMintingActive } = ethObj;
+  const { isMintingActive, isPresaleStarts } = ethObj;
 
 
-  if (!isMintingActive) return toast.error("Error in minting: Minting unavailable");;
+  if (!isMintingActive && !isPresaleStarts) return toast.error("Error in minting: Minting unavailable");;
 
-  return await processMinting(isMintingActive, _amount, ethObj);
+  return isPresaleStarts ? await processMinting(isPresaleStarts, _amount, ethObj) : await processMinting(isMintingActive, _amount, ethObj);
 }
 
 export default async function connectWallet(setEthObj) {
