@@ -1,7 +1,6 @@
 import React from "react";
 import NftSlider from "./NftSlider";
 import Tile from "./Tile";
-import Button from "./Button";
 import Mint from './Mint';
 
 export default function NFTArt() {
@@ -53,14 +52,14 @@ export default function NFTArt() {
 
         <div className="flex flex-col items-center justify-center">
           <div>
-            <Button
+            {/* <Button
               text="Whitelisting and Pre-sales"
               className="w-full border-green-400 hover:bg-green-400"
             />
             <Button
               text="Mint"
               className="w-full mt-4 border-blue-400 hover:bg-blue-400"
-            />
+            /> */}
 			<Mint/>
           </div>
         </div>

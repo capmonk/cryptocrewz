@@ -4,13 +4,51 @@ import Button from "./Button";
 import { FaUserCircle, FaDiscord, FaTwitter, FaWallet } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import MusicButton from "./MusicButton";
+import { useSharedUserData } from "../store/UserData";
+import { ConnectWallet, DisconnectWallet, FetchUserData, GetMaxCount } from "../utils"
+import { useSharedContractData } from "../store/ContractData"
 
 export default function Nav() {
+	const { account, setAccount, setCount } = useSharedUserData();
 	const [isOpen, setIsOpen] = useState(false);
-	function closeNav() {
+	const { contractData } = useSharedContractData();
+	const closeNav = () => {
 		return setIsOpen(false);
 	}
 
+	const fetchUserData = async () => {
+    setAccount(await FetchUserData());
+  }
+
+  const connectWallet = async () => {
+    const { provider, account} = await ConnectWallet()
+    setAccount(account);
+		setTimeout(() => {
+      console.log("count", GetMaxCount(account, contractData))
+      setCount(GetMaxCount(account, contractData))
+    }, 200);
+    
+    
+    provider.on("accountsChanged", async (accounts) => {
+      const acc = await fetchUserData();
+      setTimeout(() => {
+        console.log("count", GetMaxCount(acc, contractData))
+        setCount(GetMaxCount(acc, contractData))
+      }, 200);
+    });
+
+    provider.on("chainChanged", (chainId) => {
+      if(chainId !== '0x13881') {
+        setAccount({ address: null});
+      }
+    });
+  
+  }
+
+  const disconnectWallet = async () => {
+    await DisconnectWallet();
+    setAccount({address: null});
+  }
 	return (
 		<>
 			<div className='sticky top-0 z-40 flex-row justify-between hidden w-full p-5 bg-black bg-opacity-60 lg:flex'>
@@ -61,12 +99,21 @@ export default function Nav() {
 						className='text-lg border-blue-400 hover:bg-blue-400'
 						text='Login'
 						icon={<FaUserCircle />}
+						onClick={() => console.log("login")}
 					/>
-					<Button
-						className='text-lg border-red-400 hover:bg-red-400'
-						text='MetaMask'
-						icon={<FaWallet />}
-					/>
+					{account.address ? (<button
+						className='text-lg border-red-400 hover:bg-red-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out'
+						onClick={disconnectWallet}
+					>
+						<FaWallet />
+						Disconnect
+					</button>) : (<button
+						className='text-lg border-red-400 hover:bg-red-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out'
+						onClick={connectWallet}
+					>
+						<FaWallet />
+						Connect Wallet
+					</button>)}
 				</div>
 			</div>
 
@@ -136,11 +183,19 @@ export default function Nav() {
 									text='Login'
 									icon={<FaUserCircle />}
 								/>
-								<Button
-									className='mt-4 text-lg border-red-400 hover:bg-red-400'
-									text='MetaMask'
-									icon={<FaWallet />}
-								/>
+								{account.address ? (<button
+									className='text-lg border-red-400 hover:bg-red-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out'
+									onClick={disconnectWallet}
+								>
+									<FaWallet />
+									Disconnect
+								</button>) : (<button
+									className='text-lg border-red-400 hover:bg-red-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out'
+									onClick={connectWallet}
+								>
+									<FaWallet />
+									Connect Wallet
+								</button>)}
 							</div>
 						</div>
 					</div>

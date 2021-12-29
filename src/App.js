@@ -8,8 +8,23 @@ import Shop from "./components/Shop";
 import Metaverse from "./components/Metaverse";
 import About from "./components/About";
 import Footer from "./components/Footer";
+import { GetContractData, Init } from "./utils";
+import { useSharedContractData } from "./store/ContractData"
+import { useEffect } from "react";
 
 function App() {
+	const { setContractData } = useSharedContractData();
+	
+	const InitWeb3 = async () => {
+    setContractData(await GetContractData())
+  }
+
+	useEffect(() => {
+		Init();
+		InitWeb3();
+		console.log("loaded");
+	}, []);
+
 	return (
 		<>
 			<Nav />
