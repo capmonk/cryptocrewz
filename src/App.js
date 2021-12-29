@@ -15,15 +15,15 @@ import { useEffect } from "react";
 function App() {
 	const { setContractData } = useSharedContractData();
 	
-	const InitWeb3 = async () => {
-    setContractData(await GetContractData())
-  }
 
 	useEffect(() => {
+		const InitWeb3 = async () => {
+			setContractData(await GetContractData())
+		}
 		Init();
 		InitWeb3();
 		console.log("loaded");
-	}, []);
+	}, [setContractData]);
 
 	return (
 		<>
