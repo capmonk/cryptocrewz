@@ -11,9 +11,10 @@ import Footer from "./components/Footer";
 import { GetContractData, Init } from "./utils";
 import { useSharedContractData } from "./store/ContractData"
 import { useEffect } from "react";
+import { GetWhitelisted } from "./services/api.service";
 
 function App() {
-	const { setContractData } = useSharedContractData();
+	const { setContractData, setWhitelisted } = useSharedContractData();
 	
 
 	useEffect(() => {
@@ -22,8 +23,11 @@ function App() {
 		}
 		Init();
 		InitWeb3();
+		GetWhitelisted().then((x) => {
+			setWhitelisted(x)
+		})
 		console.log("loaded");
-	}, [setContractData]);
+	}, [setContractData, setWhitelisted]);
 
 	return (
 		<>

@@ -1,150 +1,9 @@
-// import Web3 from "web3";
-// import Web3Utils from "web3-utils";
-// import SmartContract from "../contract/abi.json";
-// import toast from "react-hot-toast";
-
-// const mintPrice = 0.05;
-// const correctNetworkID = 4;
-// const providerUrl = "https://matic-mumbai.chainstacklabs.com"
-
-// export async function GetContractDate () {
-//   if (!window.ethereum) {
-//     window.web3 = new Web3(new Web3.providers.HttpProvider(providerUrl));
-//   }
-//   console.log("web3", window.web3)
-//   // const contract = new window.web3.eth.Contract(SmartContract, process.env.REACT_APP_CONTRACT_ADDRESS);
-//   // console.log("contract", contract)
-//   // console.log(await contract.methods.preSaleIsActive().send());
-// }
-// async function processMinting(type, _amount, ethObj) {
-//   const { isMintingActive, isPresaleStarts, account } = ethObj;
-//   const { mint, preSaleMint } = ethObj.methods;
-
-//   switch (type) {
-//     case isMintingActive:
-//       mint(account, _amount)
-//         .send({
-//           from: account,
-//           value: Web3Utils.toWei((Number(mintPrice) * _amount).toString(), "ether"),
-//         })
-//         .once("error", (err) => {
-//           toast.success(err.stack);
-//         })
-//         .then((success) => {
-//           if (success?.status) {
-//             toast.success("Congratulations. Your NFT's successfully claimed");
-            
-//           }
-//         });
-//       break;
-//       case isPresaleStarts:
-//         preSaleMint(_amount)
-//         .send({
-//           from: account,
-//           value: Web3Utils.toWei((Number(mintPrice) * _amount).toString(), "ether"),
-//         })
-//         .once("error", (err) => {
-//         alert(err.stack);
-//         })
-//         .then((success) => {
-//           if (success?.status) {
-//             toast.success("Congratulations. Your NFT's successfully claimed");
-//           }
-//         });
-//         break;
-//     default:
-//       return toast.error("Error: Process can not be started. Please try again");
-//   }
-// }
-
-// export async function handleMintBtnClick(e, _amount, ethObj) {
-//   e.preventDefault();
-
-//   if (!ethObj || !_amount) {
-//     toast.error("Reload and stay on page");
-//     return;
-//   }
-
-//   const { isMintingActive, isPresaleStarts } = ethObj;
-
-
-//   if (!isMintingActive && !isPresaleStarts) return toast.error("Error in minting: Minting unavailable");;
-
-//   return isPresaleStarts ? await processMinting(isPresaleStarts, _amount, ethObj) : await processMinting(isMintingActive, _amount, ethObj);
-// }
-
-// export default async function connectWallet(setEthObj) {
-//   if (
-//     typeof window.ethereum === "undefined"
-//   ) {
-//     window.open("https://www.metamask.io", "_blank");
-//     toast.error("Please install MetaMask");
-//     return;
-//   }
-//   try {
-//     const web3 = new Web3(window.ethereum);
-    
-//     const connectAccount = await window.ethereum.request({
-//       method: "eth_requestAccounts"
-//     });
-    
-//     const accountID = connectAccount[0];
-
-//     const networkId = await window.ethereum.request({
-//       method: "net_version",
-//     });
-    
-
-//     window.ethereum.on("chainChanged", () => {
-//       window.location.reload();
-//     });
-
-//     window.ethereum.on("accountsChanged", () => {
-//       window.location.reload();
-//     });
-    
-//     if (parseInt(networkId) === correctNetworkID) {
-
-//       const smartContractObj = new web3.eth.Contract(
-//         SmartContract.abi,
-//         process.env.REACT_APP_CONTRACT_ADDRESS,
-//       );
-
-//       const isPresaleStarts = await smartContractObj.methods
-//         .isAllowListActive()
-//         ?.call();
-
-//       const isMintingActive = await smartContractObj.methods
-//         ?.isActive()
-//         ?.call();
-
-//       if (!isMintingActive && !isPresaleStarts) {
-//           toast.error("You are not able to mint now");
-//       } 
-
-//       const resolver = {
-//         isPresaleStarts,
-//         isMintingActive,
-//         methods: smartContractObj.methods,
-//         smartContractObj,
-//         account: accountID,
-//         web3,
-//       }
-
-//       setEthObj(resolver);
-
-//       return resolver;
-
-//     } else {
-//         toast.error("Switch to ethereum mainnet");
-//     }
-//   } catch (err) {
-//     toast.error(err.stack);
-//   }
-// }
 import Web3 from "web3";
 import Web3Modal, { getProviderInfo } from "@venly/web3modal";
 import ContractAbi from '../contract/abi.json';
+import keccak256 from "keccak256";
+import { ethers } from "ethers";
+import MerkleTree from "merkletreejs";
 
 export async function GetContractData () {
   const web3temp = new Web3(new Web3.providers.HttpProvider('https://matic-mumbai.chainstacklabs.com'));
@@ -159,6 +18,7 @@ export async function GetContractData () {
     maxMainsale: await contract.methods.maxMainSale.call().call(),
     publicSaleIsActive: await contract.methods.publicSaleIsActive.call().call(),
     preSaleIsActive: await contract.methods.preSaleIsActive.call().call(),
+    symbol: await contract.methods.symbol.call().call(),
     address: process.env.REACT_APP_CONTRACT_ADDRESS
   }
 }
@@ -251,18 +111,22 @@ export async function MintPublicSale (count) {
   await contract.methods.mint(count).send({from, value});
 }
 
-
-export const updateMintState = (presale, publicsale) => {
-  if (!presale && !publicsale) {
-    // setMintState('whitelist')
-  }
-  if (presale && !publicsale) {
-    // setMintState('presale')
-  }
-  if (publicsale) {
-    // setMintState('publicsale')
-  }
+function hashToken(address) {
+  return ethers.utils.solidityKeccak256(["address"], [address]).slice(2);
 }
+
+export async function MintPreSale (count, whitelisted) {
+  console.log(whitelisted)
+  const from = (await window.web3.eth.getAccounts())[0]
+  const tree = new MerkleTree(whitelisted.map(token => keccak256(token)),keccak256,{ sortPairs: true });
+  const proof = tree.getHexProof(hashToken(from));
+  console.log(tree.getHexRoot())
+  console.log(proof)
+  const contract = new window.web3.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
+  const value = count * await contract.methods.tokenPrice.call().call();
+  await contract.methods.whitelistedMints(proof, count).send({from, value});
+}
+
 export const GetMaxCount = (acc, contractData) => {
   let maxCount = contractData.maxMainsale;
   if (contractData.preSaleIsActive && !contractData.publicSaleIsActive) {

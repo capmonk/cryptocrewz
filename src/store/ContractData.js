@@ -6,18 +6,23 @@ const useContractData = () => {
     price : 0,
     totalSupply: 0,
     maxSupply: 0,
-    name: 0,
+    name: "",
     maxPresale: 0,
     maxPerWallet: 0,
     maxMainsale: 0,
     publicSaleIsActive: false,
     preSaleIsActive: false,
-    address: 0
+    address: 0,
+    symbol: ""
   });
   const setContractData = useCallback((data) => SetContractData(c => data), []);
+  const [whitelisted, SetWhitelisted] = useState([]);
+  const setWhitelisted = useCallback((data) => SetWhitelisted(c => data), []);
   return {
     contractData,
-    setContractData
+    setContractData,
+    whitelisted,
+    setWhitelisted
   };
 };
 
