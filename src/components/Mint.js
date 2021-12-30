@@ -108,7 +108,7 @@ const Mint = () => {
               className="d-flex items-center justify-between mint-row"
             >
               <span>Contract address: </span>
-              { contractData.address }
+              <a href={process.env.REACT_APP_EXPLORER_ADDRESS + contractData.address} target="_blank">{ contractData.address }</a>
               <br/>
               <span>Contract name: </span>
               { contractData.name }
@@ -322,7 +322,7 @@ const Mint = () => {
               >
                 Disconnect a wallet
               </button>
-              Address: { account.address }
+              Address: <a href={process.env.REACT_APP_EXPLORER_ADDRESS + account.address} target="_blank">{ account.address }</a>
               <br/>
               NFT Supply: { account.supply}
               <br/>
