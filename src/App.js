@@ -26,7 +26,6 @@ function App() {
 		GetWhitelisted().then((x) => {
 			setWhitelisted(x)
 		})
-		console.log("loaded");
 	}, [setContractData, setWhitelisted]);
 
 	return (

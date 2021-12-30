@@ -32,7 +32,6 @@ export default function Nav() {
     provider.on("accountsChanged", async (accounts) => {
       const acc = await fetchUserData();
       setTimeout(() => {
-        console.log("count", GetMaxCount(acc, contractData))
         setCount(GetMaxCount(acc, contractData))
       }, 200);
     });
