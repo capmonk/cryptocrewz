@@ -62,7 +62,7 @@ export async function ConnectWallet () {
         });
       } 
       if (providerName === "Web3") {
-        provider = await window.Venly.changeSecretType(process.env.REACT_APP_CHAINNAME)
+        provider = await window.Venly.changeSecretType(process.env.REACT_APP_VENLY_CHAINID)
         window.web3 = new Web3(provider);
       }
       const contract = new window.web3.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
@@ -108,7 +108,12 @@ export async function MintPublicSale (count) {
   const contract = new window.web3.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
   const from = (await window.web3.eth.getAccounts())[0]
   const value = count * await contract.methods.tokenPrice.call().call();
-  return await contract.methods.mint(count).send({from, value});
+  try {
+    return await contract.methods.mint(count).send({from, value});
+  }
+  catch {
+    console.log("")
+  }
 }
 
 function hashToken(address) {
@@ -124,7 +129,12 @@ export async function MintPreSale (count, whitelisted) {
   console.log(proof)
   const contract = new window.web3.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
   const value = count * await contract.methods.tokenPrice.call().call();
-  await contract.methods.whitelistedMints(proof, count).send({from, value});
+  try {
+    return await contract.methods.whitelistedMints(proof, count).send({from, value});
+  }
+  catch {
+    console.log("")
+  }
 }
 
 export const GetMaxCount = (acc, contractData) => {

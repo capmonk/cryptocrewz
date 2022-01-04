@@ -24,18 +24,24 @@ const MintPublicsale = () => {
   const mintMainSale = async () => {
     const whitelisted = await GetWhitelisted();
     setWhitelisted(whitelisted);
-
     if (count * contractData.price < account.balance && count > 0) {
       setMinting(true)
-      const result = await MintPublicSale(count);
-      fetchUserData();
-      setContractData(await GetContractData());
-      setMinting(false)
-      if (result.status) {
-        toast.success("Minted!");
-      } else {
+      try {
+        const result = await MintPublicSale(count);
+        fetchUserData();
+        setContractData(await GetContractData());
+        setMinting(false)
+        if (result.status) {
+          toast.success("Minted!");
+        } else {
+          toast.error("Error in transaction!")
+        }
+      } catch {
         toast.error("Error in transaction!")
+        setMinting(false)
       }
+      
+
 
     } else {
       toast.error("Not enough credits!");
