@@ -78,7 +78,6 @@ const Mint = () => {
   const mintPreSale = async () => {
     if (count * contractData.price < account.balance && count > 0) {
       await MintPreSale(count, whitelisted);
-      toast.
       fetchUserData();
     } else {
       toast.error("Not enough credits!")
