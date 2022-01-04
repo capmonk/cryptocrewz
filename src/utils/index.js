@@ -6,7 +6,7 @@ import { ethers } from "ethers";
 import MerkleTree from "merkletreejs";
 
 export async function GetContractData () {
-  const web3temp = new Web3(new Web3.providers.HttpProvider('https://matic-mumbai.chainstacklabs.com'));
+  const web3temp = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_HTTPPROVIDER));
   const contract = new web3temp.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
   return { 
     price : Web3.utils.fromWei(await contract.methods.tokenPrice.call().call()),
@@ -58,11 +58,11 @@ export async function ConnectWallet () {
       if (providerName === "MetaMask") {
         await window.web3.currentProvider.request({
           method: 'wallet_addEthereumChain',
-          params: [{ chainId: '0x13881', rpcUrls: ['https://matic-mumbai.chainstacklabs.com'], chainName: "Polygon Testnet Mumbai" ,blockExplorerUrls: ["https://mumbai.polygonscan.com/"], nativeCurrency: { name: "MATIC", decimals: 18, symbol: "MATIC" }}],
+          params: [{ chainId: process.env.REACT_APP_CHAINID, rpcUrls: [process.env.REACT_APP_HTTPPROVIDER], chainName: process.env.REACT_APP_CHAINNAME ,blockExplorerUrls: [process.env.REACT_APP_EXPLORER_ADDRESS ], nativeCurrency: { name: process.env.REACT_APP_CONTRACT_COIN, decimals: 18, symbol: process.env.REACT_APP_CONTRACT_COIN }}],
         });
       } 
       if (providerName === "Web3") {
-        provider = await window.Venly.changeSecretType('MATIC')
+        provider = await window.Venly.changeSecretType(process.env.REACT_APP_CHAINNAME)
         window.web3 = new Web3(provider);
       }
       const contract = new window.web3.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);

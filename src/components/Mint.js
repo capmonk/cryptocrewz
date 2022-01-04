@@ -8,9 +8,9 @@ import {
   GetMaxCount
 } from "../utils";
 
-import MintWhitelist from "./MintWhitelist";
-import MintPresale from "./MintPresale";
-import MintPublicsale from "./MintPublicsale";
+import MintWhitelistComponent from "./MintWhitelist";
+import MintPresaleComponent from "./MintPresale";
+import MintPublicsaleComponent from "./MintPublicsale";
 
 const Mint = () => {
   const { contractData } = useSharedContractData();
@@ -38,7 +38,7 @@ const Mint = () => {
     });
 
     provider.on("chainChanged", (chainId) => {
-      if (chainId !== "0x13881") {
+      if (chainId !== process.env.REACT_APP_CHAINID) {
         setAccount({ address: null });
       }
     });
@@ -91,21 +91,21 @@ const Mint = () => {
         <div id="claim-text-wrapper" className="col-7 flex flex-col">
           <div className="h-64 w-96">
 
-            {contractData.address && contractData.publicSaleIsActive ? (
-              <div>
-                <MintPublicsale />
-              </div>
-            ) : (<></>)}
-
             {contractData.address && !contractData.preSaleIsActive && !contractData.publicSaleIsActive ? (
               <div>
-                <MintWhitelist />
+                <MintWhitelistComponent />
               </div>
             ) : (<></>)}
 
             {contractData.address && contractData.preSaleIsActive && !contractData.publicSaleIsActive ? (
               <div>
-                <MintPresale />
+                <MintPresaleComponent />
+              </div>
+            ) : (<></>)}
+
+            {contractData.address && contractData.publicSaleIsActive ? (
+              <div>
+                <MintPublicsaleComponent />
               </div>
             ) : (<></>)}
 
