@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logo from "../img/logo.jpg";
 import Button from "./Button";
 import { FaUserCircle, FaDiscord, FaTwitter, FaWallet } from "react-icons/fa";
-import { FiMenu } from "react-icons/fi";
+// import { FiMenu } from "react-icons/fi";
 import MusicButton from "./MusicButton";
 import { useSharedUserData } from "../store/UserData";
 import { ConnectWallet, DisconnectWallet, FetchUserData, GetMaxCount } from "../utils"

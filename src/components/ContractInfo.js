@@ -15,7 +15,7 @@ export default function ContractInfo() {
               <div>
                 <div className="mb-3.5">
                   <h4 className="mb-0.5">Contract address: </h4>
-                  <a className="underline" href={process.env.REACT_APP_EXPLORER_ADDRESS + contractData.address} target="_blank">{ contractData.address }</a>
+                  <a className="underline" href={process.env.REACT_APP_EXPLORER_ADDRESS + contractData.address} target="_blank" rel="noreferrer">{ contractData.address }</a>
                 </div>
                 <h4 className="mb-0.5">Contract data: </h4>
                 <div className="grid grid-cols-2">
