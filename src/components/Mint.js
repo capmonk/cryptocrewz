@@ -53,6 +53,10 @@ const Mint = () => {
       toast.error("Wrong email format!")
       return
     }
+    if (account.balance < contractData.price) {
+      toast.error("Not enough credits!")
+      return
+    }
     await SubmitWhitelist({account: account.address, email, code }).then ((x) => console.log(x)).catch(e => {
       toast.error(e.message)
     })
@@ -66,6 +70,8 @@ const Mint = () => {
     if (count * contractData.price < account.balance && count > 0) {
       await MintPublicSale(count);
       fetchUserData();
+    } else {
+      toast.error("Not enough credits!")
     }
   }
 
@@ -74,6 +80,8 @@ const Mint = () => {
       await MintPreSale(count, whitelisted);
       toast.
       fetchUserData();
+    } else {
+      toast.error("Not enough credits!")
     }
   }
 
@@ -158,15 +166,16 @@ const Mint = () => {
                 </div>
               </div> 
               <div id="mint-number" className="mint-row">
-                <div className="flex items-center">
+                <div className="flex items-center  mt-3 mb-3">
                   <button
                     type="button"
-                    className="border-blue-400 hover:bg-blue-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
+                    className="h-8 w-8 border-blue-400 hover:bg-blue-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
                     id="minus"
                     onClick={subCount}
                     disabled={account.address === null}
                   >
                     <svg
+                      className="translate-x-0.5 scale-150"
                       width="16"
                       height="2"
                       viewBox="0 0 16 2"
@@ -182,12 +191,13 @@ const Mint = () => {
                   <h5>{count}</h5> 
                   <button
                     type="button"
-                    className="border-blue-400 hover:bg-blue-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
+                    className="h-8 w-8 border-blue-400 hover:bg-blue-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
                     id="plus"
                     onClick={addCount}
                     disabled={account.address === null}
                   >
                     <svg
+                      className="translate-x-0.5 scale-150"
                       width="16"
                       height="16"
                       viewBox="0 0 16 16"
