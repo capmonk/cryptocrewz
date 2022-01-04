@@ -105,7 +105,7 @@ const Mint = () => {
       setCount(GetMaxCount(account, contractData));
     }
   };
-
+  // style={{"background-color": "#4500FF22"}}
   return (
     <div>
       <Toaster
@@ -113,11 +113,43 @@ const Mint = () => {
           className: "toast",
         }}
       />
-      <div className="mint--container">
-        <div id="claim-text-wrapper" className="col-7">
+      <div className="mint-container">
+      <div className="h-36">
+          {account.address ? (
+            <div>
+              <button
+                id="purchase-button-wrapper"
+                type="button"
+                className="border-green-440 hover:bg-green-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
+                onClick={disconnectWallet}
+              >
+                Disconnect a wallet
+              </button>
+              {/* Address: <a href={process.env.REACT_APP_EXPLORER_ADDRESS + account.address} target="_blank">{ account.address }</a>
+              <br/>
+              NFT Supply: { account.supply}
+              <br/>
+              Balance: { Math.round(account.balance * 100) / 100 }
+              <br/> */}
+            </div>
+          ) : (
+            <div className={ contractData.address !== null ? "" : "opacity-20"}>
+            <button
+                id="purchase-button-wrapper"
+                type="button"
+                className="border-green-440 hover:bg-green-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid"
+                onClick={connectWallet}
+              >
+                Connect a wallet
+              </button>
+              </div>
+          )}
+          </div>
+        <div id="claim-text-wrapper" className="col-7 flex flex-col" >
+          <div className="h-64 w-96" >
           <div id="payment-modal">
             { contractData.address && contractData.publicSaleIsActive ? (
-              <div>
+            <div>
             <div className={account.address && account.supply < 10 ? "" : "opacity-20"}>
               <div id="payment-header">
                 <div id="payment-header-text">
@@ -191,14 +223,13 @@ const Mint = () => {
             <div>
             <div className={account.address && !whitelisted.includes(account.address)? "" : "opacity-20"}>
               <form onSubmit={handleSubmit} >
-                Email:
                 <br/>
-                <input 
+                Email: <input 
                 className="text-black" 
                 type="text" 
                 value={email} 
                 onChange={handleEmailChange}
-                disabled={account.address === null}
+                disabled={account.address === null || whitelisted.includes(account.address)}
                 />
                 <br/>
                 <br/>
@@ -207,7 +238,7 @@ const Mint = () => {
                 type="text" 
                 value={code} 
                 onChange={handleCodeChange}
-                disabled={account.address === null}
+                disabled={account.address === null || whitelisted.includes(account.address)}
                 />
               </form>
               <br/>
@@ -216,21 +247,21 @@ const Mint = () => {
                 type="button"
                 className="border-green-440 hover:bg-green-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid"
                 onClick={onWhitelisted}
-                disabled={account.address === null}
+                disabled={account.address === null || whitelisted.includes(account.address)}
               >
                 Get whitelisted
               </button>
               
               </div>
               { whitelisted.includes(account.address) ? (<div
-              className="opacity-100">
+              className="opacity-100 text-red-600">
                 You are already withelisted
               </div>):(<></>)}
               </div>
               ) : <></>}
           { contractData.address && contractData.preSaleIsActive && !contractData.publicSaleIsActive ? (
             <div>
-            <div className={account.address && whitelisted.includes(account.address) ? "" : "opacity-20"}>
+            <div className={account.address && whitelisted.includes(account.address) && account.supply === 0? "" : "opacity-20"}>
               <div id="payment-header">
                 <div id="payment-header-text">
                   <h4 className="mb-2">Mint NFT Presale</h4>
@@ -238,15 +269,16 @@ const Mint = () => {
                 </div>
               </div> 
               <div id="mint-number" className="mint-row">
-                <div className="flex items-center">
+                <div className="flex items-center mt-3 mb-3">
                   <button
                     type="button"
-                    className="border-blue-400 hover:bg-blue-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
+                    className="h-8 w-8 border-blue-400 hover:bg-blue-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
                     id="minus"
                     onClick={subCount}
                     disabled={account.address === null}
                   >
                     <svg
+                      className="translate-x-0.5 scale-150"
                       width="16"
                       height="2"
                       viewBox="0 0 16 2"
@@ -262,12 +294,13 @@ const Mint = () => {
                   <h5>{count}</h5> 
                   <button
                     type="button"
-                    className="border-blue-400 hover:bg-blue-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
+                    className="h-8 w-8 border-blue-400 hover:bg-blue-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
                     id="plus"
                     onClick={addCount}
                     disabled={account.address === null}
                   >
                     <svg
+                    className="translate-x-0.5 scale-150"
                       width="16"
                       height="16"
                       viewBox="0 0 16 16"
@@ -302,34 +335,8 @@ const Mint = () => {
               </div>):(<></>)}
             </div>
             ) :(<></>) }
-
-          {account.address ? (
-            <div>
-              <button
-                id="purchase-button-wrapper"
-                type="button"
-                className="border-green-440 hover:bg-green-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
-                onClick={disconnectWallet}
-              >
-                Disconnect a wallet
-              </button>
-              {/* Address: <a href={process.env.REACT_APP_EXPLORER_ADDRESS + account.address} target="_blank">{ account.address }</a>
-              <br/>
-              NFT Supply: { account.supply}
-              <br/>
-              Balance: { Math.round(account.balance * 100) / 100 }
-              <br/> */}
             </div>
-          ) : (
-            <button
-                id="purchase-button-wrapper"
-                type="button"
-                className="border-green-440 hover:bg-green-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid"
-                onClick={connectWallet}
-              >
-                Connect a wallet
-              </button>
-          )}
+          
         </div>
       </div>
     </div>

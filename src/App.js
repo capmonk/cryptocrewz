@@ -43,9 +43,9 @@ function App() {
 				<Header  className="w-full">
 				</Header>
 				<Wrapper>
-				<div className='flex flex-row flex-wrap items-start text-center md:text-left' >
+				<div className='flex flex-row flex-wrap items-center justify-center text-center md:text-left' >
+				<Mint screens></Mint>
 						<ContractInfo />
-						<Mint screens></Mint>
 					</div>
 				</Wrapper>
 				{/* <Wrapper>

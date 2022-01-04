@@ -12,7 +12,7 @@ const useContractData = () => {
     maxMainsale: 0,
     publicSaleIsActive: false,
     preSaleIsActive: false,
-    address: 0,
+    address: null,
     symbol: ""
   });
   const setContractData = useCallback((data) => SetContractData(c => data), []);
