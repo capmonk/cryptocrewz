@@ -14,7 +14,7 @@ import { useEffect } from "react";
 import { GetWhitelisted } from "./services/api.service";
 import Mint from "./components/Mint";
 import ContractInfo from "./components/ContractInfo";
-// /import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 function App() {
 	const { setContractData, setWhitelisted } = useSharedContractData();
