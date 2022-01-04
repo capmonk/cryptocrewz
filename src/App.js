@@ -25,9 +25,9 @@ function App() {
 					</div>
 				</Header>
 
-				<Wrapper>
+				{/* <Wrapper>
 					<NFTArt />
-				</Wrapper>
+				</Wrapper> */}
 
 				<Wrapper>
 					<NFTMusic />

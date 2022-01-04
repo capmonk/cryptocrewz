@@ -57,7 +57,7 @@ export default function Nav() {
 							</svg>
 						</a>
 					</div>
-					<Button
+					{/* <Button
 						className='text-lg border-blue-400 hover:bg-blue-400'
 						text='Login'
 						icon={<FaUserCircle />}
@@ -66,7 +66,7 @@ export default function Nav() {
 						className='text-lg border-red-400 hover:bg-red-400'
 						text='MetaMask'
 						icon={<FaWallet />}
-					/>
+					/> */}
 				</div>
 			</div>
 
@@ -131,7 +131,7 @@ export default function Nav() {
 								<a href='#meta' onClick={closeNav}>
 									Metaverse
 								</a>
-								<Button
+								{/* <Button
 									className='text-lg border-blue-400 hover:bg-blue-400'
 									text='Login'
 									icon={<FaUserCircle />}
@@ -140,7 +140,7 @@ export default function Nav() {
 									className='mt-4 text-lg border-red-400 hover:bg-red-400'
 									text='MetaMask'
 									icon={<FaWallet />}
-								/>
+								/> */}
 							</div>
 						</div>
 					</div>
