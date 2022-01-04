@@ -2,7 +2,7 @@ import React from "react";
 import NftSlider from "./NftSlider";
 import Tile from "./Tile";
 import Button from "./Button";
-import Mint from "./Mint";
+// import Mint from "./Mint";
 
 export default function NFTArt() {
 	return (

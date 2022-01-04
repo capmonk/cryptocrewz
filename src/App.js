@@ -1,7 +1,7 @@
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 import Nav from "./components/Nav";
-import NFTArt from "./components/NFTArt";
+// import NFTArt from "./components/NFTArt";
 import NFTMusic from "./components/NFTMusic";
 import Concert from "./components/Concert";
 import Shop from "./components/Shop";
