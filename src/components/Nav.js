@@ -18,7 +18,7 @@ export default function Nav() {
 						<img className='w-16 mr-5' src={logo} alt='CryptoCrewz' />
 					</a>
 					<ul className='flex flex-row text-xl'>
-						<a href='#art'>NFT Art</a>
+						{/* <a href='#art'>NFT Art</a> */}
 						<a href='#music'>NFT Music</a>
 						<a href='#concert'>Livestream Concerts</a>
 						<a href='#shop'>Shop Apparel</a>
@@ -115,9 +115,9 @@ export default function Nav() {
 					<div className='nav-mobile filter drop-shadow-lg'>
 						<div className='relative flex items-center justify-center max-w-max'>
 							<div className='relative flex flex-col'>
-								<a href='#art' onClick={closeNav}>
+								{/* <a href='#art' onClick={closeNav}>
 									NFT Art
-								</a>
+								</a> */}
 								<a href='#music' onClick={closeNav}>
 									NFT Music
 								</a>
