@@ -9,7 +9,7 @@ import Nav from "./components/Nav";
 // import About from "./components/About";
 import Footer from "./components/Footer";
 import { GetContractData, Init } from "./utils";
-import { useSharedContractData } from "./store/ContractData"
+import { useSharedContractData } from "./store/ContractData";
 import { useEffect } from "react";
 import { GetWhitelisted } from "./services/api.service";
 import Mint from "./components/Mint";
@@ -17,38 +17,36 @@ import ContractInfo from "./components/ContractInfo";
 import { Toaster } from "react-hot-toast";
 
 function App() {
-	const { setContractData, setWhitelisted } = useSharedContractData();
-	
+  const { setContractData, setWhitelisted } = useSharedContractData();
 
-	useEffect(() => {
-		const InitWeb3 = async () => {
-			setContractData(await GetContractData());
-		}
-		Init();
-		InitWeb3();
-		GetWhitelisted().then((x) => {
-			setWhitelisted(x)
-		})
-	}, [setContractData, setWhitelisted]);
+  useEffect(() => {
+    const InitWeb3 = async () => {
+      setContractData(await GetContractData());
+    };
+    Init();
+    InitWeb3();
+    GetWhitelisted().then((x) => {
+      setWhitelisted(x);
+    });
+  }, [setContractData, setWhitelisted]);
 
-	return (
-		<>
-		<Toaster
-		toastOptions={{
-			className: "toast",
-		}}
-		/>
-			<Nav />
-			<div id='home' className='container px-5 mx-auto w-full' >
-				<Header  className="w-full">
-				</Header>
-				<Wrapper>
-				<div className='flex flex-row flex-wrap items-center justify-center text-center md:text-left' >
-				<Mint screens></Mint>
-						<ContractInfo />
-					</div>
-				</Wrapper>
-				{/* <Wrapper>
+  return (
+    <>
+      <Toaster
+        toastOptions={{
+          className: "toast",
+        }}
+      />
+      <Nav />
+      <div id="home" className="container px-5 mx-auto w-full">
+        <Header className="w-full"></Header>
+        <Wrapper>
+          <div className="flex flex-row flex-wrap items-center justify-center text-center md:text-left">
+            <Mint screens></Mint>
+            <ContractInfo />
+          </div>
+        </Wrapper>
+        {/* <Wrapper>
 					<NFTArt />
 				</Wrapper>
 
@@ -84,10 +82,10 @@ function App() {
 					<About />
 				</Wrapper> */}
 
-				<Footer />
-			</div>
-		</>
-	);
+        <Footer />
+      </div>
+    </>
+  );
 }
 
 export default App;

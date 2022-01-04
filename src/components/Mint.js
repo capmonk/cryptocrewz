@@ -1,10 +1,11 @@
+import { Toaster } from "react-hot-toast";
 import { useSharedContractData } from "../store/ContractData";
 import { useSharedUserData } from "../store/UserData";
 import {
   ConnectWallet,
   DisconnectWallet,
   FetchUserData,
-  GetMaxCount
+  GetMaxCount,
 } from "../utils";
 
 import MintWhitelistComponent from "./MintWhitelist";
@@ -88,25 +89,33 @@ const Mint = () => {
         </div>
         <div id="claim-text-wrapper" className="col-7 flex flex-col">
           <div className="h-64 w-96">
-
-            {contractData.address && !contractData.preSaleIsActive && !contractData.publicSaleIsActive ? (
+            {contractData.address &&
+            !contractData.preSaleIsActive &&
+            !contractData.publicSaleIsActive ? (
               <div>
                 <MintWhitelistComponent />
               </div>
-            ) : (<></>)}
+            ) : (
+              <></>
+            )}
 
-            {contractData.address && contractData.preSaleIsActive && !contractData.publicSaleIsActive ? (
+            {contractData.address &&
+            contractData.preSaleIsActive &&
+            !contractData.publicSaleIsActive ? (
               <div>
                 <MintPresaleComponent />
               </div>
-            ) : (<></>)}
+            ) : (
+              <></>
+            )}
 
             {contractData.address && contractData.publicSaleIsActive ? (
               <div>
                 <MintPublicsaleComponent />
               </div>
-            ) : (<></>)}
-
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>
