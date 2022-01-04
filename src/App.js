@@ -1,17 +1,20 @@
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 import Nav from "./components/Nav";
-import NFTArt from "./components/NFTArt";
-import NFTMusic from "./components/NFTMusic";
-import Concert from "./components/Concert";
-import Shop from "./components/Shop";
-import Metaverse from "./components/Metaverse";
-import About from "./components/About";
+// import NFTArt from "./components/NFTArt";
+// import NFTMusic from "./components/NFTMusic";
+// import Concert from "./components/Concert";
+// import Shop from "./components/Shop";
+// import Metaverse from "./components/Metaverse";
+// import About from "./components/About";
 import Footer from "./components/Footer";
 import { GetContractData, Init } from "./utils";
 import { useSharedContractData } from "./store/ContractData"
 import { useEffect } from "react";
 import { GetWhitelisted } from "./services/api.service";
+import Mint from "./components/Mint";
+import ContractInfo from "./components/ContractInfo";
+import toast, { Toaster } from "react-hot-toast";
 
 function App() {
 	const { setContractData, setWhitelisted } = useSharedContractData();
@@ -19,7 +22,7 @@ function App() {
 
 	useEffect(() => {
 		const InitWeb3 = async () => {
-			setContractData(await GetContractData())
+			setContractData(await GetContractData());
 		}
 		Init();
 		InitWeb3();
@@ -30,20 +33,22 @@ function App() {
 
 	return (
 		<>
+		<Toaster
+		toastOptions={{
+			className: "toast",
+		}}
+		/>
 			<Nav />
-			<div id='home' className='container px-5 mx-auto'>
-				<Header>
-					<div className='flex flex-col items-start text-center md:text-left'>
-						<p className='mb-4 text-4xl font-bold tracking-tight lg:text-6xl'>
-							The first high end crypto brand
-						</p>
-						<p className='text-4xl font-bold tracking-tight lg:text-6xl'>
-							Join us in the metaverse
-						</p>
-					</div>
+			<div id='home' className='container px-5 mx-auto w-full' >
+				<Header  className="w-full">
 				</Header>
-
 				<Wrapper>
+				<div className='flex flex-row flex-wrap items-start text-center md:text-left' >
+						<ContractInfo />
+						<Mint screens></Mint>
+					</div>
+				</Wrapper>
+				{/* <Wrapper>
 					<NFTArt />
 				</Wrapper>
 
@@ -77,7 +82,7 @@ function App() {
 
 				<Wrapper>
 					<About />
-				</Wrapper>
+				</Wrapper> */}
 
 				<Footer />
 			</div>

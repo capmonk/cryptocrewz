@@ -4,9 +4,12 @@ import { useSharedUserData } from "../store/UserData"
 import { ConnectWallet, DisconnectWallet, FetchUserData, MintPublicSale, GetMaxCount, MintPreSale } from "../utils"
 import { GetWhitelisted, SubmitWhitelist } from "../services/api.service"
 import { useState } from "react";
+import toast from "react-hot-toast";
+import emailValidator from "email-validator";
 
 const Mint = () => {
   const [email, setEmail] = useState("")
+  const [code, setCode] = useState("")
   const { contractData, whitelisted, setWhitelisted} = useSharedContractData();
   const { account, setAccount, count, setCount } = useSharedUserData();
 
@@ -40,14 +43,19 @@ const Mint = () => {
     });
   }
 
-
   const disconnectWallet = async () => {
     await DisconnectWallet();
     setAccount({address: null});
   }
 
   const onWhitelisted = async () => {
-    await SubmitWhitelist({account: account.address, email }).then ((x) => console.log(x))
+    if (!emailValidator.validate(email)) {
+      toast.error("Wrong email format!")
+      return
+    }
+    await SubmitWhitelist({account: account.address, email, code }).then ((x) => console.log(x)).catch(e => {
+      toast.error(e.message)
+    })
     GetWhitelisted().then((x) => setWhitelisted(x))
   }
 
@@ -64,12 +72,17 @@ const Mint = () => {
   const mintPreSale = async () => {
     if (count * contractData.price < account.balance && count > 0) {
       await MintPreSale(count, whitelisted);
+      toast.
       fetchUserData();
     }
   }
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+  }
+
+  const handleCodeChange = (e) => {
+    setCode(e.target.value);
   }
 
   const handleSubmit = (event) => {
@@ -103,40 +116,6 @@ const Mint = () => {
       <div className="mint--container">
         <div id="claim-text-wrapper" className="col-7">
           <div id="payment-modal">
-          { contractData.address ? (<div
-              id="mint-price"
-              className="d-flex items-center justify-between mint-row"
-            >
-              <span>Contract address: </span>
-              <a href={process.env.REACT_APP_EXPLORER_ADDRESS + contractData.address} target="_blank">{ contractData.address }</a>
-              <br/>
-              <span>Contract name: </span>
-              { contractData.name }
-              <br/>
-              <span>Token symbol: </span>
-              { contractData.symbol }
-              <br/>
-              <span>Price: </span>
-              { contractData.price } { process.env.REACT_APP_CONTRACT_COIN}
-              <br/>
-              <span>Total supply: </span>
-              { contractData.totalSupply }
-              <br/>
-              <span>Max supply: </span>
-              { contractData.maxSupply }
-              <br/>
-              <span>Max in presale: </span>
-              { contractData.maxPresale }
-              <br/>
-              <span>Max in public sale: </span>
-              { contractData.maxMainsale }
-              <br/>
-              <span>Public sale active: </span>
-              { contractData.publicSaleIsActive ? "true":"false"}
-              <br/>
-              <span>Presale active: </span>
-              { contractData.preSaleIsActive ? "true":"false" }
-            </div>) :(<></>)}
             { contractData.address && contractData.publicSaleIsActive ? (
               <div>
             <div className={account.address && account.supply < 10 ? "" : "opacity-20"}>
@@ -212,6 +191,8 @@ const Mint = () => {
             <div>
             <div className={account.address && !whitelisted.includes(account.address)? "" : "opacity-20"}>
               <form onSubmit={handleSubmit} >
+                Email:
+                <br/>
                 <input 
                 className="text-black" 
                 type="text" 
@@ -219,7 +200,17 @@ const Mint = () => {
                 onChange={handleEmailChange}
                 disabled={account.address === null}
                 />
+                <br/>
+                <br/>
+                Code: <input 
+                className="text-black" 
+                type="text" 
+                value={code} 
+                onChange={handleCodeChange}
+                disabled={account.address === null}
+                />
               </form>
+              <br/>
                 <button
                 id="purchase-button-wrapper"
                 type="button"
@@ -239,7 +230,7 @@ const Mint = () => {
               ) : <></>}
           { contractData.address && contractData.preSaleIsActive && !contractData.publicSaleIsActive ? (
             <div>
-            <div className={account.address && whitelisted.includes(account.address) && account.supply === 0 ? "" : "opacity-20"}>
+            <div className={account.address && whitelisted.includes(account.address) ? "" : "opacity-20"}>
               <div id="payment-header">
                 <div id="payment-header-text">
                   <h4 className="mb-2">Mint NFT Presale</h4>
@@ -322,12 +313,12 @@ const Mint = () => {
               >
                 Disconnect a wallet
               </button>
-              Address: <a href={process.env.REACT_APP_EXPLORER_ADDRESS + account.address} target="_blank">{ account.address }</a>
+              {/* Address: <a href={process.env.REACT_APP_EXPLORER_ADDRESS + account.address} target="_blank">{ account.address }</a>
               <br/>
               NFT Supply: { account.supply}
               <br/>
               Balance: { Math.round(account.balance * 100) / 100 }
-              <br/>
+              <br/> */}
             </div>
           ) : (
             <button

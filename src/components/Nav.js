@@ -56,12 +56,12 @@ export default function Nav() {
 						<img className='w-16 mr-5' src={logo} alt='CryptoCrewz' />
 					</a>
 					<ul className='flex flex-row text-xl'>
-						<a href='#art'>NFT Art</a>
+						{/* <a href='#art'>NFT Art</a>
 						<a href='#music'>NFT Music</a>
 						<a href='#concert'>Livestream Concerts</a>
 						<a href='#shop'>Shop Apparel</a>
 						<a href='#meta'>Metaverse</a>
-						<a href='#team'>About Us</a>
+						<a href='#team'>About Us</a> */}
 					</ul>
 				</div>
 				<div className='relative right-0 flex flex-row items-center justify-center'>
@@ -94,12 +94,12 @@ export default function Nav() {
 							</svg>
 						</a>
 					</div>
-					<Button
+					{/* <Button
 						className='text-lg border-blue-400 hover:bg-blue-400'
 						text='Login'
 						icon={<FaUserCircle />}
 						onClick={() => console.log("login")}
-					/>
+					/> */}
 					{account.address ? (<button
 						className='text-lg border-red-400 hover:bg-red-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out'
 						onClick={disconnectWallet}

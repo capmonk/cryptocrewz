@@ -10,6 +10,7 @@
 		"@venly/web3-provider": "^0.25.0",
 		"@venly/web3modal": "^1.9.5-develop.1",
 		"caniuse-lite": "^1.0.30001294",
+		"email-validator": "^2.0.4",
 		"ethers": "^5.5.2",
 		"evm-chains": "^0.2.0",
 		"keccak256": "^1.0.6",
