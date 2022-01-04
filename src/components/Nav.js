@@ -37,7 +37,7 @@ export default function Nav() {
     });
 
     provider.on("chainChanged", (chainId) => {
-      if(chainId !== '0x13881') {
+      if (chainId !== process.env.REACT_APP_CHAINID) {
         setAccount({ address: null});
       }
     });
