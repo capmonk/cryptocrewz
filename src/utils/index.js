@@ -108,7 +108,7 @@ export async function MintPublicSale (count) {
   const contract = new window.web3.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
   const from = (await window.web3.eth.getAccounts())[0]
   const value = count * await contract.methods.tokenPrice.call().call();
-  await contract.methods.mint(count).send({from, value});
+  return await contract.methods.mint(count).send({from, value});
 }
 
 function hashToken(address) {

@@ -23,10 +23,15 @@ const MintPresale = () => {
   const mintPreSale = async () => {
     if (count * contractData.price < account.balance && count > 0) {
       setMinting(true)
-      await MintPreSale(count, whitelisted);
+      const result = await MintPreSale(count, whitelisted);
       toast.success("Minted!");
       fetchUserData();
       setContractData(await GetContractData());
+      if (result.status) {
+        toast.success("Minted!");
+      } else {
+        toast.error("Error in transaction!")
+      }
       setMinting(false)
     } else {
       toast.error("Not enough credits!");

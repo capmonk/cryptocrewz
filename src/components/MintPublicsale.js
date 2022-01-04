@@ -27,11 +27,16 @@ const MintPublicsale = () => {
 
     if (count * contractData.price < account.balance && count > 0) {
       setMinting(true)
-      await MintPublicSale(count);
+      const result = await MintPublicSale(count);
       fetchUserData();
       setContractData(await GetContractData());
       setMinting(false)
-      toast.success("Minted!");
+      if (result.status) {
+        toast.success("Minted!");
+      } else {
+        toast.error("Error in transaction!")
+      }
+
     } else {
       toast.error("Not enough credits!");
     }
