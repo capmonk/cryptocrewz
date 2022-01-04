@@ -8,10 +8,12 @@ import {
   GetContractData,
 } from "../utils";
 import { GetWhitelisted } from "../services/api.service";
+import { useState } from "react";
 
 const MintPublicsale = () => {
   const { contractData, setWhitelisted, setContractData } = useSharedContractData();
   const { account, setAccount, count, setCount } = useSharedUserData();
+  const [minting, setMinting] = useState(false)
 
   const fetchUserData = async () => {
     const acc = await FetchUserData();
@@ -24,9 +26,11 @@ const MintPublicsale = () => {
     setWhitelisted(whitelisted);
 
     if (count * contractData.price < account.balance && count > 0) {
+      setMinting(true)
       await MintPublicSale(count);
       fetchUserData();
       setContractData(await GetContractData());
+      setMinting(false)
       toast.success("Minted!");
     } else {
       toast.error("Not enough credits!");
@@ -51,6 +55,8 @@ const MintPublicsale = () => {
   };
 
   return (
+    <div>
+    { !minting ? (
     <div>
       <div
         className={account.address && account.supply < 10 ? "" : "opacity-20"}
@@ -126,6 +132,8 @@ const MintPublicsale = () => {
         <></>
       )}
     </div>
+     ): (<>Minting...</>)}
+     </div>
   );
 };
 

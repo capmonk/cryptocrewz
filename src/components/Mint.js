@@ -1,4 +1,4 @@
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useSharedContractData } from "../store/ContractData";
 import { useSharedUserData } from "../store/UserData";
 import {
@@ -32,7 +32,6 @@ const Mint = () => {
     provider.on("accountsChanged", async (accounts) => {
       const acc = await fetchUserData();
       setTimeout(() => {
-        console.log("count", GetMaxCount(acc));
         setCount(GetMaxCount(acc));
       }, 200);
     });

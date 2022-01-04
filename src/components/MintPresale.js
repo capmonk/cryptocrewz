@@ -1,3 +1,4 @@
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { useSharedContractData } from "../store/ContractData";
 import { useSharedUserData } from "../store/UserData";
@@ -11,6 +12,8 @@ import {
 const MintPresale = () => {
   const { contractData, whitelisted, setContractData } = useSharedContractData();
   const { account, setAccount, count, setCount } = useSharedUserData();
+  const [minting, setMinting] = useState(false)
+
   const fetchUserData = async () => {
     const acc = await FetchUserData();
     setAccount(acc);
@@ -19,10 +22,12 @@ const MintPresale = () => {
 
   const mintPreSale = async () => {
     if (count * contractData.price < account.balance && count > 0) {
+      setMinting(true)
       await MintPreSale(count, whitelisted);
       toast.success("Minted!");
       fetchUserData();
       setContractData(await GetContractData());
+      setMinting(false)
     } else {
       toast.error("Not enough credits!");
     }
@@ -46,6 +51,8 @@ const MintPresale = () => {
   };
 
   return (
+    <div>
+      { !minting ? (
     <div>
       <div
         className={
@@ -131,6 +138,8 @@ const MintPresale = () => {
       ) : (
         <></>
       )}
+    </div>
+    ): (<>Minting...</>)}
     </div>
   );
 };
