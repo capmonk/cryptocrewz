@@ -51,7 +51,7 @@ const MintWhitelist = () => {
                   <div className="flex flex-row justify-center items-end ">
                   <div className="mr-2">Email: </div>
                   <input 
-                  className="placeholder-gray-600 bg-transparent border-b w-64 mr-3 py-1 px-2 leading-tight focus:outline-none text-white" 
+                  className="placeholder-gray-600 bg-transparent border-b w-60 mr-3 py-1 px-2 leading-tight focus:outline-none text-white" 
                   type="email"
                   value={email}
                   onChange={handleEmailChange}
