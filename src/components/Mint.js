@@ -61,7 +61,7 @@ const Mint = () => {
               <button
                 id="purchase-button-wrapper"
                 type="button"
-                className="border-green-440 hover:bg-green-400 py-2 w-96 px-9  pr-12 uppercase mx-2 italic text-xl border border-solid rounded-full"
+                className="border-green-440 hover:bg-green-400 py-2 w-72 px-9  pr-12 uppercase mx-2 italic text-xl border border-solid rounded-full"
                 onClick={disconnectWallet}
               >
                 Disconnect a wallet
