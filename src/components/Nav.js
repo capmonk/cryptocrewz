@@ -58,21 +58,19 @@ export default function Nav() {
 					<ul className='flex flex-row text-xl'>
 					</ul>
 				</div>
-				<div className='relative right-0 flex flex-row items-center justify-center'>
+				{/* <div className='relative right-0 flex flex-row items-center justify-center'>
 					{account.address ? (<button
 						className='border-green-440 hover:bg-green-400 py-2 w-60	 px-9  pr-12 uppercase mx-2 italic text-xl border border-solid rounded-full'
 						onClick={disconnectWallet}
 					>
-						{/* <FaWallet /> */}
 						Disconnect
 					</button>) : (<button
 						className='border-green-440 hover:bg-green-400 py-2 w-60 px-9  pr-12 uppercase mx-2 italic text-xl border border-solid rounded-full'
 						onClick={connectWallet}
 					>
-						{/* <FaWallet /> */}
 						Connect Wallet
 					</button>)}
-				</div>
+				</div> */}
 			</div>
 
 			{/* <div className='fixed z-[99] flex flex-row justify-between w-screen p-2 lg:hidden'>
