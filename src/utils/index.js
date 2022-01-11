@@ -1,4 +1,4 @@
-import Web3 from "web3";
+// import Web3 from "web3";
 import Web3Modal, { getProviderInfo } from "@venly/web3modal";
 import ContractAbi from '../contract/abi.json';
 // import keccak256 from "keccak256";
@@ -6,6 +6,7 @@ import ContractAbi from '../contract/abi.json';
 // import MerkleTree from "merkletreejs";
 
 export async function GetContractData () {
+  const Web3 = await import('web3');
   const web3temp = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_HTTPPROVIDER));
   const contract = new web3temp.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
   return { 
@@ -56,6 +57,7 @@ export async function Init() {
 export async function ConnectWallet () {
     try {
       let provider = await window.web3Modal.connect();
+      const Web3 = await import('web3');
       window.web3 = new Web3(provider);
       const providerName = getProviderInfo(provider).name;
       if (providerName === "MetaMask") {
@@ -80,6 +82,7 @@ export async function ConnectWallet () {
 }
 
 export async function FetchUserData () {
+  const Web3 = await import('web3');
   const contract = new window.web3.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
   const accounts = await window.web3.eth.getAccounts()
   const supply = await contract.methods.balanceOf(accounts[0]).call()
