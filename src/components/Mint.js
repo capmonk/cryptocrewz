@@ -6,13 +6,32 @@ import {
   DisconnectWallet,
   FetchUserData,
   GetMaxCount,
+  Init
 } from "../utils";
+import { useSharedContractData } from "../store/ContractData";
+import { useEffect } from "react";
+import { GetWhitelisted } from "../services/api.service";
 
 import PresaleRegister from "./PresaleRegister";
 // import MintPresaleComponent from "./MintPresale";
 // import MintPublicsaleComponent from "./MintPublicsale";
 
+
 const Mint = () => {
+
+  const { setContractData, setWhitelisted } = useSharedContractData();
+
+  useEffect(() => {
+    // const InitWeb3 = async () => {
+    //   setContractData(await GetContractData());
+    // };
+    Init();
+    // InitWeb3();
+    GetWhitelisted().then((x) => {
+      setWhitelisted(x);
+    });
+  }, [setContractData, setWhitelisted]);
+  
   // const { contractData } = useSharedContractData();
   const { setAccount, setCount, account} = useSharedUserData();
 
