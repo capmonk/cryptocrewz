@@ -8,7 +8,7 @@ import { GetWhitelisted, SubmitWhitelist } from "../services/api.service"
 const MintWhitelist = () => {
   const [email, setEmail] = useState("")
   const [code, setCode] = useState("")
-  const { contractData, whitelisted, setWhitelisted} = useSharedContractData();
+  const { whitelisted, setWhitelisted} = useSharedContractData();
   const { account } = useSharedUserData();
 
   const onWhitelisted = async () => {
@@ -16,10 +16,10 @@ const MintWhitelist = () => {
       toast.error("Wrong email format!")
       return
     }
-    if (account.balance < contractData.price) {
-      toast.error("Not enough credits on wallet!")
-      return
-    }
+    // if (account.balance < contractData.price) {
+    //   toast.error("Not enough credits on wallet!")
+    //   return
+    // }
     await SubmitWhitelist({account: account.address, email, code }).then ((x) => console.log(x)).catch(e => {
       toast.error(e.message)
     })
@@ -43,7 +43,7 @@ const MintWhitelist = () => {
             <div className={!whitelisted.includes(account.address)? "" : "hidden"}>
             <div className={account.address? "flex align-center items-center flex-col" : "opacity-20 flex items-center flex-col"}>
               <div className="text-center text-xl font-light mb-4">
-                Enter your email and promo code to get whitelisted.
+              Enter your email (and promo code if available), to register on the pre-sale list.
               </div>
               <form onSubmit={handleSubmit} className="flex justify-center flex-col w-80 mb-5">
                 <br/>
@@ -61,12 +61,13 @@ const MintWhitelist = () => {
                   {/* <div className="bg-white h-px"></div> */}
                   <br/>
                   <div className="flex flex-row justify-center items-end ">
-                  <div className="mr-2">Code: </div>
+                  <div className="mr-2">Promo Code:</div>
                   <input 
-                  className="bg-transparent border-b w-64 mr-3 py-1 px-2 leading-tight focus:outline-none text-white" 
+                  className="bg-transparent border-b w-54 mr-3 py-1 px-2 leading-tight focus:outline-none text-white placeholder-white placeholder-opacity-20" 
                   type="text" 
                   value={code} 
                   onChange={handleCodeChange}
+                  placeholder="optional"
                   disabled={account.address === null || whitelisted.includes(account.address)}
                   />
                   </div>
@@ -80,7 +81,7 @@ const MintWhitelist = () => {
                 onClick={onWhitelisted}
                 disabled={account.address === null || whitelisted.includes(account.address)}
               >
-                Get whitelisted
+                Register now
               </button>
               </div>
               </div >
