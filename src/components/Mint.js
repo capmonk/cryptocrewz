@@ -1,5 +1,5 @@
 import { Toaster } from "react-hot-toast";
-import { useSharedContractData } from "../store/ContractData";
+// import { useSharedContractData } from "../store/ContractData";
 // import { useSharedUserData } from "../store/UserData";
 // import {
 //   ConnectWallet,
@@ -8,7 +8,7 @@ import { useSharedContractData } from "../store/ContractData";
 //   GetMaxCount,
 // } from "../utils";
 
-import PresaleRegister from "./PresaleRegister";
+// import PresaleRegister from "./PresaleRegister";
 // import MintPresaleComponent from "./MintPresale";
 // import MintPublicsaleComponent from "./MintPublicsale";
 
@@ -83,7 +83,10 @@ const Mint = () => {
         </div> */}
         <div id="claim-text-wrapper" className="col-7 flex flex-col">
           <div className="h-64 w-96">
-            <PresaleRegister />
+          <div
+              className="opacity-100 text-white text-center font-light text-3xl mt-20">
+                Comming soon...
+              </div>
 
             {/* {contractData.address &&
             contractData.preSaleIsActive &&

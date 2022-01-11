@@ -4,53 +4,53 @@ import logo from "../img/logo.jpg";
 // import { FaUserCircle, FaDiscord, FaTwitter, FaWallet } from "react-icons/fa";
 // // import { FiMenu } from "react-icons/fi";
 // import MusicButton from "./MusicButton";
-import { useSharedUserData } from "../store/UserData";
-import { ConnectWallet, DisconnectWallet, FetchUserData, GetMaxCount } from "../utils"
-import { useSharedContractData } from "../store/ContractData"
+// import { useSharedUserData } from "../store/UserData";
+// import { FetchUserData } from "../utils"
+// import { useSharedContractData } from "../store/ContractData"
 
 export default function Nav() {
-	const { account, setAccount, setCount } = useSharedUserData();
+	// const { setAccount, setCount } = useSharedUserData();
 	// const [ setIsOpen] = useState(false);
-	const { contractData } = useSharedContractData();
+	// const { contractData } = useSharedContractData();
 	// const closeNav = () => {
 	// 	return setIsOpen(false);
 	// }
 
-	const fetchUserData = async () => {
-    setAccount(await FetchUserData());
-  }
+	// const fetchUserData = async () => {
+  //   setAccount(await FetchUserData());
+  // }
 
-  const connectWallet = async () => {
-    const { provider, account} = await ConnectWallet()
-    setAccount(account);
-		setTimeout(() => {
-      console.log("count", GetMaxCount(account, contractData))
-      setCount(GetMaxCount(account, contractData))
-    }, 200);
+  // const connectWallet = async () => {
+  //   const { provider, account} = await ConnectWallet()
+  //   setAccount(account);
+	// 	setTimeout(() => {
+  //     console.log("count", GetMaxCount(account, contractData))
+  //     setCount(GetMaxCount(account, contractData))
+  //   }, 200);
     
     
-    provider.on("accountsChanged", async (accounts) => {
-      const acc = await fetchUserData();
-      setTimeout(() => {
-        setCount(GetMaxCount(acc, contractData))
-      }, 200);
-    });
+  //   provider.on("accountsChanged", async (accounts) => {
+  //     const acc = await fetchUserData();
+  //     setTimeout(() => {
+  //       setCount(GetMaxCount(acc, contractData))
+  //     }, 200);
+  //   });
 
-    provider.on("chainChanged", (chainId) => {
-      if (chainId !== process.env.REACT_APP_CHAINID) {
-        setAccount({ address: null});
-      }
-    });
+  //   provider.on("chainChanged", (chainId) => {
+  //     if (chainId !== process.env.REACT_APP_CHAINID) {
+  //       setAccount({ address: null});
+  //     }
+  //   });
   
-  }
+  // }
 
-  const disconnectWallet = async () => {
-    await DisconnectWallet();
-    setAccount({address: null});
-  }
+  // const disconnectWallet = async () => {
+  //   await DisconnectWallet();
+  //   setAccount({address: null});
+  // }
 	return (
 		<>
-			<div className='sticky top-0 z-40 flex-row justify-between w-full p-5 lg:flex'>
+			<div className='sticky top-0 z-40 flex-row justify-center w-full p-5 lg:flex'>
 				<div className='left-0 flex flex-row items-center justify-center nav'>
 					<a href='https://www.cryptocrewz.com/'>
 						<img className='w-16 mr-5 ml-7 lg:ml-0 mb-5' src={logo} alt='CryptoCrewz' />
@@ -58,21 +58,19 @@ export default function Nav() {
 					<ul className='flex flex-row text-xl'>
 					</ul>
 				</div>
-				<div className='relative right-0 flex flex-row items-center justify-center'>
+				{/* <div className='relative right-0 flex flex-row items-center justify-center'>
 					{account.address ? (<button
 						className='border-green-440 hover:bg-green-400 py-2 w-60	 px-9  pr-12 uppercase mx-2 italic text-xl border border-solid rounded-full'
 						onClick={disconnectWallet}
 					>
-						{/* <FaWallet /> */}
 						Disconnect
 					</button>) : (<button
 						className='border-green-440 hover:bg-green-400 py-2 w-60 px-9  pr-12 uppercase mx-2 italic text-xl border border-solid rounded-full'
 						onClick={connectWallet}
 					>
-						{/* <FaWallet /> */}
 						Connect Wallet
 					</button>)}
-				</div>
+				</div> */}
 			</div>
 
 			{/* <div className='fixed z-[99] flex flex-row justify-between w-screen p-2 lg:hidden'>
