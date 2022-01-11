@@ -30,8 +30,8 @@
 	},
 	"scripts": {
 		"start": "cross-env TAILWIND_MODE=watch craco start",
-		"build": "craco build",
-		"build:prod": "GENERATE_SOURCEMAP=false craco build",
+		"build": "GENERATE_SOURCEMAP=false craco build",
+		"build:dev": "GENERATE_SOURCEMAP=false craco build",
 		"test": "craco test",
 		"eject": "react-scripts eject"
 	},
