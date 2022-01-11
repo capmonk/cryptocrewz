@@ -9,8 +9,8 @@ import {
 } from "../utils";
 
 import MintWhitelistComponent from "./MintWhitelist";
-import MintPresaleComponent from "./MintPresale";
-import MintPublicsaleComponent from "./MintPublicsale";
+// import MintPresaleComponent from "./MintPresale";
+// import MintPublicsaleComponent from "./MintPublicsale";
 
 const Mint = () => {
   const { contractData } = useSharedContractData();
@@ -55,43 +55,35 @@ const Mint = () => {
           className: "toast",
         }}
       />
-      <div className="mint-container">
-        <div className="h-36">
+      <div className="mint-container" >
+        {/* <div className="h-36">
           {account.address ? (
             <div>
               <button
                 id="purchase-button-wrapper"
                 type="button"
-                className="border-green-440 hover:bg-green-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
+                className="border-green-440 hover:bg-green-400 py-2 w-96 px-9  pr-12 uppercase mx-2 italic text-2xl border border-solid rounded-full"
                 onClick={disconnectWallet}
               >
                 Disconnect a wallet
               </button>
-              {/* Address: <a href={process.env.REACT_APP_EXPLORER_ADDRESS + account.address} target="_blank" rel="noreferrer">{ account.address }</a>
-              <br/>
-              NFT Supply: { account.supply}
-              <br/>
-              Balance: { Math.round(account.balance * 100) / 100 }
-              <br/> */}
             </div>
           ) : (
             <div className={contractData.address !== null ? "" : "opacity-20"}>
               <button
                 id="purchase-button-wrapper"
                 type="button"
-                className="border-green-440 hover:bg-green-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid"
+                className="border-green-440 w-96 hover:bg-green-400 py-2 px-9 pr-12 uppercase italic mx-2 text-2xl border border-solid rounded-full"
                 onClick={connectWallet}
               >
                 Connect a wallet
               </button>
             </div>
           )}
-        </div>
+        </div> */}
         <div id="claim-text-wrapper" className="col-7 flex flex-col">
           <div className="h-64 w-96">
-            {contractData.address &&
-            !contractData.preSaleIsActive &&
-            !contractData.publicSaleIsActive ? (
+            {contractData.address ? (
               <div>
                 <MintWhitelistComponent />
               </div>
@@ -99,7 +91,7 @@ const Mint = () => {
               <></>
             )}
 
-            {contractData.address &&
+            {/* {contractData.address &&
             contractData.preSaleIsActive &&
             !contractData.publicSaleIsActive ? (
               <div>
@@ -115,7 +107,7 @@ const Mint = () => {
               </div>
             ) : (
               <></>
-            )}
+            )} */}
           </div>
         </div>
       </div>

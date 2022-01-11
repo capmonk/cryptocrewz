@@ -15,6 +15,7 @@ import { GetWhitelisted } from "./services/api.service";
 import Mint from "./components/Mint";
 import ContractInfo from "./components/ContractInfo";
 import { Toaster } from "react-hot-toast";
+import concert from "./video/concert.mp4";
 
 function App() {
   const { setContractData, setWhitelisted } = useSharedContractData();
@@ -31,21 +32,25 @@ function App() {
   }, [setContractData, setWhitelisted]);
 
   return (
-    <>
+    <div className="h-[22rem]">
+      <video
+					className='z-[-1] top-0 right-0 w-screen h-screen fixed object-cover opacity-60'
+					autoPlay
+					loop
+					muted
+				>
+					<source src={concert} type='video/mp4' />
+				</video>
       <Toaster
         toastOptions={{
           className: "toast",
         }}
       />
+      
       <Nav />
-      <div id="home" className="container px-5 mx-auto w-full">
-        <Header className="w-full"></Header>
-        <Wrapper>
-          <div className="flex flex-row flex-wrap items-center justify-center text-center md:text-left">
-            <Mint screens></Mint>
-            <ContractInfo />
-          </div>
-        </Wrapper>
+      <Header className="w-full"></Header>
+      <div id="home" className="container px-5 mx-auto w-full flex items-center justify-center h-full" >
+        <Mint></Mint >   
         {/* <Wrapper>
 					<NFTArt />
 				</Wrapper>
@@ -81,10 +86,9 @@ function App() {
 				<Wrapper>
 					<About />
 				</Wrapper> */}
-
-        <Footer />
       </div>
-    </>
+      <Footer />
+    </div>
   );
 }
 

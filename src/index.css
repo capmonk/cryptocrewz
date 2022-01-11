@@ -8,7 +8,7 @@ html {
 }
 
 body {
-	font-family: "Source Sans Pro", sans-serif;
+	font-family: "Roboto Condensed", sans-serif;
 	@apply bg-primary text-white overflow-x-hidden;
 }
 

@@ -39,42 +39,51 @@ const MintWhitelist = () => {
   }
   // style={{"background-color": "#4500FF22"}}
   return (
-          <div>
-            <div className={account.address && !whitelisted.includes(account.address)? "" : "opacity-20"}>
-              <form onSubmit={handleSubmit} >
+          <div >
+            <div className={!whitelisted.includes(account.address)? "" : "hidden"}>
+            <div className={account.address? "flex align-center items-center flex-col" : "opacity-20 flex items-center flex-col"}>
+              <form onSubmit={handleSubmit} className="flex justify-center flex-col w-80 mb-5">
                 <br/>
-                Email: <input 
-                className="text-black" 
-                type="text" 
-                value={email} 
-                onChange={handleEmailChange}
-                disabled={account.address === null || whitelisted.includes(account.address)}
-                />
-                <br/>
-                <br/>
-                Code: <input 
-                className="text-black" 
-                type="text" 
-                value={code} 
-                onChange={handleCodeChange}
-                disabled={account.address === null || whitelisted.includes(account.address)}
-                />
+                <div>
+                  <div className="flex flex-row justify-center items-end ">
+                  <div className="mr-2">Email: </div>
+                  <input 
+                  className="placeholder-gray-600 bg-transparent border-b w-64 mr-3 py-1 px-2 leading-tight focus:outline-none text-white" 
+                  type="email"
+                  value={email}
+                  onChange={handleEmailChange}
+                  disabled={account.address === null || whitelisted.includes(account.address)}
+                  />
+                  </div>
+                  {/* <div className="bg-white h-px"></div> */}
+                  <br/>
+                  <div className="flex flex-row justify-center items-end ">
+                  <div className="mr-2">Code: </div>
+                  <input 
+                  className="bg-transparent border-b w-64 mr-3 py-1 px-2 leading-tight focus:outline-none text-white" 
+                  type="text" 
+                  value={code} 
+                  onChange={handleCodeChange}
+                  disabled={account.address === null || whitelisted.includes(account.address)}
+                  />
+                  </div>
+                </div>
               </form>
               <br/>
                 <button
                 id="purchase-button-wrapper"
                 type="button"
-                className="border-green-440 hover:bg-green-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid"
+                className="border-green-440 w-86 hover:bg-green-400 py-2 px-9 pr-12 uppercase italic mx-2 text-2xl border border-emerald-600 rounded-full"
                 onClick={onWhitelisted}
                 disabled={account.address === null || whitelisted.includes(account.address)}
               >
                 Get whitelisted
               </button>
-              
               </div>
+              </div >
               { whitelisted.includes(account.address) ? (<div
-              className="opacity-100 text-red-600">
-                You are already withelisted
+              className="opacity-100 text-white text-center font-light text-3xl mt-20">
+                You are succesfuly withelisted.
               </div>):(<></>)}
               </div>
               
