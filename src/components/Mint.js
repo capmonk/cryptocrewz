@@ -85,7 +85,7 @@ const Mint = () => {
           <div className="h-64 w-96">
           <div
               className="opacity-100 text-white text-center font-light text-3xl mt-20">
-                Comming very soon...
+                Coming very soon...
               </div>
 
             {/* {contractData.address &&
