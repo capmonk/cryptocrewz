@@ -87,7 +87,7 @@ const MintWhitelist = () => {
               </div >
               { whitelisted.includes(account.address) ? (<div
               className="opacity-100 text-white text-center font-light text-3xl mt-20">
-                You are succesfuly withelisted.
+                You are successfully pre-registered.
               </div>):(<></>)}
               </div>
               
