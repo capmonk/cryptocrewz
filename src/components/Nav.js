@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import logo from "../img/logo.jpg";
 // import Button from "./Button";
 // import { FaUserCircle, FaDiscord, FaTwitter, FaWallet } from "react-icons/fa";
@@ -10,11 +10,11 @@ import { useSharedContractData } from "../store/ContractData"
 
 export default function Nav() {
 	const { account, setAccount, setCount } = useSharedUserData();
-	const [isOpen, setIsOpen] = useState(false);
+	// const [ setIsOpen] = useState(false);
 	const { contractData } = useSharedContractData();
-	const closeNav = () => {
-		return setIsOpen(false);
-	}
+	// const closeNav = () => {
+	// 	return setIsOpen(false);
+	// }
 
 	const fetchUserData = async () => {
     setAccount(await FetchUserData());

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaTwitter, FaDiscord, FaEnvelope } from "react-icons/fa";
-import logo from "../img/logo.jpg";
+// import logo from "../img/logo.jpg";
 import Modal from "./Modal";
 
 export default function Footer() {

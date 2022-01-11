@@ -17,7 +17,7 @@ const MintWhitelist = () => {
       return
     }
     if (account.balance < contractData.price) {
-      toast.error("Not enough credits!")
+      toast.error("Not enough credits on wallet!")
       return
     }
     await SubmitWhitelist({account: account.address, email, code }).then ((x) => console.log(x)).catch(e => {
@@ -42,6 +42,9 @@ const MintWhitelist = () => {
           <div >
             <div className={!whitelisted.includes(account.address)? "" : "hidden"}>
             <div className={account.address? "flex align-center items-center flex-col" : "opacity-20 flex items-center flex-col"}>
+              <div className="text-center text-xl font-light mb-4">
+                Enter your email and promo code to get whitelisted.
+              </div>
               <form onSubmit={handleSubmit} className="flex justify-center flex-col w-80 mb-5">
                 <br/>
                 <div>

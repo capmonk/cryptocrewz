@@ -1,12 +1,12 @@
 import { Toaster } from "react-hot-toast";
 import { useSharedContractData } from "../store/ContractData";
-import { useSharedUserData } from "../store/UserData";
-import {
-  ConnectWallet,
-  DisconnectWallet,
-  FetchUserData,
-  GetMaxCount,
-} from "../utils";
+// import { useSharedUserData } from "../store/UserData";
+// import {
+//   ConnectWallet,
+//   DisconnectWallet,
+//   FetchUserData,
+//   GetMaxCount,
+// } from "../utils";
 
 import MintWhitelistComponent from "./MintWhitelist";
 // import MintPresaleComponent from "./MintPresale";
@@ -14,39 +14,39 @@ import MintWhitelistComponent from "./MintWhitelist";
 
 const Mint = () => {
   const { contractData } = useSharedContractData();
-  const { account, setAccount, setCount } = useSharedUserData();
+  // const { setAccount, setCount } = useSharedUserData();
 
-  const fetchUserData = async () => {
-    const acc = await FetchUserData();
-    setAccount(acc);
-    return acc;
-  };
+  // const fetchUserData = async () => {
+  //   const acc = await FetchUserData();
+  //   setAccount(acc);
+  //   return acc;
+  // };
 
-  const connectWallet = async () => {
-    const { provider, account } = await ConnectWallet();
-    setAccount(account);
-    setTimeout(() => {
-      setCount(GetMaxCount(account, contractData));
-    }, 200);
+  // const connectWallet = async () => {
+  //   const { provider, account } = await ConnectWallet();
+  //   setAccount(account);
+  //   setTimeout(() => {
+  //     setCount(GetMaxCount(account, contractData));
+  //   }, 200);
 
-    provider.on("accountsChanged", async (accounts) => {
-      const acc = await fetchUserData();
-      setTimeout(() => {
-        setCount(GetMaxCount(acc));
-      }, 200);
-    });
+  //   provider.on("accountsChanged", async (accounts) => {
+  //     const acc = await fetchUserData();
+  //     setTimeout(() => {
+  //       setCount(GetMaxCount(acc));
+  //     }, 200);
+  //   });
 
-    provider.on("chainChanged", (chainId) => {
-      if (chainId !== process.env.REACT_APP_CHAINID) {
-        setAccount({ address: null });
-      }
-    });
-  };
+  //   provider.on("chainChanged", (chainId) => {
+  //     if (chainId !== process.env.REACT_APP_CHAINID) {
+  //       setAccount({ address: null });
+  //     }
+  //   });
+  // };
 
-  const disconnectWallet = async () => {
-    await DisconnectWallet();
-    setAccount({ address: null });
-  };
+  // const disconnectWallet = async () => {
+  //   await DisconnectWallet();
+  //   setAccount({ address: null });
+  // };
 
   return (
     <div>

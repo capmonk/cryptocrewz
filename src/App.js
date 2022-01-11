@@ -1,5 +1,5 @@
 import Header from "./components/Header";
-import Wrapper from "./components/Wrapper";
+// import Wrapper from "./components/Wrapper";
 import Nav from "./components/Nav";
 // import NFTArt from "./components/NFTArt";
 // import NFTMusic from "./components/NFTMusic";
@@ -13,7 +13,7 @@ import { useSharedContractData } from "./store/ContractData";
 import { useEffect } from "react";
 import { GetWhitelisted } from "./services/api.service";
 import Mint from "./components/Mint";
-import ContractInfo from "./components/ContractInfo";
+// import ContractInfo from "./components/ContractInfo";
 import { Toaster } from "react-hot-toast";
 import concert from "./video/concert.mp4";
 
