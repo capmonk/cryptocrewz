@@ -31,7 +31,8 @@ export async function Init() {
     venly: {
       package: Venly,
       options: {
-        clientId: process.env.REACT_APP_VENLY_USERNAME
+        clientId: process.env.REACT_APP_VENLY_USERNAME,
+        environment: (process.env.REACT_APP_VENLY_USERNAME === "Testaccount" ? "staging" : "production")
       },
       display: {
         description: "Create wallet with social media account."
