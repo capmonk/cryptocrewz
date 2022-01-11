@@ -2,11 +2,11 @@ import React from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 export default function Modal(props) {
-	if (props.state === true) {
-		document.body.style.overflow = "hidden";
-	} else {
-		document.body.style.overflowY = "scroll";
-	}
+	// if (props.state === true) {
+	// 	document.body.style.overflow = "hidden";
+	// } else {
+	// 	document.body.style.overflowY = "scroll";
+	// }
 
 	return (
 		<>

@@ -67,7 +67,7 @@ function NftSlider(props) {
 				breakpoint: 900,
 				settings: {
 					slidesToShow: 1,
-					slidesToScroll: 3,
+					slidesToScroll: 1,
 					focusOnSelect: true,
 					swipeToSlide: true,
 					lazyload: true,
