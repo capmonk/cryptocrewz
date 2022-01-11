@@ -33,6 +33,9 @@ export async function Init() {
       options: {
         clientId: "Testaccount",
         environment: "staging"
+      },
+      display: {
+        description: "Create wallet with social media account."
       }
     }
   };
