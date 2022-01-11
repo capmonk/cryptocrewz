@@ -8,24 +8,25 @@ import Nav from "./components/Nav";
 // import Metaverse from "./components/Metaverse";
 // import About from "./components/About";
 import Footer from "./components/Footer";
-import { GetContractData, Init } from "./utils";
+import { Init } from "./utils";
 import { useSharedContractData } from "./store/ContractData";
 import { useEffect } from "react";
 import { GetWhitelisted } from "./services/api.service";
 import Mint from "./components/Mint";
 // import ContractInfo from "./components/ContractInfo";
 import { Toaster } from "react-hot-toast";
-import concert from "./video/concert.mp4";
+// import concert from "./video/concert.mp4";
+import backdrop from "./img/concert_blue_snapshot.jpg";
 
 function App() {
   const { setContractData, setWhitelisted } = useSharedContractData();
 
   useEffect(() => {
-    const InitWeb3 = async () => {
-      setContractData(await GetContractData());
-    };
+    // const InitWeb3 = async () => {
+    //   setContractData(await GetContractData());
+    // };
     Init();
-    InitWeb3();
+    // InitWeb3();
     GetWhitelisted().then((x) => {
       setWhitelisted(x);
     });
@@ -33,14 +34,15 @@ function App() {
 
   return (
     <div className="h-[22rem]">
-      <video
+      {/* <video
 					className='z-[-1] top-0 right-0 w-screen h-screen fixed object-cover opacity-60'
 					autoPlay
 					loop
 					muted
 				>
 					<source src={concert} type='video/mp4' />
-				</video>
+				</video> */}
+				<img className='z-[-1] w-screen h-screen fixed object-cover opacity-60' src={backdrop} alt='CryptoCrewz' />
       <Toaster
         toastOptions={{
           className: "toast",

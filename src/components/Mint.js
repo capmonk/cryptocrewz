@@ -8,12 +8,12 @@ import { useSharedContractData } from "../store/ContractData";
 //   GetMaxCount,
 // } from "../utils";
 
-import MintWhitelistComponent from "./MintWhitelist";
+import PresaleRegister from "./PresaleRegister";
 // import MintPresaleComponent from "./MintPresale";
 // import MintPublicsaleComponent from "./MintPublicsale";
 
 const Mint = () => {
-  const { contractData } = useSharedContractData();
+  // const { contractData } = useSharedContractData();
   // const { setAccount, setCount } = useSharedUserData();
 
   // const fetchUserData = async () => {
@@ -83,13 +83,7 @@ const Mint = () => {
         </div> */}
         <div id="claim-text-wrapper" className="col-7 flex flex-col">
           <div className="h-64 w-96">
-            {contractData.address ? (
-              <div>
-                <MintWhitelistComponent />
-              </div>
-            ) : (
-              <></>
-            )}
+            <PresaleRegister />
 
             {/* {contractData.address &&
             contractData.preSaleIsActive &&
