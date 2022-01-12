@@ -4,6 +4,7 @@ import { useBetween } from 'use-between';
 const useUserData = () => {
   const [account, SetAccount] = useState({
     address: null,
+    provider: "",
     balance: 0,
     supply: 0,
     whitelisted: false

@@ -1,5 +1,5 @@
 import Web3 from "web3";
-import Web3Modal, { getProviderInfo } from "@venly/web3modal";
+// import Web3Modal, { getProviderInfo } from "@venly/web3modal";
 import ContractAbi from '../contract/abi.json';
 // import keccak256 from "keccak256";
 // import { ethers } from "ethers";
@@ -25,50 +25,78 @@ export async function GetContractData () {
 
 export async function Init() {
   
-  const Venly = window.Venly;
+  // const Venly = window.Venly;
 
-  const providerOptions = {
-    venly: {
-      package: Venly,
-      options: {
-        clientId: process.env.REACT_APP_VENLY_USERNAME,
-        environment: (process.env.REACT_APP_VENLY_USERNAME === "Testaccount" ? "staging" : "production")
-      },
-      display: {
-        description: "Create wallet with social media account."
-      }
-    }
-  };
-  window.web3Modal = new Web3Modal({
-    cacheProvider: false, // optional
-    providerOptions, // required
-    disableInjectedProvider: false, // optional. For MetaMask / Brave / Opera.
-    theme: {
-      background: "rgb(20, 20, 20)",
-      main: "rgb(199, 199, 199)",
-      secondary: "rgb(136, 136, 136)",
-      border: "3px rgba(195, 195, 195, 0.14)",
-      hover: "rgb(16, 26, 32)"
-    }
-  });
+  // const providerOptions = {
+  //   venly: {
+  //     package: Venly,
+  //     options: {
+  //       clientId: process.env.REACT_APP_VENLY_USERNAME,
+  //       environment: (process.env.REACT_APP_VENLY_USERNAME === "Testaccount" ? "staging" : "production")
+  //     },
+  //     display: {
+  //       description: "Create wallet with social media account."
+  //     }
+  //   }
+  // };
+  // window.web3Modal = new Web3Modal({
+  //   cacheProvider: false, // optional
+  //   providerOptions, // required
+  //   disableInjectedProvider: false, // optional. For MetaMask / Brave / Opera.
+  //   theme: {
+  //     background: "rgb(20, 20, 20)",
+  //     main: "rgb(199, 199, 199)",
+  //     secondary: "rgb(136, 136, 136)",
+  //     border: "3px rgba(195, 195, 195, 0.14)",
+  //     hover: "rgb(16, 26, 32)"
+  //   }
+  // });
 }
 
-export async function ConnectWallet () {
+export async function ConnectWallet (walletType) {
+    let provider
+    console.log(walletType)
     try {
-      let provider = await window.web3Modal.connect();
-      
-      window.web3 = new Web3(provider);
-      const providerName = getProviderInfo(provider).name;
-      if (providerName === "MetaMask") {
-        await window.web3.currentProvider.request({
+      if (walletType === "metamask") {
+        provider = await window.ethereum.request({
           method: 'wallet_addEthereumChain',
           params: [{ chainId: process.env.REACT_APP_CHAINID, rpcUrls: [process.env.REACT_APP_HTTPPROVIDER], chainName: process.env.REACT_APP_CHAINNAME ,blockExplorerUrls: [process.env.REACT_APP_EXPLORER_ADDRESS ], nativeCurrency: { name: process.env.REACT_APP_CONTRACT_COIN, decimals: 18, symbol: process.env.REACT_APP_CONTRACT_COIN }}],
         });
-      } 
-      if (providerName === "Web3") {
-        provider = await window.Venly.changeSecretType(process.env.REACT_APP_VENLY_CHAINID)
-        window.web3 = new Web3(provider);
+      } else {
+        let options = {
+          clientId: process.env.REACT_APP_VENLY_USERNAME,
+          environment: (process.env.REACT_APP_VENLY_USERNAME === "Testaccount" ? "staging" : "production"),
+          skipAuthentication: false,
+        };
+        if (walletType.length > 0) {
+          options.authenticationOptions = {idpHint: walletType}
+        }
+        console.log(options)
+
+        try {
+          const Venly = window.Venly;
+          provider = await Venly.createProviderEngine(options)
+          provider = await window.Venly.changeSecretType(process.env.REACT_APP_VENLY_CHAINID)
+          window.web3 = new Web3(provider);
+          // await Venly.authenticate(options)
+        } catch (reason) {
+          if (reason) {
+            switch (reason) {
+                case 'not-authenticated':
+                    console.log('User is not authenticated (closed window?)', reason);
+                    break;
+                case 'no-wallet-linked':
+                    console.log('No wallet was linked to this application', reason);
+                    break;
+                default:
+                    console.log('Something went wrong while creating the Venly provider', reason);
+            }
+          } else {
+              console.log('Something went wrong while creating the Venly provider');
+          }
+        }
       }
+    
       const contract = new window.web3.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
       const accounts = await window.web3.eth.getAccounts()
       const supply = await contract.methods.balanceOf(accounts[0]).call()
@@ -80,13 +108,12 @@ export async function ConnectWallet () {
   }
 }
 
-export async function FetchUserData () {
-  
+export async function FetchUserData (provider) {
   const contract = new window.web3.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
   const accounts = await window.web3.eth.getAccounts()
   const supply = await contract.methods.balanceOf(accounts[0]).call()
   const balance = Web3.utils.fromWei( await window.web3.eth.getBalance(accounts[0]))
-  return {address: accounts[0], supply, balance }
+  return {address: accounts[0], supply, balance, provider }
 }
 
 export async function DisconnectWallet () {

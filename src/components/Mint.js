@@ -9,8 +9,13 @@ import {
   Init
 } from "../utils";
 import { useSharedContractData } from "../store/ContractData";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { GetWhitelisted } from "../services/api.service";
+import twitter from "../img/logos/Twitter.png";
+import google from "../img/logos/Google.png";
+import facebook from "../img/logos/Facebook.png";
+import venly from "../img/logos/Venly.svg";
+import metamask from "../img/logos/Metamask.svg";
 
 import PresaleRegister from "./PresaleRegister";
 // import MintPresaleComponent from "./MintPresale";
@@ -18,7 +23,8 @@ import PresaleRegister from "./PresaleRegister";
 
 
 const Mint = () => {
-
+  const [walletModal, setWalletModal] = useState(false);
+  const [providerName, setProviderName] = useState("");
   const { setContractData, setWhitelisted } = useSharedContractData();
 
   useEffect(() => {
@@ -37,29 +43,40 @@ const Mint = () => {
 
   const fetchUserData = async () => {
     const acc = await FetchUserData();
-    setAccount(acc);
+    setAccount({...acc, providerName });
     return acc;
   };
 
-  const connectWallet = async () => {
-    const { provider, account } = await ConnectWallet();
-    setAccount(account);
+  const openWalletModal = () => {
+    setWalletModal(true)
+  }
+  const closeWalletModal = () => {
+    setWalletModal(false)
+  }
+  const connectWallet = async (walletType) => {
+    setProviderName(walletType)
+      const { provider, account } = await ConnectWallet(walletType);
+      setAccount(account);
+      setWalletModal(false)
 
-    provider.on("accountsChanged", async (accounts) => {
-      const acc = await fetchUserData();
-      setTimeout(() => {
-        setCount(GetMaxCount(acc));
-      }, 200);
-    });
+      provider.on("accountsChanged", async (accounts) => {
+        const acc = await fetchUserData();
+        setTimeout(() => {
+          setCount(GetMaxCount(acc));
+        }, 200);
+      });
 
-    provider.on("chainChanged", (chainId) => {
-      if (chainId !== process.env.REACT_APP_CHAINID) {
-        setAccount({ address: null });
-      }
-    });
+      provider.on("chainChanged", (chainId) => {
+        if (chainId !== process.env.REACT_APP_CHAINID) {
+          setAccount({ address: null });
+        }
+      });
   };
 
   const disconnectWallet = async () => {
+    if (window.Venly.connect()){
+      window.Venly.connect().logout()
+    }
     await DisconnectWallet();
     setAccount({ address: null });
   };
@@ -92,7 +109,7 @@ const Mint = () => {
                 id="purchase-button-wrapper"
                 type="button"
                 className="border-green-440 w-72 hover:bg-green-400 py-2 px-9 pr-12 uppercase italic mx-2 text-xl border border-solid rounded-full"
-                onClick={connectWallet}
+                onClick={openWalletModal}
               >
                 Connect a wallet
               </button>
@@ -122,6 +139,53 @@ const Mint = () => {
           </div>
         </div>
       </div>
+      {/* primary: "#1f1f1f",
+				secondary: "#383838" */}
+        { walletModal ? (<>
+      <div className="left-0 top-0 fixed h-screen w-screen">
+        <div className="absolute left-0 top-0  h-screen w-screen bg-black opacity-90" onClick={closeWalletModal}></div>
+        <div className="absolute left-0 top-0  h-screen w-screen grid justify-items-center items-center pointer-events-none" >
+          <div className="flex flex-col items-center p-4 w-80 bg-opacity-50 rounded-3xl  pointer-events-auto" style={{ "backgroundColor": "#1b1e26"}}>
+            <div className="mb-3">Connect with:</div>
+            {  window.ethereum ? (<>
+            <button onClick={() => {connectWallet("metamask")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 p-4 mb-4 h-16 rounded-3xl font-light" >
+            <img className="h-8 ml-2 mr-4" alt="Metamask" src={metamask}></img>
+              Metamask
+            </button>
+            </>): (<></>)}
+            
+            <button onClick={() => {connectWallet("google")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 p-4 mb-4 h-16 rounded-3xl font-light">
+              <img className="h-8 ml-2 mr-4" alt="Google" src={google}></img>
+              <div>
+                Continue with Google
+                <span className="text-xs"> (Venly)</span>
+              </div>
+            </button>
+            
+            <button onClick={() => {connectWallet("twitter")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 p-4 mb-4 h-16 rounded-3xl font-light">
+              <img className="h-8 ml-2 mr-4" alt="Twitter" src={twitter}></img>
+              <div>Continue with Twitter
+                <span className="text-xs"> (Venly)</span>
+              </div>
+            </button>
+
+            <button onClick={() => {connectWallet("facebook")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 mb-4 p-4 h-16 rounded-3xl font-light">
+            <img className="h-8 ml-2 mr-4" alt="Facebook" src={facebook}></img>
+            <div>
+              Continue with Facebook
+              <span className="text-xs"> (Venly)</span>
+              </div>
+            </button>
+
+            <button onClick={() => {connectWallet("")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 p-4 h-16 rounded-3xl font-light">
+            <img className="h-8 ml-2 mr-4" alt="Venly" src={venly}></img>
+            <div>
+              Venly
+              </div>
+            </button>
+          </div>
+        </div>
+      </div></>): (<></>)}
     </div>
   );
 };
