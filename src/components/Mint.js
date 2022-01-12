@@ -22,7 +22,7 @@ import PresaleRegister from "./PresaleRegister";
 
 const Mint = () => {
   const [walletModal, setWalletModal] = useState(false);
-  const [ provider, setProviderName ] = useState("");
+  // const [ provider, setProviderName ] = useState("");
   const { setContractData, setWhitelisted } = useSharedContractData();
 
   useEffect(() => {
@@ -52,12 +52,11 @@ const Mint = () => {
     setWalletModal(false)
   }
   const connectWallet = async (walletType) => {
-    setProviderName(walletType)
+    try {
       const { provider, account } = await ConnectWallet(walletType);
       setAccount({ address: account });
       setWalletModal(false)
       console.log(provider, account)
-      // disconnectWallet()
       provider.on("accountsChanged", async (accounts) => {
         setAccount({ address: accounts[0]})
       });
@@ -67,6 +66,10 @@ const Mint = () => {
           setAccount({ address: null });
         }
       });
+    } catch {
+      console.log()
+    }
+    
   };
 
   const disconnectWallet = async () => {
