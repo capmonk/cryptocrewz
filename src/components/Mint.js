@@ -56,7 +56,6 @@ const Mint = () => {
       const { provider, account } = await ConnectWallet(walletType);
       setAccount({ address: account });
       setWalletModal(false)
-      console.log(provider, account)
       provider.on("accountsChanged", async (accounts) => {
         setAccount({ address: accounts[0]})
       });
@@ -96,7 +95,7 @@ const Mint = () => {
               <button
                 id="purchase-button-wrapper"
                 type="button"
-                className="border-green-440 hover:bg-green-400 py-2 w-72 px-9  pr-12 uppercase mx-2 italic text-xl border border-solid rounded-full"
+                className="border-green-440 hover:bg-green-400 py-2 w-72 px-9 pr-12 uppercase mx-2 italic text-xl border border-solid rounded-full"
                 onClick={disconnectWallet}
               >
                 Disconnect a wallet
@@ -148,13 +147,13 @@ const Mint = () => {
             <div className="mb-3">Connect with:</div>
             {  window.ethereum ? (<>
             <button onClick={() => {connectWallet("metamask")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 p-4 mb-4 h-16 rounded-3xl font-light" >
-            <img className="h-8 ml-2 mr-4" alt="Metamask" src={metamask}></img>
+            <img className="h-6 ml-2 mr-5" alt="Metamask" src={metamask}></img>
               Metamask
             </button>
             </>): (<></>)}
             
             <button onClick={() => {connectWallet("google")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 p-4 mb-4 h-16 rounded-3xl font-light">
-              <img className="h-8 ml-2 mr-4" alt="Google" src={google}></img>
+              <img className="h-8 ml-2 mr-5" alt="Google" src={google}></img>
               <div>
                 Continue with Google
                 <span className="text-xs"> (Venly)</span>
@@ -162,14 +161,14 @@ const Mint = () => {
             </button>
             
             <button onClick={() => {connectWallet("twitter")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 p-4 mb-4 h-16 rounded-3xl font-light">
-              <img className="h-8 ml-2 mr-4" alt="Twitter" src={twitter}></img>
+              <img className="h-8 ml-2 mr-5" alt="Twitter" src={twitter}></img>
               <div>Continue with Twitter
                 <span className="text-xs"> (Venly)</span>
               </div>
             </button>
 
             <button onClick={() => {connectWallet("facebook")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 mb-4 p-4 h-16 rounded-3xl font-light">
-            <img className="h-8 ml-2 mr-4" alt="Facebook" src={facebook}></img>
+            <img className="h-8 ml-2 mr-5" alt="Facebook" src={facebook}></img>
             <div>
               Continue with Facebook
               <span className="text-xs"> (Venly)</span>
@@ -177,7 +176,7 @@ const Mint = () => {
             </button>
 
             <button onClick={() => {connectWallet("")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 p-4 h-16 rounded-3xl font-light">
-            <img className="h-8 ml-2 mr-4" alt="Venly" src={venly}></img>
+            <img className="h-8 ml-2 mr-5" alt="Venly" src={venly}></img>
             <div>
               Venly
               </div>

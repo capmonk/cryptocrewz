@@ -73,12 +73,12 @@ const MintWhitelist = () => {
                   </div>
                 </div>
               </form>
-              { account.address ? (<div className="flex flex-col items-center text-xs font-light mt-1"><div>Wallet address:</div><div >{ account.address }</div></div>) :(<></>) }
+              { account.address ? (<div className="flex flex-col items-center text-xs font-light mt-3"><div><strong className="text-base">Wallet: </strong> { account.address }</div></div>) :(<></>) }
               <br/>
                 <button
                 id="purchase-button-wrapper"
                 type="button"
-                className="border-green-440 w-86 hover:bg-green-400 py-2 px-9 pr-12 uppercase italic mx-2 text-2xl border border-emerald-600 rounded-full"
+                className="mt-2 border-green-440 w-86 hover:bg-green-400 py-2 px-9 pr-12 uppercase italic mx-2 text-2xl border border-emerald-600 rounded-full"
                 onClick={onWhitelisted}
                 disabled={account.address === null || whitelisted.includes(account.address)}
               >

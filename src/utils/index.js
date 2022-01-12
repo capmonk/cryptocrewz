@@ -31,8 +31,6 @@ export async function Init() {
     environment: (process.env.REACT_APP_VENLY_USERNAME === "Testaccount" ? "staging" : "production"),
     skipAuthentication: true,
   };
-    console.log(options)
-
     Venly.createProviderEngine(options)
     .then(async function (prov) {
         window.web3 = new Web3(prov);
@@ -56,7 +54,6 @@ export async function Init() {
 }
 
 export async function ConnectWallet (walletType) {
-    console.log(walletType)
     try {
       if (walletType === "metamask") {
         await window.ethereum.request({ "method": 'eth_requestAccounts'});
@@ -66,11 +63,9 @@ export async function ConnectWallet (walletType) {
         });
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
         .catch((e) => {
-          console.error(e.message)
           return
         })
         window.web3 = new Web3(window.ethereum);
-        console.log({ provider: window.ethereum, account: accounts[0]})
         return { provider: window.ethereum, account: accounts[0]}
       } else {
         let authenticationOptions = {};
@@ -78,7 +73,6 @@ export async function ConnectWallet (walletType) {
             authenticationOptions.idpHint = walletType;
         }
         const account = await window.Venly.authenticate(authenticationOptions)
-        console.log(account.wallets[0].address)
         return { provider: window.web3.currentProvider, account: account.wallets[0].address }
       }
     } catch(e) {
@@ -123,7 +117,7 @@ export async function MintPublicSale (count) {
     return await contract.methods.mint(count).send({from, value});
   }
   catch {
-    console.log("")
+    return
   }
 }
 
