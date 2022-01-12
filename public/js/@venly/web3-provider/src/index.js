@@ -36,6 +36,9 @@ var VenlySubProvider = /** @class */ (function () {
             });
         });
     };
+    VenlySubProvider.prototype.hasSubProvider = function () {
+        return !!this.subProvider;
+    };
     VenlySubProvider.prototype.checkAuthenticated = function () {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             return tslib_1.__generator(this, function (_a) {

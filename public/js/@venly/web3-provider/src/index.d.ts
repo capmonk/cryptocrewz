@@ -11,6 +11,7 @@ declare class VenlySubProvider {
     private engine?;
     connect(): VenlyConnect | undefined;
     changeSecretType(secretType?: SecretType): Promise<Provider | undefined>;
+    hasSubProvider(): boolean;
     checkAuthenticated(): Promise<AuthenticationResult>;
     authenticate(authenticationOptions?: AuthenticationOptions): Promise<Account | {}>;
     createProviderEngine(options: VenlySubProviderOptions): Promise<Provider>;
