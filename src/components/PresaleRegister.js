@@ -73,6 +73,7 @@ const MintWhitelist = () => {
                   </div>
                 </div>
               </form>
+              { account.address ? (<div className="flex flex-col items-center text-xs font-light mt-1"><div>Wallet address:</div><div >{ account.address }</div></div>) :(<></>) }
               <br/>
                 <button
                 id="purchase-button-wrapper"

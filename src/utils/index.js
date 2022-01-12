@@ -6,7 +6,6 @@ import ContractAbi from '../contract/abi.json';
 // import MerkleTree from "merkletreejs";
 
 export async function GetContractData () {
-  
   const web3temp = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_HTTPPROVIDER));
   const contract = new web3temp.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
   return { 
