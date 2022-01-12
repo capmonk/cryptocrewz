@@ -8,10 +8,10 @@ import Nav from "./components/Nav";
 // import Metaverse from "./components/Metaverse";
 // import About from "./components/About";
 import Footer from "./components/Footer";
-import { Init } from "./utils";
-import { useSharedContractData } from "./store/ContractData";
-import { useEffect } from "react";
-import { GetWhitelisted } from "./services/api.service";
+// import { Init } from "./utils";
+// import { useSharedContractData } from "./store/ContractData";
+// import { useEffect } from "react";
+// import { GetWhitelisted } from "./services/api.service";
 import Mint from "./components/Mint";
 // import ContractInfo from "./components/ContractInfo";
 import { Toaster } from "react-hot-toast";
@@ -19,18 +19,18 @@ import { Toaster } from "react-hot-toast";
 import backdrop from "./img/concert_blue_snapshot.jpg";
 
 function App() {
-  const { setContractData, setWhitelisted } = useSharedContractData();
+  // const { setContractData, setWhitelisted } = useSharedContractData();
 
-  useEffect(() => {
-    // const InitWeb3 = async () => {
-    //   setContractData(await GetContractData());
-    // };
-    Init();
-    // InitWeb3();
-    GetWhitelisted().then((x) => {
-      setWhitelisted(x);
-    });
-  }, [setContractData, setWhitelisted]);
+  // useEffect(() => {
+  //   // const InitWeb3 = async () => {
+  //   //   setContractData(await GetContractData());
+  //   // };
+  //   Init();
+  //   // InitWeb3();
+  //   GetWhitelisted().then((x) => {
+  //     setWhitelisted(x);
+  //   });
+  // }, [setContractData, setWhitelisted]);
 
   return (
     <div className="h-[22rem]">
