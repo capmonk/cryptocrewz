@@ -4,8 +4,6 @@ import { useSharedUserData } from "../store/UserData";
 import {
   ConnectWallet,
   DisconnectWallet,
-  FetchUserData,
-  GetMaxCount,
   Init
 } from "../utils";
 import { useSharedContractData } from "../store/ContractData";
@@ -24,7 +22,7 @@ import PresaleRegister from "./PresaleRegister";
 
 const Mint = () => {
   const [walletModal, setWalletModal] = useState(false);
-  const [providerName, setProviderName] = useState("");
+  const [ provider, setProviderName ] = useState("");
   const { setContractData, setWhitelisted } = useSharedContractData();
 
   useEffect(() => {
@@ -39,13 +37,13 @@ const Mint = () => {
   }, [setContractData, setWhitelisted]);
   
   // const { contractData } = useSharedContractData();
-  const { setAccount, setCount, account} = useSharedUserData();
+  const { setAccount, account} = useSharedUserData();
 
-  const fetchUserData = async () => {
-    const acc = await FetchUserData();
-    setAccount({...acc, providerName });
-    return acc;
-  };
+  // const fetchUserData = async () => {
+  //   const acc = await FetchUserData();
+  //   setAccount({...acc, providerName });
+  //   return acc;
+  // };
 
   const openWalletModal = () => {
     setWalletModal(true)
@@ -56,14 +54,12 @@ const Mint = () => {
   const connectWallet = async (walletType) => {
     setProviderName(walletType)
       const { provider, account } = await ConnectWallet(walletType);
-      setAccount(account);
+      setAccount({ address: account });
       setWalletModal(false)
-
+      console.log(provider, account)
+      // disconnectWallet()
       provider.on("accountsChanged", async (accounts) => {
-        const acc = await fetchUserData();
-        setTimeout(() => {
-          setCount(GetMaxCount(acc));
-        }, 200);
+        setAccount({ address: accounts[0]})
       });
 
       provider.on("chainChanged", (chainId) => {
@@ -75,7 +71,7 @@ const Mint = () => {
 
   const disconnectWallet = async () => {
     if (window.Venly.connect()){
-      window.Venly.connect().logout()
+      window.Venly.connect().logout({ windowMode: 'POPUP' })
     }
     await DisconnectWallet();
     setAccount({ address: null });
