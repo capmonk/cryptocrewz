@@ -35,7 +35,7 @@ function App() {
           className: "toast",
         }}
       />
-      
+            <Footer />
       <Nav />
       <Header className="w-full"></Header>
       <div id="home" className="container px-5 mx-auto w-full flex items-center justify-center h-full" >
@@ -78,7 +78,6 @@ function App() {
 					<About />
 				</Wrapper> */}
       </div>
-      <Footer />
     </div>
   );
 }

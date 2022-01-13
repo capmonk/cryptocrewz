@@ -89,7 +89,7 @@ const Mint = () => {
       <div className="mint-container" >
         
         <div id="claim-text-wrapper" className="col-7 flex flex-col items-center">
-        <div className="h-24">
+        <div className="h-20">
           {account.address ? (
             <div>
               <button

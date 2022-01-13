@@ -42,7 +42,7 @@ const MintWhitelist = () => {
           <div >
             <div className={!whitelisted.includes(account.address)? "" : "hidden"}>
             <div className={account.address? "flex align-center items-center flex-col" : "opacity-20 flex items-center flex-col"}>
-              <div className="text-center text-xl font-light mb-4" style={{ "maxWidth": "80vw" }}> 
+              <div className="text-center text-xl font-light" style={{ "maxWidth": "80vw" }}> 
               Enter your email (and promo code if available), to register on the pre-sale list.
               </div>
               <form onSubmit={handleSubmit} className="flex justify-center flex-col w-80 mb-5">

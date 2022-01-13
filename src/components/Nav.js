@@ -50,7 +50,7 @@ export default function Nav() {
   // }
 	return (
 		<>
-			<div className='sticky top-0 z-40 flex-row justify-between w-full p-5 lg:flex pointer-events-none'>
+			<div className='sticky top-0 flex-row justify-between w-full p-5 lg:flex pointer-events-none'>
 				<div className='left-0 flex flex-row items-center justify-center nav'>
 					<a href='https://www.cryptocrewz.com/' className="pointer-events-auto">
 						<img className='w-16 mr-5 ml-7 lg:ml-0 mb-5' src={logo} alt='CryptoCrewz' />
