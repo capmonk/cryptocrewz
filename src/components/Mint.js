@@ -167,7 +167,7 @@ const Mint = () => {
               </div>
             </button>
 
-            <button onClick={() => {connectWallet("facebook")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 mb-4 p-4 h-16 rounded-3xl font-light">
+            <button onClick={() => {connectWallet("facebook")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 p-4 h-16 rounded-3xl font-light">
             <img className="h-8 ml-2 mr-5" alt="Facebook" src={facebook}></img>
             <div>
               Continue with Facebook
@@ -175,12 +175,12 @@ const Mint = () => {
               </div>
             </button>
 
-            <button onClick={() => {connectWallet("")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 p-4 h-16 rounded-3xl font-light">
+            {/* <button onClick={() => {connectWallet("")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 p-4 h-16 rounded-3xl font-light">
             <img className="h-8 ml-2 mr-5" alt="Venly" src={venly}></img>
             <div>
               Venly
               </div>
-            </button>
+            </button> */}
           </div>
         </div>
       </div></>): (<></>)}
