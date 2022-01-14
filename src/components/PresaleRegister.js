@@ -93,9 +93,25 @@ const MintWhitelist = () => {
               </div >
               { whitelisted.includes(account.address) ? (<div
               className="opacity-100 text-white text-center font-light text-3xl mt-20">
-                You are successfully  
-                <br/>
-                pre-registered.
+                <div>
+                  <div>You are successfully  
+                  <br/>
+                  pre-registered.
+                  </div> 
+                  <div className="flex flex-col items-center text-xs font-light mt-3"><div>
+                    <strong className="text-base">Wallet: </strong>
+                    { account.type.includes("venly") ? (
+                    <a href="https://wallet.venly.io/">
+                      { account.address }
+                    </a>) : (
+                        <a href={ process.env.REACT_APP_EXPLORER_ADDRESS + "/address/" + account.address }>
+                        { account.address }
+                      </a>
+                    )
+                    }
+                    </div>
+                  </div>
+                </div>
               </div>):(<></>)}
               </div>
               
