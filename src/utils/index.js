@@ -4,6 +4,7 @@ import ContractAbi from '../contract/abi.json';
 // import keccak256 from "keccak256";
 // import { ethers } from "ethers";
 // import MerkleTree from "merkletreejs";
+// import Venly from '@venly/web3-provider'
 
 export async function GetContractData () {
   const web3temp = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_HTTPPROVIDER));
@@ -24,14 +25,13 @@ export async function GetContractData () {
 }
 
 export async function Init() {
-  
   const Venly = window.Venly;
   let options = {
     clientId: process.env.REACT_APP_VENLY_USERNAME,
     environment: (process.env.REACT_APP_VENLY_USERNAME === "Testaccount" ? "staging" : "production"),
     skipAuthentication: true,
   };
-    Venly.createProviderEngine(options)
+  Venly.createProviderEngine(options)
     .then(async function (prov) {
         window.web3 = new Web3(prov);
     })
@@ -66,14 +66,15 @@ export async function ConnectWallet (walletType) {
           return
         })
         window.web3 = new Web3(window.ethereum);
-        return { provider: window.ethereum, account: accounts[0]}
+        return { provider: window.ethereum, account: { address: accounts[0] }}
       } else {
         let authenticationOptions = {};
         if (walletType) {
             authenticationOptions.idpHint = walletType;
         }
-        const account = await window.Venly.authenticate(authenticationOptions)
-        return { provider: window.web3.currentProvider, account: account.wallets[0].address }
+        const venlyAccount = await window.Venly.authenticate(authenticationOptions)
+        const account = { address: venlyAccount.wallets[0].address, email: venlyAccount.auth.idTokenParsed.email }
+        return { provider: window.web3.currentProvider, account }
       }
     } catch(e) {
       console.log("Could not get a wallet connection", e);

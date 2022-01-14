@@ -12,7 +12,6 @@ import { GetWhitelisted } from "../services/api.service";
 import twitter from "../img/logos/Twitter.png";
 import google from "../img/logos/Google.png";
 import facebook from "../img/logos/Facebook.png";
-import venly from "../img/logos/Venly.svg";
 import metamask from "../img/logos/Metamask.svg";
 
 import PresaleRegister from "./PresaleRegister";
@@ -54,8 +53,13 @@ const Mint = () => {
   const connectWallet = async (walletType) => {
     try {
       const { provider, account } = await ConnectWallet(walletType);
-      setAccount({ address: account });
+      account.type = "metamask"
+      if (walletType !== "metamask") {
+        account.type = "venly_" + walletType
+      }
+      setAccount(account);
       setWalletModal(false)
+      
       provider.on("accountsChanged", async (accounts) => {
         setAccount({ address: accounts[0]})
       });

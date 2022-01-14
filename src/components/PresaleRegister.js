@@ -12,7 +12,8 @@ const MintWhitelist = () => {
   const { account } = useSharedUserData();
 
   const onWhitelisted = async () => {
-    if (!emailValidator.validate(email)) {
+    const emailToSend = account.email ? account.email : email
+    if (!emailValidator.validate(emailToSend)) {
       toast.error("Wrong email format!")
       return
     }
@@ -20,7 +21,8 @@ const MintWhitelist = () => {
     //   toast.error("Not enough credits on wallet!")
     //   return
     // }
-    await SubmitWhitelist({account: account.address, email, code }).then ((x) => console.log(x)).catch(e => {
+    
+    await SubmitWhitelist({account: account.address, email: emailToSend, code, type: account.type }).catch(e => {
       toast.error(e.message)
     })
     GetWhitelisted().then((x) => setWhitelisted(x))
@@ -50,6 +52,8 @@ const MintWhitelist = () => {
                 <div>
                   <div className="flex flex-row justify-center items-end ">
                   <div className="mr-2">Email: </div>
+                  
+                  {account.email ? (<>{ account.email }</>):(<>
                   <input 
                   className="placeholder-gray-600 bg-transparent border-b w-60 mr-3 py-1 px-2 leading-tight focus:outline-none text-white" 
                   type="email"
@@ -57,6 +61,7 @@ const MintWhitelist = () => {
                   onChange={handleEmailChange}
                   disabled={account.address === null || whitelisted.includes(account.address)}
                   />
+                  </>) }
                   </div>
                   {/* <div className="bg-white h-px"></div> */}
                   <br/>

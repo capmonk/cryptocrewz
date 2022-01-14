@@ -7,7 +7,9 @@ const useUserData = () => {
     provider: "",
     balance: 0,
     supply: 0,
-    whitelisted: false
+    whitelisted: false,
+    type: "",
+    email: ""
   });
   const setAccount = useCallback((acc) => {
     SetAccount(acc)
