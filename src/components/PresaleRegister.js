@@ -100,7 +100,7 @@ const MintWhitelist = () => {
                   </div> 
                   <div className="flex flex-col items-center text-xs font-light mt-3"><div>
                     <strong className="text-base">Wallet: </strong>
-                    { account.type.includes("venly") ? (
+                    { account.type && account.type.includes("venly") ? (
                     <a href="https://wallet.venly.io/">
                       { account.address }
                     </a>) : (
