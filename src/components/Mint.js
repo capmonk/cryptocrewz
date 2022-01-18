@@ -66,7 +66,7 @@ const Mint = () => {
 
       provider.on("chainChanged", (chainId) => {
         if (chainId !== process.env.REACT_APP_CHAINID) {
-          setAccount({ address: null });
+          setAccount({ address: null, email: "" });
         }
       });
     } catch {
@@ -80,7 +80,7 @@ const Mint = () => {
       window.Venly.connect().logout({ windowMode: 'POPUP' })
     }
     await DisconnectWallet();
-    setAccount({ address: null });
+    setAccount({ address: null, email: "" });
   };
 
   return (
