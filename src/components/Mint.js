@@ -112,7 +112,7 @@ const Mint = () => {
                 className="border-green-440 w-72 hover:bg-green-400 py-2 px-9 pr-12 uppercase italic mx-2 text-xl border border-solid rounded-full"
                 onClick={openWalletModal}
               >
-                Connect a wallet
+                Connect a wallet!
               </button>
             </div>
           )}
