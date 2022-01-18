@@ -61,7 +61,7 @@ const Mint = () => {
       setWalletModal(false)
       
       provider.on("accountsChanged", async (accounts) => {
-        setAccount({ address: accounts[0]})
+        setAccount({ address: accounts[0], email: ""})
       });
 
       provider.on("chainChanged", (chainId) => {
