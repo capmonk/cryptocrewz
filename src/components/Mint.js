@@ -37,7 +37,6 @@ const Mint = () => {
   
   // const { contractData } = useSharedContractData();
   const { setAccount, account} = useSharedUserData();
-
   // const fetchUserData = async () => {
   //   const acc = await FetchUserData();
   //   setAccount({...acc, providerName });
