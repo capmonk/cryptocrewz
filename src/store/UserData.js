@@ -19,11 +19,24 @@ const useUserData = () => {
     SetCount(acc)
   }, []);
 
+  const [email, SetEmail] = useState("")
+  const [code, SetCode] = useState("")
+  
+  const setEmail = useCallback((acc) => {
+    SetEmail(acc)
+  }, []);
+  const setCode = useCallback((acc) => {
+    SetCode(acc)
+  }, []);
   return {
     setAccount,
     account,
     setCount,
-    count
+    count,
+    setEmail,
+    email,
+    setCode,
+    code
   };
 };
 

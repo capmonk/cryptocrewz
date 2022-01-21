@@ -1,4 +1,3 @@
-import { useState } from "react";
 import toast from "react-hot-toast";
 import emailValidator from "email-validator";
 import { useSharedContractData } from "../store/ContractData"
@@ -6,10 +5,8 @@ import { useSharedUserData } from "../store/UserData"
 import { GetWhitelisted, SubmitWhitelist } from "../services/api.service"
 
 const MintWhitelist = () => {
-  const [email, setEmail] = useState("")
-  const [code, setCode] = useState("")
   const { whitelisted, setWhitelisted} = useSharedContractData();
-  const { account } = useSharedUserData();
+  const { account, email, setEmail,code, setCode } = useSharedUserData();
 
   const onWhitelisted = async () => {
     const emailToSend = account.email ? account.email : email

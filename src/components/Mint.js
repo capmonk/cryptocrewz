@@ -36,7 +36,7 @@ const Mint = () => {
   }, [setContractData, setWhitelisted]);
   
   // const { contractData } = useSharedContractData();
-  const { setAccount, account} = useSharedUserData();
+  const { setAccount, account, setCode, setEmail} = useSharedUserData();
   // const fetchUserData = async () => {
   //   const acc = await FetchUserData();
   //   setAccount({...acc, providerName });
@@ -61,11 +61,15 @@ const Mint = () => {
       
       provider.on("accountsChanged", async (accounts) => {
         setAccount({ address: accounts[0], email: ""})
+        setEmail("");
+        setCode("");
       });
 
       provider.on("chainChanged", (chainId) => {
         if (chainId !== process.env.REACT_APP_CHAINID) {
           setAccount({ address: null, email: "" });
+          setEmail("");
+          setCode("");
         }
       });
     } catch {
@@ -80,6 +84,8 @@ const Mint = () => {
     }
     await DisconnectWallet();
     setAccount({ address: null, email: "" });
+    setEmail("");
+    setCode("");
   };
 
   return (
