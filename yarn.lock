@@ -2723,10 +2723,10 @@
     keycloak-js "11.0.2"
     querystring "^0.2.0"
 
-"@venly/web3-provider@^0.25.0":
-  version "0.25.0"
-  resolved "https://registry.yarnpkg.com/@venly/web3-provider/-/web3-provider-0.25.0.tgz#ba8f9083a8750c50656827a263d4ba02dca0622c"
-  integrity sha512-5LOtvH8Z7zzHgLlLzlFkbrAo8OK0jcGp5fs7rxa4wrL9SXwi3NxGfBg0nH09MqiNEAwxPY0d2/XAwASQvb+AKw==
+"@venly/web3-provider@^0.26.0":
+  version "0.26.0"
+  resolved "https://registry.yarnpkg.com/@venly/web3-provider/-/web3-provider-0.26.0.tgz#30b8f0fa685eb6ade03cd83facbcc5ce37664aaa"
+  integrity sha512-SkmwJd+HnXP3GE6jW95FEfTVETcKbpH7rHi+mEstNslJhNYhaMhHI8g4aMWbeIlu2S717qsOJjsEMUwyILVzQA==
   dependencies:
     "@0x/assert" "^3.0.9"
     "@0x/subproviders" "6.1.1"

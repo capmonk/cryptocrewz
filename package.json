@@ -2,12 +2,13 @@
 	"name": "cryptocrewz",
 	"version": "0.1.0",
 	"private": true,
+	"homepage": "./",
 	"dependencies": {
 		"@craco/craco": "^6.4.1",
 		"@testing-library/jest-dom": "^5.11.4",
 		"@testing-library/react": "^11.1.0",
 		"@testing-library/user-event": "^12.1.10",
-		"@venly/web3-provider": "^0.25.0",
+		"@venly/web3-provider": "^0.26.0",
 		"@venly/web3modal": "^1.9.5-develop.1",
 		"caniuse-lite": "^1.0.30001294",
 		"email-validator": "^2.0.4",
@@ -31,6 +32,7 @@
 	"scripts": {
 		"start": "cross-env TAILWIND_MODE=watch craco start",
 		"build": "GENERATE_SOURCEMAP=false craco build",
+		"build:dev": "GENERATE_SOURCEMAP=false craco build",
 		"test": "craco test",
 		"eject": "react-scripts eject"
 	},

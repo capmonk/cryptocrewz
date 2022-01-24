@@ -5,7 +5,7 @@ import logo from "../img/logo.jpg";
 // // import { FiMenu } from "react-icons/fi";
 // import MusicButton from "./MusicButton";
 // import { useSharedUserData } from "../store/UserData";
-// import { FetchUserData } from "../utils"
+// import { ConnectWallet, DisconnectWallet, FetchUserData, GetMaxCount } from "../utils"
 // import { useSharedContractData } from "../store/ContractData"
 
 export default function Nav() {
@@ -50,9 +50,9 @@ export default function Nav() {
   // }
 	return (
 		<>
-			<div className='sticky top-0 z-40 flex-row justify-center w-full p-5 lg:flex'>
+			<div className='sticky top-0 flex-row justify-between w-full p-5 lg:flex pointer-events-none'>
 				<div className='left-0 flex flex-row items-center justify-center nav'>
-					<a href='https://www.cryptocrewz.com/'>
+					<a href='https://www.cryptocrewz.com/' className="pointer-events-auto">
 						<img className='w-16 mr-5 ml-7 lg:ml-0 mb-5' src={logo} alt='CryptoCrewz' />
 					</a>
 					<ul className='flex flex-row text-xl'>

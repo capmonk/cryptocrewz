@@ -8,29 +8,16 @@ import Nav from "./components/Nav";
 // import Metaverse from "./components/Metaverse";
 // import About from "./components/About";
 import Footer from "./components/Footer";
-// import { Init } from "./utils";
-// import { useSharedContractData } from "./store/ContractData";
-// import { useEffect } from "react";
-// import { GetWhitelisted } from "./services/api.service";
-import Mint from "./components/Mint";
 // import ContractInfo from "./components/ContractInfo";
 import { Toaster } from "react-hot-toast";
 // import concert from "./video/concert.mp4";
 import backdrop from "./img/concert_blue_snapshot.jpg";
+import React, { Suspense } from "react";
+const Mint = React.lazy(() => import(
+	/* webpackChunkName: "Mint3chunk" */ './components/Mint'
+	));
 
 function App() {
-  // const { setContractData, setWhitelisted } = useSharedContractData();
-
-  // useEffect(() => {
-  //   // const InitWeb3 = async () => {
-  //   //   setContractData(await GetContractData());
-  //   // };
-  //   Init();
-  //   // InitWeb3();
-  //   GetWhitelisted().then((x) => {
-  //     setWhitelisted(x);
-  //   });
-  // }, [setContractData, setWhitelisted]);
 
   return (
     <div className="h-[22rem]">
@@ -48,11 +35,13 @@ function App() {
           className: "toast",
         }}
       />
-      
+            <Footer />
       <Nav />
       <Header className="w-full"></Header>
       <div id="home" className="container px-5 mx-auto w-full flex items-center justify-center h-full" >
-        <Mint></Mint >   
+				<Suspense fallback={<div>Loading...</div>}>
+        <Mint></Mint >
+				</Suspense>   
         {/* <Wrapper>
 					<NFTArt />
 				</Wrapper>
@@ -89,7 +78,6 @@ function App() {
 					<About />
 				</Wrapper> */}
       </div>
-      <Footer />
     </div>
   );
 }

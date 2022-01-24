@@ -4,9 +4,12 @@ import { useBetween } from 'use-between';
 const useUserData = () => {
   const [account, SetAccount] = useState({
     address: null,
+    provider: "",
     balance: 0,
     supply: 0,
-    whitelisted: false
+    whitelisted: false,
+    type: "",
+    email: ""
   });
   const setAccount = useCallback((acc) => {
     SetAccount(acc)
@@ -16,11 +19,24 @@ const useUserData = () => {
     SetCount(acc)
   }, []);
 
+  const [email, SetEmail] = useState("")
+  const [code, SetCode] = useState("")
+  
+  const setEmail = useCallback((acc) => {
+    SetEmail(acc)
+  }, []);
+  const setCode = useCallback((acc) => {
+    SetCode(acc)
+  }, []);
   return {
     setAccount,
     account,
     setCount,
-    count
+    count,
+    setEmail,
+    email,
+    setCode,
+    code
   };
 };
 
