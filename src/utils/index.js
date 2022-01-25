@@ -29,7 +29,9 @@ export async function Init() {
   let options = {
     clientId: process.env.REACT_APP_VENLY_USERNAME,
     environment: (process.env.REACT_APP_VENLY_USERNAME === "Testaccount" ? "staging" : "production"),
-    secretType: process.env.REACT_APP_VENLY_CHAINID
+    secretType: process.env.REACT_APP_VENLY_CHAINID,
+    skipAuthentication: true
+
   };
   Venly.createProviderEngine(options)
     .then(async function (prov) {
