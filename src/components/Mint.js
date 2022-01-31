@@ -13,6 +13,7 @@ import twitter from "../img/logos/Twitter.png";
 import google from "../img/logos/Google.png";
 import facebook from "../img/logos/Facebook.png";
 import metamask from "../img/logos/Metamask.svg";
+import walletlink from "../img/logos/WalletLink.png";
 
 import PresaleRegister from "./PresaleRegister";
 // import MintPresaleComponent from "./MintPresale";
@@ -52,8 +53,8 @@ const Mint = () => {
   const connectWallet = async (walletType) => {
     try {
       const { provider, account } = await ConnectWallet(walletType);
-      account.type = "metamask"
-      if (walletType !== "metamask") {
+      // account.type = "metamask"
+      if (walletType !== "metamask" && walletType !== "walletlink") {
         account.type = "venly_" + walletType
       }
       setAccount(account);
@@ -160,7 +161,14 @@ const Mint = () => {
               Metamask
             </button>
             </>): (<></>)}
-            
+
+            <button onClick={() => {connectWallet("walletlink")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 mb-4 p-4 h-16 rounded-3xl font-light">
+            <img className="h-8 ml-2 mr-5" alt="Facebook" src={walletlink}></img>
+            <div>
+              Continue with Coinbase Wallet
+              </div>
+            </button>
+
             <button onClick={() => {connectWallet("google")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 p-4 mb-4 h-16 rounded-3xl font-light">
               <img className="h-8 ml-2 mr-5" alt="Google" src={google}></img>
               <div>
