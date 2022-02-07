@@ -132,10 +132,14 @@ const Mint = () => {
   }
 
   const disconnectWallet = async () => {
-    if (window.Venly.connect()){
-      window.Venly.connect().logout({ windowMode: 'POPUP' })
+    try {
+      if (window.Venly.connect()){
+        window.Venly.connect().logout({ windowMode: 'POPUP' })
+      }
+      await DisconnectWallet();
+    } catch {
+      console.log()
     }
-    await DisconnectWallet();
     setAccount({ address: null, email: "" });
     setEmail("");
     setCode("");

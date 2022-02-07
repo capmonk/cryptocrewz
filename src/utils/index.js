@@ -114,6 +114,7 @@ export async function FetchUserData (provider) {
 }
 
 export async function DisconnectWallet () {
+  try {
     if (window.web3) {
       const provider = window.web3.currentProvider
       if(provider.disconnect) {
@@ -123,6 +124,9 @@ export async function DisconnectWallet () {
     if (walletLink) {
       walletLink.disconnect();
     }
+  } catch {
+    console.log();
+  }
 }
 
 export async function GetUserData () {
