@@ -45,34 +45,34 @@ const Mint = () => {
   // };
 
   const openWalletModal = async () => {
-    if (window.ethereum && window.ethereum.isMetaMask && detectMobile()) {
+    if (window.ethereum && detectMobile()) {
       try {
-        const walletType = "metamask"
-      const { provider, account } = await ConnectWallet(walletType);
-      // account.type = "metamask"
-      if (walletType !== "metamask" && walletType !== "walletlink") {
-        account.type = "venly_" + walletType
-      }
+        let walletType = "metamask"
+        if (!window.ethereum.isMetaMask) {
+          walletType = "walletlink"
+        }
+        const { provider, account } = await ConnectWallet(walletType);
+        // account.type = "metamask"
 
-      setAccount(account);
-      setWalletModal(false)
-      
-      provider.on("accountsChanged", async (accounts) => {
-        setAccount({ address: accounts[0], email: ""})
-        setEmail("");
-        setCode("");
-      });
-
-      provider.on("chainChanged", (chainId) => {
-        if (chainId !== process.env.REACT_APP_CHAINID) {
-          setAccount({ address: null, email: "" });
+        setAccount(account);
+        setWalletModal(false)
+        
+        provider.on("accountsChanged", async (accounts) => {
+          setAccount({ address: accounts[0], email: ""})
           setEmail("");
           setCode("");
-        }
-      });
-    } catch {
-      console.log()
-    }
+        });
+
+        provider.on("chainChanged", (chainId) => {
+          if (chainId !== process.env.REACT_APP_CHAINID) {
+            setAccount({ address: null, email: "" });
+            setEmail("");
+            setCode("");
+          }
+        });
+      } catch {
+        console.log()
+      }
     } else {
       setWalletModal(true);
     }
