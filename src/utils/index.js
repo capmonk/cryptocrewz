@@ -114,8 +114,10 @@ export async function DisconnectWallet () {
       const provider = window.web3.currentProvider
       if(provider.disconnect) {
         await provider.disconnect();
-        walletLink.disconnect();
       }
+    }
+    if (walletLink) {
+      walletLink.disconnect();
     }
 }
 
