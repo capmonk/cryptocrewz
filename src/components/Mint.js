@@ -57,6 +57,7 @@ const Mint = () => {
       if (walletType !== "metamask" && walletType !== "walletlink") {
         account.type = "venly_" + walletType
       }
+      console.log("mobile: ", detectMobile());
       if ( detectMobile() && walletType === "metamask") {
         window.open(process.env.REACT_APP_METAMASKDEEPLINK);
         return;
