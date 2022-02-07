@@ -52,17 +52,17 @@ const Mint = () => {
   }
   const connectWallet = async (walletType) => {
     try {
+      console.log("mobile: ", detectMobile());
+      if ( detectMobile() && walletType === "metamask") {
+        window.open(process.env.REACT_APP_METAMASKDEEPLINK);
+        return;
+      }
       const { provider, account } = await ConnectWallet(walletType);
       // account.type = "metamask"
       if (walletType !== "metamask" && walletType !== "walletlink") {
         account.type = "venly_" + walletType
       }
-      console.log("mobile: ", detectMobile());
-      if ( detectMobile() && walletType === "metamask") {
-        window.open(process.env.REACT_APP_METAMASKDEEPLINK);
-        return;
-        
-      }
+
       setAccount(account);
       setWalletModal(false)
       
