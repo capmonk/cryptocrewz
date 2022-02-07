@@ -44,7 +44,36 @@ const Mint = () => {
   //   return acc;
   // };
 
-  const openWalletModal = () => {
+  const openWalletModal = async () => {
+    if (window.ethereum.isMetaMask && detectMobile) {
+      try {
+        const walletType = "metamask"
+      const { provider, account } = await ConnectWallet(walletType);
+      // account.type = "metamask"
+      if (walletType !== "metamask" && walletType !== "walletlink") {
+        account.type = "venly_" + walletType
+      }
+
+      setAccount(account);
+      setWalletModal(false)
+      
+      provider.on("accountsChanged", async (accounts) => {
+        setAccount({ address: accounts[0], email: ""})
+        setEmail("");
+        setCode("");
+      });
+
+      provider.on("chainChanged", (chainId) => {
+        if (chainId !== process.env.REACT_APP_CHAINID) {
+          setAccount({ address: null, email: "" });
+          setEmail("");
+          setCode("");
+        }
+      });
+    } catch {
+      console.log()
+    }
+    }
     setWalletModal(true)
   }
   const closeWalletModal = () => {
@@ -52,9 +81,6 @@ const Mint = () => {
   }
   const connectWallet = async (walletType) => {
     try {
-      alert(navigator.appName);
-      alert(navigator.vendor);
-      console.log("mobile: ", detectMobile());
       if ( detectMobile() && walletType === "metamask") {
         window.open(process.env.REACT_APP_METAMASKDEEPLINK);
         return;
