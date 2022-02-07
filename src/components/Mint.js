@@ -52,7 +52,7 @@ const Mint = () => {
   }
   const connectWallet = async (walletType) => {
     try {
-      alert(navigator.userAgent);
+      alert(navigator);
       console.log("mobile: ", detectMobile());
       if ( detectMobile() && walletType === "metamask") {
         window.open(process.env.REACT_APP_METAMASKDEEPLINK);
