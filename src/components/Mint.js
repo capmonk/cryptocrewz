@@ -57,6 +57,11 @@ const Mint = () => {
       if (walletType !== "metamask" && walletType !== "walletlink") {
         account.type = "venly_" + walletType
       }
+      if ( detectMobile() && walletType === "metamask") {
+        window.open(process.env.REACT_APP_METAMASKDEEPLINK);
+        return;
+        
+      }
       setAccount(account);
       setWalletModal(false)
       
@@ -78,6 +83,22 @@ const Mint = () => {
     }
     
   };
+
+  const detectMobile = () => {
+    const toMatch = [
+      /Android/i,
+      /webOS/i,
+      /iPhone/i,
+      /iPad/i,
+      /iPod/i,
+      /BlackBerry/i,
+      /Windows Phone/i
+    ];
+    
+    return toMatch.some((toMatchItem) => {
+        return navigator.userAgent.match(toMatchItem);
+    });
+  }
 
   const disconnectWallet = async () => {
     if (window.Venly.connect()){
@@ -155,7 +176,7 @@ const Mint = () => {
         <div className="absolute left-0 top-0  h-screen w-screen grid justify-items-center items-center pointer-events-none" >
           <div className="flex flex-col items-center p-4 w-80 bg-opacity-50 rounded-3xl  pointer-events-auto" style={{ "backgroundColor": "#1b1e26"}}>
             <div className="mb-3">Connect with:</div>
-            {  window.ethereum ? (<>
+            {  true ? (<>
             <button onClick={() => {connectWallet("metamask")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 p-4 mb-4 h-16 rounded-3xl font-light" >
             <img className="h-6 ml-2 mr-5" alt="Metamask" src={metamask}></img>
               Metamask
