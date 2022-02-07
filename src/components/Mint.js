@@ -45,7 +45,7 @@ const Mint = () => {
   // };
 
   const openWalletModal = async () => {
-    if (window.ethereum && window.ethereum.isMetaMask && detectMobile) {
+    if (window.ethereum && window.ethereum.isMetaMask && detectMobile()) {
       try {
         const walletType = "metamask"
       const { provider, account } = await ConnectWallet(walletType);

@@ -82,7 +82,12 @@ export async function ConnectWallet (walletType) {
         window.web3 = new Web3(window.ethereum);
         return { provider: window.ethereum, account: { address: accounts[0] }}
       } else if (walletType === 'walletlink') {
+
         const ethereum = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID)
+        await ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [{ chainId: process.env.REACT_APP_CHAINID, rpcUrls: [process.env.REACT_APP_HTTPPROVIDER], chainName: process.env.REACT_APP_CHAINNAME ,blockExplorerUrls: [process.env.REACT_APP_EXPLORER_ADDRESS ], nativeCurrency: { name: process.env.REACT_APP_CONTRACT_COIN, decimals: 18, symbol: process.env.REACT_APP_CONTRACT_COIN }}],
+        });
         window.web3 = new Web3(ethereum);
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
         return { provider: window.ethereum, account: { address: accounts[0] }}
