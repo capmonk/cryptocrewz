@@ -73,8 +73,10 @@ const Mint = () => {
     } catch {
       console.log()
     }
+    } else {
+      setWalletModal(true);
     }
-    setWalletModal(true)
+
   }
   const closeWalletModal = () => {
     setWalletModal(false)
