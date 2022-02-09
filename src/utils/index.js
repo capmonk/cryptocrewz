@@ -5,6 +5,18 @@ import ContractAbi from '../contract/abi.json';
 // import { ethers } from "ethers";
 // import MerkleTree from "merkletreejs";
 // import Venly from '@venly/web3-provider'
+import WalletLink from 'walletlink'
+
+const APP_NAME = 'My Awesome App'
+const APP_LOGO_URL = 'https://example.com/logo.png'
+const ETH_JSONRPC_URL = 'https://matic-mumbai.chainstacklabs.com'
+const CHAIN_ID = 1
+
+export const walletLink = new WalletLink({
+  appName: APP_NAME,
+  appLogoUrl: APP_LOGO_URL,
+  darkMode: false
+})
 
 export async function GetContractData () {
   const web3temp = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_HTTPPROVIDER));
@@ -69,6 +81,15 @@ export async function ConnectWallet (walletType) {
         })
         window.web3 = new Web3(window.ethereum);
         return { provider: window.ethereum, account: { address: accounts[0] }}
+      } else if (walletType === 'walletlink') {
+        const ethereum = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID)
+        // await ethereum.request({
+        //   method: 'wallet_addEthereumChain',
+        //   params: [{ chainId: process.env.REACT_APP_CHAINID, rpcUrls: [process.env.REACT_APP_HTTPPROVIDER], chainName: process.env.REACT_APP_CHAINNAME ,blockExplorerUrls: [process.env.REACT_APP_EXPLORER_ADDRESS ], nativeCurrency: { name: process.env.REACT_APP_CONTRACT_COIN, decimals: 18, symbol: process.env.REACT_APP_CONTRACT_COIN }}],
+        // });
+        window.web3 = new Web3(ethereum);
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+        return { provider: window.ethereum, account: { address: accounts[0] }}
       } else {
         let authenticationOptions = {};
         if (walletType) {
@@ -93,13 +114,19 @@ export async function FetchUserData (provider) {
 }
 
 export async function DisconnectWallet () {
+  try {
     if (window.web3) {
       const provider = window.web3.currentProvider
       if(provider.disconnect) {
         await provider.disconnect();
-        await window.web3Modal.clearCachedProvider();
       }
     }
+    if (walletLink) {
+      walletLink.disconnect();
+    }
+  } catch {
+    console.log();
+  }
 }
 
 export async function GetUserData () {
@@ -107,7 +134,7 @@ export async function GetUserData () {
     const provider = window.web3.currentProvider
     if(provider.disconnect) {
       await provider.disconnect();
-      await window.web3Modal.clearCachedProvider();
+
     }
   }
 }

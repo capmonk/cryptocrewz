@@ -13,6 +13,7 @@ import twitter from "../img/logos/Twitter.png";
 import google from "../img/logos/Google.png";
 import facebook from "../img/logos/Facebook.png";
 import metamask from "../img/logos/Metamask.svg";
+import walletlink from "../img/logos/WalletLink.png";
 
 import PresaleRegister from "./PresaleRegister";
 // import MintPresaleComponent from "./MintPresale";
@@ -43,19 +44,55 @@ const Mint = () => {
   //   return acc;
   // };
 
-  const openWalletModal = () => {
-    setWalletModal(true)
+  const openWalletModal = async () => {
+    if (window.ethereum && detectMobile()) {
+      try {
+        let walletType = "metamask"
+        if (!window.ethereum.isMetaMask) {
+          walletType = "walletlink"
+        }
+        const { provider, account } = await ConnectWallet(walletType);
+        // account.type = "metamask"
+
+        setAccount(account);
+        setWalletModal(false)
+        
+        provider.on("accountsChanged", async (accounts) => {
+          setAccount({ address: accounts[0], email: ""})
+          setEmail("");
+          setCode("");
+        });
+
+        provider.on("chainChanged", (chainId) => {
+          if (chainId !== process.env.REACT_APP_CHAINID) {
+            setAccount({ address: null, email: "" });
+            setEmail("");
+            setCode("");
+          }
+        });
+      } catch {
+        console.log()
+      }
+    } else {
+      setWalletModal(true);
+    }
+
   }
   const closeWalletModal = () => {
     setWalletModal(false)
   }
   const connectWallet = async (walletType) => {
     try {
+      if ( detectMobile() && walletType === "metamask") {
+        window.open(process.env.REACT_APP_METAMASKDEEPLINK);
+        return;
+      }
       const { provider, account } = await ConnectWallet(walletType);
-      account.type = "metamask"
-      if (walletType !== "metamask") {
+      // account.type = "metamask"
+      if (walletType !== "metamask" && walletType !== "walletlink") {
         account.type = "venly_" + walletType
       }
+
       setAccount(account);
       setWalletModal(false)
       
@@ -78,11 +115,31 @@ const Mint = () => {
     
   };
 
+  const detectMobile = () => {
+    const toMatch = [
+      /Android/i,
+      /webOS/i,
+      /iPhone/i,
+      /iPad/i,
+      /iPod/i,
+      /BlackBerry/i,
+      /Windows Phone/i
+    ];
+    
+    return toMatch.some((toMatchItem) => {
+        return navigator.userAgent.match(toMatchItem);
+    });
+  }
+
   const disconnectWallet = async () => {
-    if (window.Venly.connect()){
-      window.Venly.connect().logout({ windowMode: 'POPUP' })
+    try {
+      if (window.Venly.connect()){
+        window.Venly.connect().logout({ windowMode: 'POPUP' })
+      }
+      await DisconnectWallet();
+    } catch {
+      console.log()
     }
-    await DisconnectWallet();
     setAccount({ address: null, email: "" });
     setEmail("");
     setCode("");
@@ -154,13 +211,20 @@ const Mint = () => {
         <div className="absolute left-0 top-0  h-screen w-screen grid justify-items-center items-center pointer-events-none" >
           <div className="flex flex-col items-center p-4 w-80 bg-opacity-50 rounded-3xl  pointer-events-auto" style={{ "backgroundColor": "#1b1e26"}}>
             <div className="mb-3">Connect with:</div>
-            {  window.ethereum ? (<>
+            {  true ? (<>
             <button onClick={() => {connectWallet("metamask")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 p-4 mb-4 h-16 rounded-3xl font-light" >
             <img className="h-6 ml-2 mr-5" alt="Metamask" src={metamask}></img>
               Metamask
             </button>
             </>): (<></>)}
-            
+
+            <button onClick={() => {connectWallet("walletlink")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 mb-4 p-4 h-16 rounded-3xl font-light">
+            <img className="h-8 ml-2 mr-5" alt="Facebook" src={walletlink}></img>
+            <div>
+              Continue with Coinbase Wallet
+              </div>
+            </button>
+
             <button onClick={() => {connectWallet("google")}} className="flex flex-row items-center justifty-spacebetween bg-black bg-opacity-40 hover:bg-gray-800 w-full h-12 p-4 mb-4 h-16 rounded-3xl font-light">
               <img className="h-8 ml-2 mr-5" alt="Google" src={google}></img>
               <div>
