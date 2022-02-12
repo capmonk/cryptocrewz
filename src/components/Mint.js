@@ -88,7 +88,7 @@ const Mint = () => {
         return;
       }
       const { provider, account } = await ConnectWallet(walletType);
-      account.type = "metamask"
+      account.type = walletType;
       if (walletType !== "metamask" && walletType !== "walletlink") {
         account.type = "venly_" + walletType
       }
