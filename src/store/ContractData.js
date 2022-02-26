@@ -4,6 +4,7 @@ import { useBetween } from 'use-between';
 const useContractData = () => {
   const [contractData, SetContractData] = useState({
     price : 0,
+    whitelistprice: 0,
     totalSupply: 0,
     maxSupply: 0,
     name: "",
@@ -12,6 +13,7 @@ const useContractData = () => {
     maxMainsale: 0,
     publicSaleIsActive: false,
     preSaleIsActive: false,
+    whitelistSaleIsActive: false,
     address: null,
     symbol: ""
   });

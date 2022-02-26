@@ -1,43 +1,30 @@
-import { useState } from "react";
 import toast from "react-hot-toast";
 import { useSharedContractData } from "../store/ContractData";
 import { useSharedUserData } from "../store/UserData";
 import {
-  FetchUserData,
-  GetContractData,
   GetMaxCount,
   MintPreSale,
 } from "../utils";
+import { useState } from "react";
+import ContractInfo from "../components/ContractInfo";
 
 const MintPresale = () => {
-  const { contractData, whitelisted, setContractData } = useSharedContractData();
-  const { account, setAccount, count, setCount } = useSharedUserData();
+  const { contractData } = useSharedContractData();
+  const { account, count, setCount } = useSharedUserData();
   const [minting, setMinting] = useState(false)
-
-  const fetchUserData = async () => {
-    const acc = await FetchUserData();
-    setAccount(acc);
-    return acc;
-  };
-
-  const mintPreSale = async () => {
+  
+  const MintPresaleBtn = async () => {
     if (count * contractData.price < account.balance && count > 0) {
       setMinting(true)
       try {
-        const result = await MintPreSale(count, whitelisted);
-        toast.success("Minted!");
-        fetchUserData();
-        setContractData(await GetContractData());
+        console.log(count)
+        await MintPreSale(count);
         setMinting(false)
-        if (result.status) {
-          toast.success("Minted!");
-        } else {
-          toast.error("Error in transaction!")
-        }       
       } catch {
         toast.error("Error in transaction!")
         setMinting(false)
       }
+      setCount(contractData.maxMainsale - account.supply);
     } else {
       toast.error("Not enough credits!");
     }
@@ -62,25 +49,22 @@ const MintPresale = () => {
 
   return (
     <div>
-      { !minting ? (
+      Presale mint
+    { !((account.isPresale ^ (account.address !== null) && (account.address !== null))) ? (
+    <div>
+    { !minting ? (
     <div>
       <div
-        className={
-          account.address &&
-          whitelisted.includes(account.address) &&
-          account.supply < 1
-            ? ""
-            : "opacity-20"
-        }
+        className={account.address && contractData.address && account.isPresale ? "" : "opacity-20"}
       >
         <div id="payment-header">
           <div id="payment-header-text">
-            <h4 className="mb-2">Mint NFT Presale</h4>
+            <h4 className="mb-2">Mint NFT</h4>
             <p>Enter how many NFTs you want to mint. </p>
           </div>
         </div>
         <div id="mint-number" className="mint-row">
-          <div className="flex items-center mt-3 mb-3">
+          <div className="flex items-center  mt-3 mb-3">
             <button
               type="button"
               className="h-8 w-8 border-blue-400 hover:bg-blue-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
@@ -129,27 +113,23 @@ const MintPresale = () => {
             id="purchase-button-wrapper"
             type="button"
             className="border-green-440 hover:bg-green-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid"
-            onClick={mintPreSale}
-            disabled={account.address === null && account.supply > 0}
+            onClick={MintPresaleBtn}
+            disabled={account.address === null && account.supply < 10}
           >
             MINT
           </button>
         </div>
       </div>
-      {account.address && !whitelisted.includes(account.address) ? (
-        <div className="opacity-100 text-red-600">You are not withelisted</div>
-      ) : (
-        <></>
-      )}
-      {account.address && account.supply > 0 ? (
+      {account.address && account.supply > 9 ? (
         <div className="opacity-100 text-red-600">
-          You already minted your tokens.
+          You already minted maximum tokens.
         </div>
       ) : (
         <></>
       )}
     </div>
     ): (<>Minting...</>)}
+    </div> ): (<>You are not on presale list!</>)}
     </div>
   );
 };

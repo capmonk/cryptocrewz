@@ -1,11 +1,7 @@
 import Web3 from "web3";
-// import Web3Modal, { getProviderInfo } from "@venly/web3modal";
 import ContractAbi from '../contract/abi.json';
-// import keccak256 from "keccak256";
-// import { ethers } from "ethers";
-// import MerkleTree from "merkletreejs";
-// import Venly from '@venly/web3-provider'
 import WalletLink from 'walletlink'
+import { getMerkleProofPresale, getMerkleProofWhitelist } from "../services/api.service";
 
 const APP_NAME = 'My Awesome App'
 const APP_LOGO_URL = 'https://example.com/logo.png'
@@ -22,9 +18,10 @@ export async function GetContractData () {
   const web3temp = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_HTTPPROVIDER));
   const contract = new web3temp.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
   return { 
-    price : Web3.utils.fromWei(await contract.methods.tokenPrice.call().call()),
+    price : Web3.utils.fromWei(await contract.methods.tokenBasicPrice.call().call()),
+    whitelistprice: Web3.utils.fromWei(await contract.methods.tokenWhitelistPrice.call().call()),
     totalSupply: await contract.methods.totalSupply.call().call(),
-    maxSupply: await contract.methods.MAX_SUPPLY.call().call(),
+    maxSupply: await contract.methods.maxSupply.call().call(),
     name: await contract.methods.name.call().call(),
     maxPresale: await contract.methods.maxPresale.call().call(),
     maxPerWallet: await contract.methods.maxPerWallet.call().call(),
@@ -32,6 +29,7 @@ export async function GetContractData () {
     publicSaleIsActive: await contract.methods.publicSaleIsActive.call().call(),
     preSaleIsActive: await contract.methods.preSaleIsActive.call().call(),
     symbol: await contract.methods.symbol.call().call(),
+    whitelistSaleIsActive: await contract.methods.whitelistSaleIsActive.call().call(),
     address: process.env.REACT_APP_CONTRACT_ADDRESS
   }
 }
@@ -83,10 +81,10 @@ export async function ConnectWallet (walletType) {
         return { provider: window.ethereum, account: { address: accounts[0] }}
       } else if (walletType === 'walletlink') {
         const ethereum = walletLink.makeWeb3Provider(ETH_JSONRPC_URL, CHAIN_ID)
-        // await ethereum.request({
-        //   method: 'wallet_addEthereumChain',
-        //   params: [{ chainId: process.env.REACT_APP_CHAINID, rpcUrls: [process.env.REACT_APP_HTTPPROVIDER], chainName: process.env.REACT_APP_CHAINNAME ,blockExplorerUrls: [process.env.REACT_APP_EXPLORER_ADDRESS ], nativeCurrency: { name: process.env.REACT_APP_CONTRACT_COIN, decimals: 18, symbol: process.env.REACT_APP_CONTRACT_COIN }}],
-        // });
+        await ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [{ chainId: process.env.REACT_APP_CHAINID, rpcUrls: [process.env.REACT_APP_HTTPPROVIDER], chainName: process.env.REACT_APP_CHAINNAME ,blockExplorerUrls: [process.env.REACT_APP_EXPLORER_ADDRESS ], nativeCurrency: { name: process.env.REACT_APP_CONTRACT_COIN, decimals: 18, symbol: process.env.REACT_APP_CONTRACT_COIN }}],
+        });
         window.web3 = new Web3(ethereum);
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
         return { provider: window.ethereum, account: { address: accounts[0] }}
@@ -105,12 +103,11 @@ export async function ConnectWallet (walletType) {
   }
 }
 
-export async function FetchUserData (provider) {
+export async function FetchUserData (address) {
   const contract = new window.web3.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
-  const accounts = await window.web3.eth.getAccounts()
-  const supply = await contract.methods.balanceOf(accounts[0]).call()
-  const balance = Web3.utils.fromWei( await window.web3.eth.getBalance(accounts[0]))
-  return {address: accounts[0], supply, balance, provider }
+  const supply = await contract.methods.balanceOf(address).call()
+  const balance = Web3.utils.fromWei( await window.web3.eth.getBalance(address))
+  return { supply, balance }
 }
 
 export async function DisconnectWallet () {
@@ -142,7 +139,8 @@ export async function GetUserData () {
 export async function MintPublicSale (count) {
   const contract = new window.web3.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
   const from = (await window.web3.eth.getAccounts())[0]
-  const value = count * await contract.methods.tokenPrice.call().call();
+
+  const value = count * await contract.methods.tokenBasicPrice.call().call();
   try {
     return await contract.methods.mint(count).send({from, value});
   }
@@ -155,30 +153,53 @@ export async function MintPublicSale (count) {
 //   return ethers.utils.solidityKeccak256(["address"], [address]).slice(2);
 // }
 
-// export async function MintPreSale (count, whitelisted) {
-//   console.log(whitelisted)
-//   const from = (await window.web3.eth.getAccounts())[0]
-//   const tree = new MerkleTree(whitelisted.map(token => keccak256(token)),keccak256,{ sortPairs: true });
-//   const proof = tree.getHexProof(hashToken(from));
-//   console.log(tree.getHexRoot())
-//   console.log(proof)
-//   const contract = new window.web3.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
-//   const value = count * await contract.methods.tokenPrice.call().call();
-//   try {
-//     return await contract.methods.whitelistedMints(proof, count).send({from, value});
-//   }
-//   catch {
-//     console.log("")
-//   }
-// }
+export async function MintPreSale (count) {
+  const from = (await window.web3.eth.getAccounts())[0]
+
+  const proof = await getMerkleProofPresale(from);
+
+  const contract = new window.web3.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
+  const price = (await contract.methods.tokenBasicPrice.call().call());
+  const value = Web3.utils.toBN( price * count);
+  console.log(JSON.stringify(proof))
+  try {
+    return await contract.methods.presaleMints(proof, count).send({ from, value });
+  }
+  catch {
+    console.log("")
+  }
+}
+
+
+export async function MintWhitelistSale (count) {
+  const from = (await window.web3.eth.getAccounts())[0]
+
+  const proof = await getMerkleProofWhitelist(from);
+
+  const contract = new window.web3.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
+
+  const price = await contract.methods.tokenWhitelistPrice.call().call();
+
+  const value = Web3.utils.toBN( price * count);
+  console.log(value);
+  console.log(JSON.stringify(proof))
+  window.proof = proof;
+  try {
+    return await contract.methods.whitelistedMints(proof, count).send({ from, value });
+  }
+  catch {
+    console.log("")
+  }
+}
 
 export const GetMaxCount = (acc, contractData) => {
-  let maxCount = contractData.maxMainsale;
-  if (contractData.preSaleIsActive && !contractData.publicSaleIsActive) {
-    maxCount = contractData.maxPresale - acc.supply
-  }
-  if (contractData.publicSaleIsActive) {
-    maxCount = contractData.maxMainsale - acc.supply
-  }
+  // let maxCount = contractData.maxMainsale;
+  // if (contractData.preSaleIsActive && !contractData.publicSaleIsActive) {
+  //   maxCount = contractData.maxPerWallet - acc.supply
+  // }
+  // if (contractData.publicSaleIsActive) {
+  //   maxCount = contractData.maxMainsale - acc.supply
+  // }
+  const maxCount = contractData.maxPerWallet - acc.supply
   return maxCount
 }

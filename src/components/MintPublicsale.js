@@ -5,10 +5,11 @@ import {
   FetchUserData,
   MintPublicSale,
   GetMaxCount,
-  GetContractData,
+  GetContractData
 } from "../utils";
 import { GetWhitelisted } from "../services/api.service";
 import { useState } from "react";
+import ContractInfo from "../components/ContractInfo";
 
 const MintPublicsale = () => {
   const { contractData, setWhitelisted, setContractData } = useSharedContractData();
@@ -21,7 +22,7 @@ const MintPublicsale = () => {
     return acc;
   };
 
-  const mintMainSale = async () => {
+  const mintPublicSale = async () => {
     const whitelisted = await GetWhitelisted();
     setWhitelisted(whitelisted);
     if (count * contractData.price < account.balance && count > 0) {
@@ -40,6 +41,8 @@ const MintPublicsale = () => {
         toast.error("Error in transaction!")
         setMinting(false)
       }
+      fetchUserData();
+      setCount(contractData.maxMainsale - account.supply);
       
 
 
@@ -47,6 +50,35 @@ const MintPublicsale = () => {
       toast.error("Not enough credits!");
     }
   };
+
+  // const mintWhitelistSale = async () => {
+  //   const whitelisted = await GetWhitelisted();
+  //   setWhitelisted(whitelisted);
+  //   if (count * contractData.price < account.balance && count > 0) {
+  //     setMinting(true)
+  //     try {
+  //       const result = await MintPreSale(count);
+  //       fetchUserData();
+  //       setContractData(await GetContractData());
+  //       setMinting(false)
+  //       if (result.status) {
+  //         toast.success("Minted!");
+  //       } else {
+  //         toast.error("Error in transaction!")
+  //       }
+  //     } catch {
+  //       toast.error("Error in transaction!")
+  //       setMinting(false)
+  //     }
+  //     fetchUserData();
+  //     setCount(contractData.maxMainsale - account.supply);
+      
+
+
+  //   } else {
+  //     toast.error("Not enough credits!");
+  //   }
+  // };
 
   const subCount = () => {
     if (count > 1) {
@@ -69,8 +101,9 @@ const MintPublicsale = () => {
     <div>
     { !minting ? (
     <div>
+              Publicsale mint
       <div
-        className={account.address && account.supply < 10 ? "" : "opacity-20"}
+        className={account.address && contractData.address ? "" : "opacity-20"}
       >
         <div id="payment-header">
           <div id="payment-header-text">
@@ -128,7 +161,7 @@ const MintPublicsale = () => {
             id="purchase-button-wrapper"
             type="button"
             className="border-green-440 hover:bg-green-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid"
-            onClick={mintMainSale}
+            onClick={mintPublicSale}
             disabled={account.address === null && account.supply < 10}
           >
             MINT

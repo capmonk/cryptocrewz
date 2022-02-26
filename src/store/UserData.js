@@ -9,7 +9,9 @@ const useUserData = () => {
     supply: 0,
     whitelisted: false,
     type: "",
-    email: ""
+    email: "",
+    isWhitelisted: false,
+    isPresale: false
   });
   const setAccount = useCallback((acc) => {
     SetAccount(acc)

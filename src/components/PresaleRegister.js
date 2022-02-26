@@ -4,7 +4,7 @@ import { useSharedContractData } from "../store/ContractData"
 import { useSharedUserData } from "../store/UserData"
 import { GetWhitelisted, SubmitWhitelist } from "../services/api.service"
 
-const MintWhitelist = () => {
+const PresaleRegister = () => {
   const { whitelisted, setWhitelisted} = useSharedContractData();
   const { account, email, setEmail,code, setCode } = useSharedUserData();
 

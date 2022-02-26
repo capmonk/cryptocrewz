@@ -4,21 +4,25 @@ import { useSharedUserData } from "../store/UserData";
 import {
   ConnectWallet,
   DisconnectWallet,
-  Init
+  Init,
+  GetContractData,
+  FetchUserData
 } from "../utils";
 import { useSharedContractData } from "../store/ContractData";
 import { useEffect, useState } from "react";
-import { GetWhitelisted } from "../services/api.service";
+import { GetWhitelisted, isPresale, isWhitelisted } from "../services/api.service";
 import twitter from "../img/logos/Twitter.png";
 import google from "../img/logos/Google.png";
 import facebook from "../img/logos/Facebook.png";
 import metamask from "../img/logos/Metamask.svg";
 import walletlink from "../img/logos/WalletLink.png";
 
-import PresaleRegister from "./PresaleRegister";
+// import PresaleRegister from "./PresaleRegister";
 // import MintPresaleComponent from "./MintPresale";
-// import MintPublicsaleComponent from "./MintPublicsale";
-
+import MintPublicsaleComponent from "./MintPublicsale";
+import MintPresale from "./MintPresale";
+import MintWhitelist from "./MintWhitelist";
+import ContractInfo from "./ContractInfo";
 
 const Mint = () => {
   const [walletModal, setWalletModal] = useState(false);
@@ -26,24 +30,33 @@ const Mint = () => {
   const { setContractData, setWhitelisted } = useSharedContractData();
 
   useEffect(() => {
-    // const InitWeb3 = async () => {
-    //   setContractData(await GetContractData());
-    // };
+    const InitWeb3 = async () => {
+      console.log("asdf");
+      const a = await GetContractData();
+      console.log(a);
+      setContractData(a);
+
+    };
     Init();
-    // InitWeb3();
+    InitWeb3();
     GetWhitelisted().then((x) => {
       setWhitelisted(x);
     });
   }, [setContractData, setWhitelisted]);
   
-  // const { contractData } = useSharedContractData();
-  const { setAccount, account, setCode, setEmail} = useSharedUserData();
-  // const fetchUserData = async () => {
-  //   const acc = await FetchUserData();
-  //   setAccount({...acc, providerName });
-  //   return acc;
-  // };
+  const { contractData } = useSharedContractData();
+  const { setAccount, account, setCode, setEmail, setCount} = useSharedUserData();
 
+  const GetUserData = async (walletType, account) => {
+    const acc = await FetchUserData(account.address);
+    account.type = walletType;
+    account.balance = acc.balance;
+    account.supply = acc.supply;
+    setCount(contractData.maxMainsale - account.supply);
+    account.isWhitelisted = (await isWhitelisted(account.address)).iswhitelisted
+    account.isPresale = (await isPresale(account.address)).iswhitelisted
+    setAccount(account);
+  }
   const openWalletModal = async () => {
     if (window.ethereum && detectMobile()) {
       try {
@@ -52,15 +65,15 @@ const Mint = () => {
           walletType = "walletlink"
         }
         const { provider, account } = await ConnectWallet(walletType);
-        account.type = walletType
-
-        setAccount(account);
+        GetUserData(walletType, account);
         setWalletModal(false)
         
         provider.on("accountsChanged", async (accounts) => {
           setAccount({ address: accounts[0], email: ""})
           setEmail("");
           setCode("");
+          GetUserData(walletType,{ "address": accounts[0], "email": "" });
+          setWalletModal(false);
         });
 
         provider.on("chainChanged", (chainId) => {
@@ -93,13 +106,14 @@ const Mint = () => {
         account.type = "venly_" + walletType
       }
 
-      setAccount(account);
-      setWalletModal(false)
-      
+      GetUserData(walletType, account);
+      setWalletModal(false);
       provider.on("accountsChanged", async (accounts) => {
         setAccount({ address: accounts[0], email: ""})
         setEmail("");
         setCode("");
+        GetUserData(walletType, { "address": accounts[0], "email": "" });
+        setWalletModal(false);
       });
 
       provider.on("chainChanged", (chainId) => {
@@ -152,8 +166,7 @@ const Mint = () => {
           className: "toast",
         }}
       />
-      <div className="mint-container" >
-        
+      <div className="mint-container w-96" >
         <div id="claim-text-wrapper" className="col-7 flex flex-col items-center">
         <div className="h-20">
           {account.address ? (
@@ -180,26 +193,24 @@ const Mint = () => {
             </div>
           )}
         </div>
+        { account.address ? (<div className="flex flex-col items-center text-xs font-light mt-3"><div><strong className="text-base">Wallet: </strong>   <a  href={process.env.REACT_APP_EXPLORER_ADDRESS + '/address/' + account.address} target="_blank" rel="noreferrer">{ account.address }</a></div></div>) :(<></>) }
+        <ContractInfo />
           <div className="h-64 w-96">
-            <PresaleRegister />
-
-            {/* {contractData.address &&
-            contractData.preSaleIsActive &&
-            !contractData.publicSaleIsActive ? (
-              <div>
-                <MintPresaleComponent />
-              </div>
-            ) : (
-              <></>
-            )}
-
-            {contractData.address && contractData.publicSaleIsActive ? (
-              <div>
-                <MintPublicsaleComponent />
-              </div>
-            ) : (
-              <></>
-            )} */}
+          { !contractData.address && !contractData.whitelistSaleIsActive && !contractData.preSaleIsActive && !contractData.publicSaleIsActive ? (
+              <p>Loading contract data.</p>) 
+            :(<></>)}
+          { contractData.address && !contractData.whitelistSaleIsActive && !contractData.preSaleIsActive && !contractData.publicSaleIsActive ? (
+              <p>No sale currently.</p>) 
+            :(<></>)}
+            { contractData.address && contractData.whitelistSaleIsActive && !contractData.preSaleIsActive && !contractData.publicSaleIsActive ? (
+              <MintWhitelist />) 
+            :(<></>)}
+            { contractData.address && contractData.preSaleIsActive && !contractData.publicSaleIsActive ? (
+              <MintPresale />) 
+            :(<></>)}
+            { contractData.address && contractData.publicSaleIsActive  ? (
+              <MintPublicsaleComponent /> )
+            :(<></>)}
           </div>
         </div>
       </div>
