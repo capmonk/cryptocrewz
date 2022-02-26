@@ -162,6 +162,7 @@ export async function MintPreSale (count) {
   const price = (await contract.methods.tokenBasicPrice.call().call());
   const value = Web3.utils.toBN( price * count);
   console.log(JSON.stringify(proof))
+  console.log(value.toString())
   try {
     return await contract.methods.presaleMints(proof, count).send({ from, value });
   }

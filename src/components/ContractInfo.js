@@ -40,7 +40,7 @@ export default function ContractInfo() {
                 <span className="font-bold text-xl">{ contractData.publicSaleIsActive ? "true":"false"}</span>
               </div>*/}
               </div>
-              ) :(<>Loading contract data...</>)}
+              ) :(<></>)}
             </div>
       </div>
 		</>

@@ -2,17 +2,28 @@ import toast from "react-hot-toast";
 import { useSharedContractData } from "../store/ContractData";
 import { useSharedUserData } from "../store/UserData";
 import {
+  FetchUserData,
   GetMaxCount,
   MintPreSale,
 } from "../utils";
 import { useState } from "react";
 import ContractInfo from "../components/ContractInfo";
+import { isPresale, isWhitelisted } from "../services/api.service";
 
 const MintPresale = () => {
   const { contractData } = useSharedContractData();
-  const { account, count, setCount } = useSharedUserData();
+  const { account, count, setCount, setAccount } = useSharedUserData();
   const [minting, setMinting] = useState(false)
   
+  const GetUserData = async (walletType, account) => {
+    const acc = await FetchUserData(account.address);
+    account.type = walletType;
+    account.balance = acc.balance;
+    account.supply = acc.supply;
+    setCount(contractData.maxMainsale - account.supply);
+    setAccount(account);
+  }
+
   const MintPresaleBtn = async () => {
     if (count * contractData.price < account.balance && count > 0) {
       setMinting(true)
@@ -24,7 +35,7 @@ const MintPresale = () => {
         toast.error("Error in transaction!")
         setMinting(false)
       }
-      setCount(contractData.maxMainsale - account.supply);
+      GetUserData();
     } else {
       toast.error("Not enough credits!");
     }
@@ -49,25 +60,24 @@ const MintPresale = () => {
 
   return (
     <div>
-      Presale mint
     { !((account.isPresale ^ (account.address !== null) && (account.address !== null))) ? (
     <div>
     { !minting ? (
-    <div>
+    <div className="h-42">
       <div
         className={account.address && contractData.address && account.isPresale ? "" : "opacity-20"}
       >
-        <div id="payment-header">
-          <div id="payment-header-text">
-            <h4 className="mb-2">Mint NFT</h4>
-            <p>Enter how many NFTs you want to mint. </p>
+        <div id="payment-header w-full text-center ">
+          <div id="payment-header-text w-full text-center">
+            <h4 className="mb-2 w-full text-center font-light text-4xl">Presale Mint NFT</h4>
+            <p className="w-full text-center font-light text-xs">Enter how many NFTs you want to mint. </p>
           </div>
         </div>
-        <div id="mint-number" className="mint-row">
-          <div className="flex items-center  mt-3 mb-3">
+        <div id="mint-number" className="mint-row w-full flex flex-col justify-center ">
+          <div className="flex justify-center mt-3 mb-3 w-full">
             <button
               type="button"
-              className="h-8 w-8 border-blue-400 hover:bg-blue-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
+              className="h-8 w-8 border-blue-400 hover:bg-blue-400 p-2 uppercase  rounded-full  font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
               id="minus"
               onClick={subCount}
               disabled={account.address === null}
@@ -86,10 +96,10 @@ const MintPresale = () => {
                 />
               </svg>
             </button>
-            <h5>{count}</h5>
+            <h5 className="mt-1 text-xl w-8 text-center">{count}</h5>
             <button
               type="button"
-              className="h-8 w-8 border-blue-400 hover:bg-blue-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
+              className="h-8 w-8 border-blue-400 border-2 rounded-full hover:bg-blue-400 p-2 uppercase mx-2 text-3xl font-black flex flex-row justify-center items-center hover:scale-105 transition-all duration-300 ease-in-out"
               id="plus"
               onClick={addCount}
               disabled={account.address === null}
@@ -109,27 +119,29 @@ const MintPresale = () => {
               </svg>
             </button>
           </div>
-          <button
+        </div>
+        <div className="flex justify-center w-full">
+        <button
             id="purchase-button-wrapper"
             type="button"
-            className="border-green-440 hover:bg-green-400 p-2 uppercase font-semibold mx-2 text-3xl border-2 border-solid"
+            className="border-green-440 hover:bg-green-400 py-2 w-72 px-9 pr-12 uppercase italic text-xl border border-solid rounded-full mint-button"
             onClick={MintPresaleBtn}
             disabled={account.address === null && account.supply < 10}
           >
             MINT
           </button>
-        </div>
+          </div>
       </div>
-      {account.address && account.supply > 9 ? (
-        <div className="opacity-100 text-red-600">
+      {account.address && account.supply >= contractData.maxPerWallet ? (
+        <div className="opacity-100 text-red-600 w-full text-center font-light">
           You already minted maximum tokens.
         </div>
       ) : (
         <></>
       )}
     </div>
-    ): (<>Minting...</>)}
-    </div> ): (<>You are not on presale list!</>)}
+    ): (<div className="w-full text-center font-light h-42">Minting...</div>)}
+    </div> ): (<div className="h-3 w-full h-42 mb-12 text-center mt-12 font-light text-xl">You are not on the presale list!</div>)}
     </div>
   );
 };

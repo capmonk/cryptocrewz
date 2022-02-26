@@ -55,6 +55,7 @@ const Mint = () => {
     setCount(contractData.maxMainsale - account.supply);
     account.isWhitelisted = (await isWhitelisted(account.address)).iswhitelisted
     account.isPresale = (await isPresale(account.address)).iswhitelisted
+    console.log( account.isWhitelisted, account.isPresale )
     setAccount(account);
   }
   const openWalletModal = async () => {
@@ -179,6 +180,7 @@ const Mint = () => {
               >
                 Disconnect a wallet
               </button>
+              { account.address ? (<div className="flex flex-col items-center text-xs font-light mt-3"><div><strong className="text-base">Wallet: </strong>   <a  href={process.env.REACT_APP_EXPLORER_ADDRESS + '/address/' + account.address} target="_blank" rel="noreferrer">{ account.address }</a></div></div>) :(<></>) }
             </div>
           ) : (
             <div>
@@ -191,13 +193,12 @@ const Mint = () => {
                 Connect a wallet
               </button>
             </div>
+            
           )}
         </div>
-        { account.address ? (<div className="flex flex-col items-center text-xs font-light mt-3"><div><strong className="text-base">Wallet: </strong>   <a  href={process.env.REACT_APP_EXPLORER_ADDRESS + '/address/' + account.address} target="_blank" rel="noreferrer">{ account.address }</a></div></div>) :(<></>) }
-        <ContractInfo />
-          <div className="h-64 w-96">
+        <div className="h-64 w-96 mt-12">
           { !contractData.address && !contractData.whitelistSaleIsActive && !contractData.preSaleIsActive && !contractData.publicSaleIsActive ? (
-              <p>Loading contract data.</p>) 
+            <div className="w-full text-center">Loading contract data.</div>) 
             :(<></>)}
           { contractData.address && !contractData.whitelistSaleIsActive && !contractData.preSaleIsActive && !contractData.publicSaleIsActive ? (
               <p>No sale currently.</p>) 
@@ -211,6 +212,7 @@ const Mint = () => {
             { contractData.address && contractData.publicSaleIsActive  ? (
               <MintPublicsaleComponent /> )
             :(<></>)}
+            <ContractInfo />
           </div>
         </div>
       </div>
