@@ -24,7 +24,7 @@ export default function Nav() {
   //   const { provider, account} = await ConnectWallet()
   //   setAccount(account);
 	// 	setTimeout(() => {
-  //     console.log("count", GetMaxCount(account, contractData))
+  //     ("count", GetMaxCount(account, contractData))
   //     setCount(GetMaxCount(account, contractData))
   //   }, 200);
     

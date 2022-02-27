@@ -11,15 +11,9 @@ import { GetWhitelisted } from "../services/api.service";
 import { useState } from "react";
 
 const MintPublicsale = () => {
-  const { contractData, setWhitelisted, setContractData } = useSharedContractData();
+  const { contractData, setWhitelisted } = useSharedContractData();
   const { account, setAccount, count, setCount } = useSharedUserData();
   const [minting, setMinting] = useState(false)
-
-  const fetchUserData = async () => {
-    const acc = await FetchUserData();
-    setAccount(acc);
-    return acc;
-  };
 
   const GetUserData = async (walletType, account) => {
     const acc = await FetchUserData(account.address);
@@ -40,6 +34,7 @@ const MintPublicsale = () => {
         setMinting(false)
         if (result.status) {
           toast.success("Minted!");
+          GetUserData()
         } else {
           toast.error("Error in transaction!")
         }

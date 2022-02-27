@@ -161,8 +161,6 @@ export async function MintPreSale (count) {
   const contract = new window.web3.eth.Contract(ContractAbi, process.env.REACT_APP_CONTRACT_ADDRESS);
   const price = (await contract.methods.tokenBasicPrice.call().call());
   const value = Web3.utils.toBN( price * count);
-  console.log(JSON.stringify(proof))
-  console.log(value.toString())
   try {
     return await contract.methods.presaleMints(proof, count).send({ from, value });
   }
@@ -182,8 +180,6 @@ export async function MintWhitelistSale (count) {
   const price = await contract.methods.tokenWhitelistPrice.call().call();
 
   const value = Web3.utils.toBN( price * count);
-  console.log(value);
-  console.log(JSON.stringify(proof))
   window.proof = proof;
   try {
     return await contract.methods.whitelistedMints(proof, count).send({ from, value });

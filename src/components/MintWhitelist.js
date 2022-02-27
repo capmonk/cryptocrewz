@@ -28,14 +28,18 @@ const MintWhiteListSale = () => {
     if (count * contractData.whitelistprice < account.balance && count > 0) {
       setMinting(true)
       try {
-        console.log(count)
-        await MintWhitelistSale(count);
+        const result = await MintWhitelistSale(count);
         setMinting(false)
+        if (result.status) {
+          toast.success("Minted!");
+        } else {
+          toast.error("Error in transaction!")
+        } 
+        GetUserData()
       } catch {
         toast.error("Error in transaction!")
         setMinting(false)
       }
-      GetUserData();
     } else {
       toast.error("Not enough credits!");
     }

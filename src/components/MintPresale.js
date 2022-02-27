@@ -7,8 +7,6 @@ import {
   MintPreSale,
 } from "../utils";
 import { useState } from "react";
-import ContractInfo from "../components/ContractInfo";
-import { isPresale, isWhitelisted } from "../services/api.service";
 
 const MintPresale = () => {
   const { contractData } = useSharedContractData();
@@ -28,9 +26,14 @@ const MintPresale = () => {
     if (count * contractData.price < account.balance && count > 0) {
       setMinting(true)
       try {
-        console.log(count)
-        await MintPreSale(count);
+        const result = await MintPreSale(count);
         setMinting(false)
+        if (result.status) {
+          toast.success("Minted!");
+        } else {
+          toast.error("Error in transaction!")
+        } 
+        GetUserData()
       } catch {
         toast.error("Error in transaction!")
         setMinting(false)
