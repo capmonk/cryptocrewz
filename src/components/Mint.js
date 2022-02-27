@@ -39,9 +39,6 @@ const Mint = () => {
     };
     Init();
     InitWeb3();
-    GetWhitelisted().then((x) => {
-      setWhitelisted(x);
-    });
   }, [setContractData, setWhitelisted]);
   
   const { contractData } = useSharedContractData();
