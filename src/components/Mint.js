@@ -198,7 +198,7 @@ const Mint = () => {
             <div className="w-full text-center">Loading contract data.</div>) 
             :(<></>)}
           { contractData.address && !contractData.whitelistSaleIsActive && !contractData.preSaleIsActive && !contractData.publicSaleIsActive ? (
-              <p>No sale currently.</p>) 
+              <p className="w-full text-center">There is no sale currently.</p>) 
             :(<></>)}
             { contractData.address && contractData.whitelistSaleIsActive && !contractData.preSaleIsActive && !contractData.publicSaleIsActive ? (
               <MintWhitelist />) 
