@@ -39,7 +39,7 @@ function App() {
       <Nav />
       <Header className="w-full"></Header>
       <div id="home" className="container px-5 mx-auto w-full flex items-center justify-center h-full" >
-				<Suspense fallback={<div>Loading...</div>}>
+				<Suspense fallback={<div></div>}>
         <Mint></Mint >
 				</Suspense>   
         {/* <Wrapper>

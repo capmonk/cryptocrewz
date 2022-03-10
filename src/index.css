@@ -175,3 +175,15 @@ body {
 .mint-button {
 	background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
 }
+
+.mint-button:hover {
+	background: green;
+}
+
+.card-button {
+	background: linear-gradient(90deg, #9ebd13 0%, #008552 100%);
+}
+
+.card-button:hover {
+	background: green;
+}

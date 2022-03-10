@@ -28,8 +28,8 @@ export async function GetContractData () {
     maxMainsale: await contract.methods.maxMainSale.call().call(),
     publicSaleIsActive: await contract.methods.publicSaleIsActive.call().call(),
     preSaleIsActive: await contract.methods.preSaleIsActive.call().call(),
-    symbol: await contract.methods.symbol.call().call(),
     whitelistSaleIsActive: await contract.methods.whitelistSaleIsActive.call().call(),
+    symbol: await contract.methods.symbol.call().call(),
     address: process.env.REACT_APP_CONTRACT_ADDRESS
   }
 }

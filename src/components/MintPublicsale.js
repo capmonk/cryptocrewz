@@ -5,7 +5,6 @@ import {
   FetchUserData,
   MintPublicSale,
   GetMaxCount,
-  GetContractData
 } from "../utils";
 import { GetWhitelisted } from "../services/api.service";
 import { useState } from "react";
@@ -126,13 +125,14 @@ const MintPublicsale = () => {
                 />
               </svg>
             </button>
+
           </div>
         </div>
         <div className="flex justify-center w-full">
         <button
             id="purchase-button-wrapper"
             type="button"
-            className="border-green-440 hover:bg-green-400 py-2 w-72 px-9 pr-12 uppercase italic text-xl border border-solid rounded-full mint-button"
+            className={`border-green-440 hover:bg-green-400 py-2 w-72 px-9 pr-12 uppercase italic text-xl border border-solid rounded-full ${account.address && contractData.address ? "mint-button": ""}`}
             onClick={mintPublicSale}
             disabled={account.address === null && account.supply < 10}
           >
