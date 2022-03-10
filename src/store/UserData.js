@@ -18,7 +18,7 @@ const useUserData = () => {
   }, []);
   const [count, SetCount] = useState(0);
   const setCount = useCallback((acc) => {
-    SetCount(acc)
+    SetCount(Math.max(acc, 0))
   }, []);
 
   const [email, SetEmail] = useState("")
