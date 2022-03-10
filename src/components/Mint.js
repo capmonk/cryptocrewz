@@ -180,7 +180,7 @@ const Mint = () => {
                 className="border-green-440 hover:bg-green-400 mt-8 py-2 w-72 px-9 pr-12 uppercase italic text-xl border border-solid rounded-full mint-button"
                 onClick={window.show_creatify_popup}
               >
-                Buy with card
+                Buy with credit card
               </button>
               ) : (
             <></>
